@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 
+#include "rapidjson/rapidjson.h"
 #include "rapidjson/error/en.h"
 #include "rapidjson/document.h"
 #include "rapidjson/reader.h"
