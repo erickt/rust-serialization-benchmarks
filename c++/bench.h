@@ -26,7 +26,7 @@ void current_utc_time(struct timespec *ts) {
 
 template<typename T>
 void bench(const char* name, T& state, size_t size, void (*f)(T&)) {
-  int iters = 1000000;
+  int iters = 100000;
 
   struct timespec start_ts, end_ts;
   current_utc_time(&start_ts);
