@@ -1,4 +1,8 @@
 all: log
+
+.PHONY: bench
+
+bench: log
 	./log
 
 log: log.cc bench.h

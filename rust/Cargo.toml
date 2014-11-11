@@ -4,20 +4,15 @@ version = "0.0.1"
 authors = ["erick.tryzelaar@gmail.com"]
 
 [dependencies.capnp]
-#git = "file:///Users/erickt/projects/rust/capnproto-rust"
 git = "https://github.com/dwrensha/capnproto-rust"
 
 [dependencies.msgpack]
-#git = "https://github.com/mneumann/rust-msgpack"
-#git = "https://github.com/erickt/rust-msgpack"
-git = "file:///Users/erickt/projects/rust/rust-msgpack"
+git = "https://github.com/erickt/rust-msgpack"
 
 [dependencies.serde]
-#git = "file:///Users/erickt/projects/rust/rust-serde"
 git = "https://github.com/erickt/rust-serde"
 
 [dependencies.serde_macros]
-#git = "file:///Users/erickt/projects/rust/rust-serde"
 git = "https://github.com/erickt/rust-serde"
 
 [dependencies.tnetstring]

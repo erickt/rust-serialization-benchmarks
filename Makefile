@@ -1,11 +1,12 @@
-all: rust
+all: c++ go rust
 
-.PHONY: c++
+.PHONY: c++ go rust
+
 c++:
 	cd c++ && $(MAKE) bench
 
-.PHONY: rust
+go:
+	cd go && $(MAKE) bench
+
 rust:
 	cd rust && cargo bench
-
-
