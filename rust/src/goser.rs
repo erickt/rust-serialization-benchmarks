@@ -486,7 +486,7 @@ mod capnp {
     use log_capnp;
     use country_capnp;
 
-    fn new_capnp_log<'a, M: MessageBuilder<'a>>(msg: &'a mut M) -> log_capnp::log::Builder<'a> {
+    fn new_log<'a, M: MessageBuilder<'a>>(msg: &'a mut M) -> log_capnp::log::Builder<'a> {
         let log = msg.init_root::<log_capnp::log::Builder>();
         log.set_timestamp(2837513946597);
         log.set_zone_id(123456);
@@ -522,7 +522,7 @@ mod capnp {
     #[bench]
     fn bench_serialize(b: &mut Bencher) {
         let mut msg = MallocMessageBuilder::new_default();
-        new_capnp_log(&mut msg);
+        new_log(&mut msg);
 
         let mut wr = MemWriter::new();
         capnp::serialize::write_message(&mut wr, &msg).unwrap();
@@ -537,7 +537,7 @@ mod capnp {
     #[bench]
     fn bench_deserialize(b: &mut Bencher) {
         let mut msg = MallocMessageBuilder::new_default();
-        new_capnp_log(&mut msg);
+        new_log(&mut msg);
 
         let mut wr = MemWriter::new();
         capnp::serialize::write_message(&mut wr, &msg).unwrap();
@@ -555,7 +555,7 @@ mod capnp {
     #[bench]
     fn bench_serialize_packed_unbuffered(b: &mut Bencher) {
         let mut msg = MallocMessageBuilder::new_default();
-        new_capnp_log(&mut msg);
+        new_log(&mut msg);
     
         let mut wr = MemWriter::new();
         capnp::serialize_packed::write_packed_message_unbuffered(&mut wr, &msg).unwrap();
@@ -570,7 +570,7 @@ mod capnp {
     #[bench]
     fn bench_deserialize_packed_unbuffered(b: &mut Bencher) {
         let mut msg = MallocMessageBuilder::new_default();
-        new_capnp_log(&mut msg);
+        new_log(&mut msg);
     
         let mut wr = MemWriter::new();
         capnp::serialize_packed::write_packed_message_unbuffered(&mut wr, &msg).unwrap();
@@ -688,6 +688,71 @@ mod msgpack {
 
         b.iter(|| {
             let _log: Log = msgpack::from_msgpack(bytes.as_slice()).unwrap();
+        });
+    }
+}
+
+#[cfg(test)]
+mod protobuf {
+    use test::Bencher;
+
+    use protobuf;
+    use protobuf::Message;
+    use log_proto;
+
+    fn new_log() -> log_proto::Log {
+        let mut log = log_proto::Log::new();
+        log.set_timestamp(2837513946597);
+        log.set_zone_id(123456);
+        log.set_zone_plan(log_proto::FREE);
+
+        let mut http = log_proto::HTTP::new();
+        http.set_protocol(log_proto::HTTP_HTTP11);
+        http.set_host_status(200);
+        http.set_up_status(520);
+        http.set_method(log_proto::HTTP_GET);
+        http.set_content_type("text/html".to_string());
+        http.set_user_agent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36".to_string());
+        http.set_referer("https://www.cloudflare.com/".to_string());
+        http.set_request_uri("/cdn-cgi/trace".to_string());
+        log.set_http(http);
+
+        let mut origin = log_proto::Origin::new();
+        origin.set_ip([1, 2, 3, 4].to_vec());
+        origin.set_port(8000);
+        origin.set_hostname("www.example.com".to_string());
+        origin.set_protocol(log_proto::Origin_HTTPS);
+        log.set_origin(origin);
+
+        log.set_country(log_proto::US);
+        log.set_cache_status(log_proto::HIT);
+        log.set_server_ip([192, 168, 1, 1].to_vec());
+        log.set_server_name("metal.cloudflare.com".to_string());
+        log.set_remote_ip([10, 1, 2, 3].to_vec());
+        log.set_bytes_dlv(123456);
+        log.set_ray_id("10c73629cce30078-LAX".to_string());
+
+        log
+    }
+
+    #[bench]
+    fn bench_encoder(b: &mut Bencher) {
+        let log = new_log();
+        b.bytes = log.write_to_bytes().unwrap().len() as u64;
+
+        b.iter(|| {
+            let _ = log.write_to_bytes().unwrap();
+        });
+    }
+
+    #[bench]
+    fn bench_decoder(b: &mut Bencher) {
+        let log = new_log();
+        let bytes = log.write_to_bytes().unwrap();
+        b.bytes = bytes.len() as u64;
+
+        b.iter(|| {
+            let _log: log_proto::Log = protobuf::parse_from_bytes(bytes.as_slice()).unwrap();
         });
     }
 }

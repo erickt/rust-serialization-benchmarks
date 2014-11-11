@@ -1,4 +1,6 @@
-all: goser
+all: bench
+
+bench: ffjson goser
 
 .PHONY: ffjson goser
 

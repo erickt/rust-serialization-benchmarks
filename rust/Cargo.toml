@@ -15,5 +15,5 @@ git = "https://github.com/erickt/rust-serde"
 [dependencies.serde_macros]
 git = "https://github.com/erickt/rust-serde"
 
-[dependencies.tnetstring]
-git = "https://github.com/erickt/rust-tnetstring"
+[dependencies.protobuf]
+git = "https://github.com/stepancheg/rust-protobuf"

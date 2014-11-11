@@ -4,9 +4,9 @@ version = "0.0.1"
 dependencies = [
  "capnp 0.1.0 (git+https://github.com/dwrensha/capnproto-rust)",
  "msgpack 0.0.1 (git+https://github.com/erickt/rust-msgpack)",
+ "protobuf 0.0.1 (git+https://github.com/stepancheg/rust-protobuf)",
  "serde 0.1.0 (git+https://github.com/erickt/rust-serde)",
  "serde_macros 0.1.0 (git+https://github.com/erickt/rust-serde)",
- "tnetstring 0.3.1 (git+https://github.com/erickt/rust-tnetstring)",
 ]
 
 [[package]]
@@ -20,6 +20,11 @@ version = "0.0.1"
 source = "git+https://github.com/erickt/rust-msgpack#fdd37e180314b6a5e56bd44be51b23d51dcab6c8"
 
 [[package]]
+name = "protobuf"
+version = "0.0.1"
+source = "git+https://github.com/stepancheg/rust-protobuf#b0b9dcc9ab3afce2e4a024a243cbf560ce8fa3de"
+
+[[package]]
 name = "serde"
 version = "0.1.0"
 source = "git+https://github.com/erickt/rust-serde#45247c7ef68144dd310aabd7d803778dd20b5ecb"
@@ -31,9 +36,4 @@ dependencies = [
 name = "serde_macros"
 version = "0.1.0"
 source = "git+https://github.com/erickt/rust-serde#45247c7ef68144dd310aabd7d803778dd20b5ecb"
-
-[[package]]
-name = "tnetstring"
-version = "0.3.1"
-source = "git+https://github.com/erickt/rust-tnetstring#bacf12838869f93cb31413b07cfb8325350532fb"
 

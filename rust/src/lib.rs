@@ -1,7 +1,10 @@
 #![feature(phase, macro_rules)]
 
+#![allow(non_snake_case)]
+
 extern crate capnp;
 extern crate msgpack;
+extern crate protobuf;
 extern crate serde;
 extern crate serialize;
 extern crate test;
@@ -15,3 +18,5 @@ pub mod goser;
 // Unfortunately these need to be at the toplevel of the module.
 mod country_capnp;
 mod log_capnp;
+
+mod log_proto;
