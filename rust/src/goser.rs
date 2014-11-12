@@ -810,3 +810,46 @@ mod protobuf {
         });
     }
 }
+
+#[cfg(test)]
+mod bincode {
+    use std::io::BufReader;
+    use test::Bencher;
+
+    use bincode;
+
+    use super::Log;
+
+    #[bench]
+    fn bench_populate(b: &mut Bencher) {
+        b.iter(|| {
+            Log::new();
+        });
+    }
+
+    #[bench]
+    fn bench_encoder(b: &mut Bencher) {
+        let log = Log::new();
+        let mut bytes = Vec::new();
+        bincode::encode_into(&log, &mut bytes).unwrap();
+        b.bytes = bytes.len() as u64;
+
+        b.iter(|| {
+            bytes.clear();
+            bincode::encode_into(&log, &mut bytes).unwrap();
+        });
+    }
+
+    #[bench]
+    fn bench_decoder(b: &mut Bencher) {
+        let log = Log::new();
+        let mut bytes = Vec::new();
+        bincode::encode_into(&log, &mut bytes).unwrap();
+        b.bytes = bytes.len() as u64;
+
+        b.iter(|| {
+            let mut rdr = BufReader::new(bytes.as_slice());
+            let _log: Log = bincode::decode_from(&mut rdr).unwrap();
+        });
+    }
+}

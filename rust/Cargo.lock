@@ -2,6 +2,7 @@
 name = "rust-serde-benchmarks"
 version = "0.0.1"
 dependencies = [
+ "bincode 0.0.1 (git+https://github.com/TyOverby/bincode)",
  "capnp 0.1.0 (git+https://github.com/dwrensha/capnproto-rust)",
  "msgpack 0.0.1 (git+https://github.com/erickt/rust-msgpack)",
  "protobuf 0.0.1 (git+https://github.com/stepancheg/rust-protobuf)",
@@ -10,9 +11,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "bincode"
+version = "0.0.1"
+source = "git+https://github.com/TyOverby/bincode#75e71d5858959e60b30e16b25ec26443d51af590"
+
+[[package]]
 name = "capnp"
 version = "0.1.0"
-source = "git+https://github.com/dwrensha/capnproto-rust#31468a46c3a47ccbfa943c4c221c84639651b15c"
+source = "git+https://github.com/dwrensha/capnproto-rust#eff80436f6ac3048bbc432698dc192d2b925ce8f"
 
 [[package]]
 name = "msgpack"

@@ -2,6 +2,7 @@
 
 #![allow(non_snake_case)]
 
+extern crate bincode;
 extern crate capnp;
 extern crate msgpack;
 extern crate protobuf;
