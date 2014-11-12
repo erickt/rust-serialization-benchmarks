@@ -475,7 +475,7 @@ impl Log {
 
 #[cfg(test)]
 mod capnp {
-    use std::io::{MemWriter, BufReader};
+    use std::io::BufReader;
     use test::Bencher;
 
     use capnp;
@@ -524,13 +524,13 @@ mod capnp {
         let mut msg = MallocMessageBuilder::new_default();
         new_log(&mut msg);
 
-        let mut wr = MemWriter::new();
-        capnp::serialize::write_message(&mut wr, &msg).unwrap();
-        b.bytes = wr.unwrap().len() as u64;
+        let mut bytes = Vec::new();
+        capnp::serialize::write_message(&mut bytes, &msg).unwrap();
+        b.bytes = bytes.len() as u64;
 
         b.iter(|| {
-            let mut wr = MemWriter::new();
-            capnp::serialize::write_message(&mut wr, &msg).unwrap();
+            bytes.clear();
+            capnp::serialize::write_message(&mut bytes, &msg).unwrap();
         });
     }
 
@@ -539,9 +539,8 @@ mod capnp {
         let mut msg = MallocMessageBuilder::new_default();
         new_log(&mut msg);
 
-        let mut wr = MemWriter::new();
-        capnp::serialize::write_message(&mut wr, &msg).unwrap();
-        let bytes = wr.unwrap();
+        let mut bytes = Vec::new();
+        capnp::serialize::write_message(&mut bytes, &msg).unwrap();
 
         b.bytes = bytes.len() as u64;
 
@@ -557,13 +556,13 @@ mod capnp {
         let mut msg = MallocMessageBuilder::new_default();
         new_log(&mut msg);
     
-        let mut wr = MemWriter::new();
-        capnp::serialize_packed::write_packed_message_unbuffered(&mut wr, &msg).unwrap();
-        b.bytes = wr.unwrap().len() as u64;
+        let mut bytes = Vec::new();
+        capnp::serialize_packed::write_packed_message_unbuffered(&mut bytes, &msg).unwrap();
+        b.bytes = bytes.len() as u64;
 
         b.iter(|| {
-            let mut wr = MemWriter::new();
-            capnp::serialize_packed::write_packed_message_unbuffered(&mut wr, &msg).unwrap();
+            bytes.clear();
+            capnp::serialize_packed::write_packed_message_unbuffered(&mut bytes, &msg).unwrap();
         });
     }
 
@@ -572,9 +571,8 @@ mod capnp {
         let mut msg = MallocMessageBuilder::new_default();
         new_log(&mut msg);
     
-        let mut wr = MemWriter::new();
-        capnp::serialize_packed::write_packed_message_unbuffered(&mut wr, &msg).unwrap();
-        let bytes = wr.unwrap();
+        let mut bytes = Vec::new();
+        capnp::serialize_packed::write_packed_message_unbuffered(&mut bytes, &msg).unwrap();
 
         b.bytes = bytes.len() as u64;
 
@@ -593,29 +591,36 @@ mod capnp {
 mod serialize_json {
     use test::Bencher;
     use serialize::json;
-    use serialize::Decodable;
+    use serialize::{Encodable, Decodable};
 
     use super::Log;
 
-    static SERIALIZED_JSON: &'static str = r#"{"timestamp":2837513946597,"zone_id":123456,"zone_plan":"FREE","http":{"protocol":"HTTP11","status":200,"host_status":503,"up_status":520,"method":"GET","content_type":"text/html","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML,like Gecko) Chrome/33.0.1750.146 Safari/537.36","referer":"https://www.cloudflare.com/","request_uri":"/cdn-cgi/trace"},"origin":{"ip":"1.2.3.4","port":8000,"hostname":"www.example.com","protocol":"HTTPS"},"country":"US","cache_status":"Hit","server_ip":"192.168.1.1","server_name":"metal.cloudflare.com","remote_ip":"10.1.2.3","bytes_dlv":123456,"ray_id":"10c73629cce30078-LAX"}"#;
+    fn write_to_bytes(bytes: &mut Vec<u8>, log: &Log) {
+        let mut encoder = json::Encoder::new(bytes as &mut Writer);
+        log.encode(&mut encoder).unwrap()
+    }
 
     #[bench]
     fn bench_encoder(b: &mut Bencher) {
         let log = Log::new();
-        let json = json::encode(&log);
-        b.bytes = json.len() as u64;
+        let mut bytes = Vec::new();
+        write_to_bytes(&mut bytes, &log);
+        b.bytes = bytes.len() as u64;
 
         b.iter(|| {
-            let _ = json::encode(&log);
+            bytes.clear();
+            write_to_bytes(&mut bytes, &log);
         });
     }
 
     #[bench]
     fn bench_decoder(b: &mut Bencher) {
-        b.bytes = SERIALIZED_JSON.len() as u64;
+        let log = Log::new();
+        let json = json::encode(&log);
+        b.bytes = json.len() as u64;
 
         b.iter(|| {
-            let json = json::from_str(SERIALIZED_JSON).unwrap();
+            let json = json::from_str(json.as_slice()).unwrap();
             let mut decoder = json::Decoder::new(json);
             let _log: Log = Decodable::decode(&mut decoder).unwrap();
         });
@@ -624,37 +629,46 @@ mod serialize_json {
 
 #[cfg(test)]
 mod serde_json {
+    use std::io::AsRefWriter;
     use test::Bencher;
+
+    use serde::Serializable;
     use serde::json;
 
     use super::Log;
 
-    static SERIALIZED_JSON: &'static str = r#"{"timestamp":25469139677502,"zone_id":123456,"zone_plan":1,"http":{"protocol":2,"status":200,"host_status":503,"up_status":520,"method":1,"content_type":"text/html","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML,like Gecko) Chrome/33.0.1750.146 Safari/537.36","referer":"https://www.cloudflare.com/","request_uri":"/cdn-cgi/trace"},"origin":{"ip":"1.2.3.4","port":8000,"hostname":"www.example.com","protocol":2},"country":238,"cache_status":3,"server_ip":"192.168.1.1","server_name":"metal.cloudflare.com","remote_ip":"10.1.2.3","bytes_dlv":123456,"ray_id":"10c73629cce30078-LAX"}"#;
+    fn write_to_bytes(bytes: &mut Vec<u8>, log: &Log) {
+        let mut serializer = json::Serializer::new(bytes.by_ref());
+        log.serialize(&mut serializer).unwrap();
+    }
 
     #[bench]
     fn bench_serializer(b: &mut Bencher) {
         let log = Log::new();
-        let json = json::to_vec(&log);
-        b.bytes = json.len() as u64;
+        let mut bytes = Vec::new();
+        write_to_bytes(&mut bytes, &log);
+        b.bytes = bytes.len() as u64;
 
         b.iter(|| {
-            let _json = json::to_vec(&log);
+            bytes.clear();
+            write_to_bytes(&mut bytes, &log);
         });
     }
 
     #[bench]
     fn bench_deserializer(b: &mut Bencher) {
-        b.bytes = SERIALIZED_JSON.len() as u64;
+        let log = Log::new();
+        let json = json::to_string(&log).unwrap();
+        b.bytes = json.len() as u64;
 
         b.iter(|| {
-            let _log: Log = json::from_str(SERIALIZED_JSON).unwrap();
+            let _log: Log = json::from_str(json.as_slice()).unwrap();
         });
     }
 }
 
 #[cfg(test)]
 mod msgpack {
-    use std::io::MemWriter;
     use test::Bencher;
     use serialize::Encodable;
 
@@ -662,28 +676,28 @@ mod msgpack {
 
     use super::Log;
 
-    fn encode(log: &Log) -> Vec<u8> {
-        let mut wr = MemWriter::new();
-        {
-            let mut encoder = msgpack::Encoder::new(&mut wr);
-            log.encode(&mut encoder).unwrap();
-        }
-        wr.unwrap()
+    fn write_to_bytes(bytes: &mut Vec<u8>, log: &Log) {
+        let mut encoder = msgpack::Encoder::new(bytes);
+        log.encode(&mut encoder).unwrap()
     }
 
     #[bench]
     fn bench_encoder(b: &mut Bencher) {
         let log = Log::new();
-        b.bytes = encode(&log).len() as u64;
+        let mut bytes = Vec::new();
+        write_to_bytes(&mut bytes, &log);
+        b.bytes = bytes.len() as u64;
 
         b.iter(|| {
-            let _ = encode(&log);
+            bytes.clear();
+            write_to_bytes(&mut bytes, &log);
         });
     }
 
     #[bench]
     fn bench_decoder(b: &mut Bencher) {
-        let bytes = encode(&Log::new());
+        let mut bytes = Vec::new();
+        write_to_bytes(&mut bytes, &Log::new());
         b.bytes = bytes.len() as u64;
 
         b.iter(|| {
@@ -738,10 +752,13 @@ mod protobuf {
     #[bench]
     fn bench_encoder(b: &mut Bencher) {
         let log = new_log();
-        b.bytes = log.write_to_bytes().unwrap().len() as u64;
+        let mut bytes = Vec::new();
+        log.write_to_writer(&mut bytes).unwrap();
+        b.bytes = bytes.len() as u64;
 
         b.iter(|| {
-            let _ = log.write_to_bytes().unwrap();
+            bytes.clear();
+            log.write_to_writer(&mut bytes).unwrap();
         });
     }
 

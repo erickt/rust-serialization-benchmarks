@@ -932,16 +932,28 @@ struct Log {
     };
 };
 
-std::string log_serialize(Log& log) {
-  StringBuffer s(0, 1024);
-  Writer<StringBuffer> writer(s);
+std::string log_serialize(Log& log, StringBuffer& buffer) {
+  Writer<StringBuffer> writer(buffer);
   log.Serialize(writer);
 
-  return s.GetString();
+  return buffer.GetString();
 }
 
-void bench_log_serialize(Log& log) {
-  log_serialize(log);
+std::string log_serialize(Log& log) {
+  StringBuffer buffer(0, 1024);
+  return log_serialize(log, buffer);
+}
+
+struct LogSerializeBencher {
+  Log& log;
+  StringBuffer buffer;
+
+  LogSerializeBencher(Log& log): log(log), buffer(0, 1024) {}
+};
+
+void bench_log_serialize(LogSerializeBencher& bencher) {
+  bencher.buffer.Clear();
+  log_serialize(bencher.log, bencher.buffer);
 }
 
 void bench_log_deserialize_dom(string& json) {
@@ -1060,7 +1072,8 @@ int main(int, char*[]) {
   };
 
   string log_json = log_serialize(log);
-  bench("log serialize      ", log, log_json.size(), bench_log_serialize);
+  LogSerializeBencher bencher(log);
+  bench("log serialize      ", bencher, log_json.size(), bench_log_serialize);
   bench("log dom deserialize", log_json, log_json.size(), bench_log_deserialize_dom);
   bench("log sax deserialize", log_json, log_json.size(), bench_log_deserialize_sax);
 
