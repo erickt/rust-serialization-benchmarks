@@ -1,3 +1,4 @@
+use serialize;
 use serde::ser;
 use serde::de;
 
@@ -17,11 +18,26 @@ pub struct Http {
 }
 
 #[allow(non_camel_case_types)]
-#[deriving(Show, Encodable, Decodable, FromPrimitive)]
+#[deriving(Show, FromPrimitive)]
 pub enum HttpProtocol {
     HTTP_PROTOCOL_UNKNOWN,
     HTTP10,
     HTTP11,
+}
+
+impl<S: serialize::Encoder<E>, E> serialize::Encodable<S, E> for HttpProtocol {
+    fn encode(&self, s: &mut S) -> Result<(), E> {
+        (*self as uint).encode(s)
+    }
+}
+
+impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for HttpProtocol {
+    fn decode(d: &mut D) -> Result<HttpProtocol, E> {
+        match FromPrimitive::from_uint(try!(d.read_uint())) {
+            Some(value) => Ok(value),
+            None => Err(d.error("cannot convert from uint")),
+        }
+    }
 }
 
 impl<S: ser::Serializer<E>, E> ser::Serializable<S, E> for HttpProtocol {
@@ -39,7 +55,7 @@ impl<D: de::Deserializer<E>, E> de::Deserializable<D, E> for HttpProtocol {
 }
 
 #[allow(non_camel_case_types)]
-#[deriving(Show, Encodable, Decodable, FromPrimitive)]
+#[deriving(Show, FromPrimitive)]
 pub enum HttpMethod {
     METHOD_UNKNOWN,
     GET,
@@ -52,6 +68,21 @@ pub enum HttpMethod {
     PROPFIND,
     MKCOL,
     PATCH,
+}
+
+impl<S: serialize::Encoder<E>, E> serialize::Encodable<S, E> for HttpMethod {
+    fn encode(&self, s: &mut S) -> Result<(), E> {
+        (*self as uint).encode(s)
+    }
+}
+
+impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for HttpMethod {
+    fn decode(d: &mut D) -> Result<HttpMethod, E> {
+        match FromPrimitive::from_uint(try!(d.read_uint())) {
+            Some(value) => Ok(value),
+            None => Err(d.error("cannot convert from uint")),
+        }
+    }
 }
 
 impl<S: ser::Serializer<E>, E> ser::Serializable<S, E> for HttpMethod {
@@ -69,12 +100,27 @@ impl<D: de::Deserializer<E>, E> de::Deserializable<D, E> for HttpMethod {
 }
 
 #[allow(non_camel_case_types)]
-#[deriving(Show, Encodable, Decodable, FromPrimitive)]
+#[deriving(Show, FromPrimitive)]
 pub enum CacheStatus {
     CACHESTATUS_UNKNOWN,
     Miss,
     Expired,
     Hit,
+}
+
+impl<S: serialize::Encoder<E>, E> serialize::Encodable<S, E> for CacheStatus {
+    fn encode(&self, s: &mut S) -> Result<(), E> {
+        (*self as uint).encode(s)
+    }
+}
+
+impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for CacheStatus {
+    fn decode(d: &mut D) -> Result<CacheStatus, E> {
+        match FromPrimitive::from_uint(try!(d.read_uint())) {
+            Some(value) => Ok(value),
+            None => Err(d.error("cannot convert from uint")),
+        }
+    }
 }
 
 impl<S: ser::Serializer<E>, E> ser::Serializable<S, E> for CacheStatus {
@@ -102,11 +148,26 @@ pub struct Origin {
 }
 
 #[allow(non_camel_case_types)]
-#[deriving(Show, Encodable, Decodable, FromPrimitive)]
+#[deriving(Show, FromPrimitive)]
 pub enum OriginProtocol {
     ORIGIN_PROTOCOL_UNKNOWN,
     HTTP,
     HTTPS,
+}
+
+impl<S: serialize::Encoder<E>, E> serialize::Encodable<S, E> for OriginProtocol {
+    fn encode(&self, s: &mut S) -> Result<(), E> {
+        (*self as uint).encode(s)
+    }
+}
+
+impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for OriginProtocol {
+    fn decode(d: &mut D) -> Result<OriginProtocol, E> {
+        match FromPrimitive::from_uint(try!(d.read_uint())) {
+            Some(value) => Ok(value),
+            None => Err(d.error("cannot convert from uint")),
+        }
+    }
 }
 
 impl<S: ser::Serializer<E>, E> ser::Serializable<S, E> for OriginProtocol {
@@ -124,13 +185,28 @@ impl<D: de::Deserializer<E>, E> de::Deserializable<D, E> for OriginProtocol {
 }
 
 #[allow(non_camel_case_types)]
-#[deriving(Show, Encodable, Decodable, FromPrimitive)]
+#[deriving(Show, FromPrimitive)]
 pub enum ZonePlan {
     ZONEPLAN_UNKNOWN,
     FREE,
     PRO,
     BIZ,
     ENT,
+}
+
+impl<S: serialize::Encoder<E>, E> serialize::Encodable<S, E> for ZonePlan {
+    fn encode(&self, s: &mut S) -> Result<(), E> {
+        (*self as uint).encode(s)
+    }
+}
+
+impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for ZonePlan {
+    fn decode(d: &mut D) -> Result<ZonePlan, E> {
+        match FromPrimitive::from_uint(try!(d.read_uint())) {
+            Some(value) => Ok(value),
+            None => Err(d.error("cannot convert from uint")),
+        }
+    }
 }
 
 impl<S: ser::Serializer<E>, E> ser::Serializable<S, E> for ZonePlan {
@@ -147,7 +223,7 @@ impl<D: de::Deserializer<E>, E> de::Deserializable<D, E> for ZonePlan {
     }
 }
 
-#[deriving(Show, Encodable, Decodable, FromPrimitive)]
+#[deriving(Show, FromPrimitive)]
 pub enum Country {
 	UNKNOWN,
 	A1,
@@ -405,6 +481,21 @@ pub enum Country {
 	ZA,
 	ZM,
 	ZW,
+}
+
+impl<S: serialize::Encoder<E>, E> serialize::Encodable<S, E> for Country {
+    fn encode(&self, s: &mut S) -> Result<(), E> {
+        (*self as uint).encode(s)
+    }
+}
+
+impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for Country {
+    fn decode(d: &mut D) -> Result<Country, E> {
+        match FromPrimitive::from_uint(try!(d.read_uint())) {
+            Some(value) => Ok(value),
+            None => Err(d.error("cannot convert from uint")),
+        }
+    }
 }
 
 impl<S: ser::Serializer<E>, E> ser::Serializable<S, E> for Country {
