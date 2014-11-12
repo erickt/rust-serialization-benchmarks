@@ -520,6 +520,15 @@ mod capnp {
     }
 
     #[bench]
+    fn bench_populate(b: &mut Bencher) {
+        let mut msg = MallocMessageBuilder::new_default();
+
+        b.iter(|| {
+            new_log(&mut msg);
+        });
+    }
+
+    #[bench]
     fn bench_serialize(b: &mut Bencher) {
         let mut msg = MallocMessageBuilder::new_default();
         new_log(&mut msg);
@@ -601,6 +610,13 @@ mod serialize_json {
     }
 
     #[bench]
+    fn bench_populate(b: &mut Bencher) {
+        b.iter(|| {
+            Log::new();
+        });
+    }
+
+    #[bench]
     fn bench_encoder(b: &mut Bencher) {
         let log = Log::new();
         let mut bytes = Vec::new();
@@ -643,6 +659,13 @@ mod serde_json {
     }
 
     #[bench]
+    fn bench_populate(b: &mut Bencher) {
+        b.iter(|| {
+            Log::new();
+        });
+    }
+
+    #[bench]
     fn bench_serializer(b: &mut Bencher) {
         let log = Log::new();
         let mut bytes = Vec::new();
@@ -679,6 +702,13 @@ mod msgpack {
     fn write_to_bytes(bytes: &mut Vec<u8>, log: &Log) {
         let mut encoder = msgpack::Encoder::new(bytes);
         log.encode(&mut encoder).unwrap()
+    }
+
+    #[bench]
+    fn bench_populate(b: &mut Bencher) {
+        b.iter(|| {
+            Log::new();
+        });
     }
 
     #[bench]
@@ -747,6 +777,13 @@ mod protobuf {
         log.set_ray_id("10c73629cce30078-LAX".to_string());
 
         log
+    }
+
+    #[bench]
+    fn bench_populate(b: &mut Bencher) {
+        b.iter(|| {
+            new_log();
+        });
     }
 
     #[bench]
