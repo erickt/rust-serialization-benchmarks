@@ -976,6 +976,48 @@ void bench_log_deserialize_sax(string& json) {
   }
 }
 
+Log make_log() {
+  Http http = {
+    HTTP11,
+    200,
+    503,
+    520,
+    GET,
+    "text/html",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36",
+    "https://www.cloudflare.com/",
+    "/cdn-cgi/trace"
+  };
+
+  Origin origin = {
+    "1.2.3.4",
+    8000,
+    "www.example.com",
+    HTTPS
+  };
+
+  Log log = {
+    2837513946597,
+    123,
+    FREE,
+    http,
+    origin,
+    US,
+    Hit,
+    "192.168.1.1",
+    "metal.cloudflare.com",
+    "10.1.2.3",
+    456,
+    "10c73629cce30078-LAX",
+  };
+
+  return log;
+}
+
+void bench_log_populate(int& unused) {
+  make_log();
+}
+
 string make_str() {
   string s;
   for (int i = 0; i < 1024; i++) {
@@ -1037,40 +1079,9 @@ void bench_str_deserialize_sax(string& json) {
 }
 
 int main(int, char*[]) {
-  Http http = {
-    HTTP11,
-    200,
-    503,
-    520,
-    GET,
-    "text/html",
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36",
-    "https://www.cloudflare.com/",
-    "/cdn-cgi/trace"
-  };
-
-  Origin origin = {
-    "1.2.3.4",
-    8000,
-    "www.example.com",
-    HTTPS
-  };
-
-  Log log = {
-    2837513946597,
-    123,
-    FREE,
-    http,
-    origin,
-    US,
-    Hit,
-    "192.168.1.1",
-    "metal.cloudflare.com",
-    "10.1.2.3",
-    456,
-    "10c73629cce30078-LAX",
-  };
-
+  Log log = make_log();
+  int unused;
+  bench("log populate       ", unused, bench_log_populate);
   string log_json = log_serialize(log);
   LogSerializeBencher bencher(log);
   bench("log serialize      ", bencher, log_json.size(), bench_log_serialize);

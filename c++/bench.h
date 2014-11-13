@@ -25,6 +25,27 @@ void current_utc_time(struct timespec *ts) {
 }
 
 template<typename T>
+void bench(const char* name, T& state, void (*f)(T&)) {
+  int iters = 100000;
+
+  struct timespec start_ts, end_ts;
+  current_utc_time(&start_ts);
+
+  for (int i = 0; i < iters; ++i) {
+    (f)(state);
+  }
+
+  current_utc_time(&end_ts);
+
+  unsigned long sec_delta = end_ts.tv_sec - start_ts.tv_sec;
+  unsigned long nsec_delta = end_ts.tv_nsec - start_ts.tv_nsec;
+  unsigned long delta = sec_delta * 1000000000 + nsec_delta;
+  double delta_per_iter = (double)delta / (double)iters;
+
+  printf("%s:\t%.0f ns/iter\n", name, delta_per_iter);
+}
+
+template<typename T>
 void bench(const char* name, T& state, size_t size, void (*f)(T&)) {
   int iters = 100000;
 
