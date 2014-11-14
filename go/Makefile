@@ -1,11 +1,7 @@
 all: bench
 
-bench: ffjson goser
+bench: goser
 
-.PHONY: ffjson goser
-
-ffjson:
-	env GOPATH=`pwd`/gopath PATH=$$PATH:`pwd`/gopath/bin sh -c 'cd gopath/src/github.com/pquerna/ffjson && make bench'
-
+.PHONY: goser
 goser:
 	cd goser && $(MAKE)
