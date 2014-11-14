@@ -56,6 +56,6 @@ To run the tests, do:
 
 ```
 % git submodule init
-% git submodule sync
+% git submodule update
 % make
 ```
