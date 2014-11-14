@@ -2,6 +2,7 @@
 
 #![allow(non_snake_case)]
 
+/*
 extern crate bincode;
 extern crate capnp;
 extern crate msgpack;
@@ -21,3 +22,4 @@ mod country_capnp;
 mod log_capnp;
 
 mod log_proto;
+*/

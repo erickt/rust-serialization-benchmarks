@@ -2,21 +2,25 @@
 name = "rust-serde-benchmarks"
 version = "0.0.1"
 authors = ["erick.tryzelaar@gmail.com"]
+build = "build.rs"
 
-[dependencies.bincode]
-git = "https://github.com/TyOverby/bincode"
-
-[dependencies.capnp]
+[build-dependencies.capnp]
 git = "https://github.com/dwrensha/capnproto-rust"
 
-[dependencies.msgpack]
-git = "https://github.com/erickt/rust-msgpack"
-
-[dependencies.protobuf]
-git = "https://github.com/stepancheg/rust-protobuf"
-
-[dependencies.serde]
-git = "https://github.com/erickt/rust-serde"
-
-[dependencies.serde_macros]
-git = "https://github.com/erickt/rust-serde"
+#[dependencies.bincode]
+#git = "https://github.com/TyOverby/bincode"
+#
+#[dependencies.capnp]
+#git = "https://github.com/dwrensha/capnproto-rust"
+#
+#[dependencies.msgpack]
+#git = "https://github.com/erickt/rust-msgpack"
+#
+#[dependencies.protobuf]
+#git = "https://github.com/stepancheg/rust-protobuf"
+#
+#[dependencies.serde]
+#git = "https://github.com/erickt/rust-serde"
+#
+#[dependencies.serde_macros]
+#git = "https://github.com/erickt/rust-serde"
