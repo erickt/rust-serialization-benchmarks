@@ -1,0 +1,8 @@
+[submodule "c++/rapidjson"]
+	path = c++/rapidjson
+	url = https://github.com/erickt/rapidjson.git
+	branch = master
+[submodule "go/goser"]
+	path = go/goser
+	url = https://github.com/erickt/goser.git
+	branch = master
