@@ -1,4 +1,4 @@
-This is a suite of serialization benchmarks. In comprises of the following projects:
+This is a suite of serialization benchmarks. It comprises of the following projects:
 
 * C++
  * [rapidjson](https://github.com/erickt/rapidjson)
