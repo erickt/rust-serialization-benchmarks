@@ -6,7 +6,7 @@
 #![allow(unused_imports)]
 
 
-#[deriving(Clone,PartialEq,Default)]
+#[deriving(Clone,Default)]
 pub struct HTTP {
     protocol: ::std::option::Option<HTTP_Protocol>,
     status: ::std::option::Option<u32>,
@@ -18,6 +18,7 @@ pub struct HTTP {
     referer: ::protobuf::SingularField<::std::string::String>,
     request_uri: ::protobuf::SingularField<::std::string::String>,
     unknown_fields: ::protobuf::UnknownFields,
+    cached_size: ::std::cell::Cell<u32>,
 }
 
 impl<'a> HTTP {
@@ -43,6 +44,7 @@ impl<'a> HTTP {
                     referer: ::protobuf::SingularField::none(),
                     request_uri: ::protobuf::SingularField::none(),
                     unknown_fields: ::protobuf::UnknownFields::new(),
+                    cached_size: ::std::cell::Cell::new(0),
                 }
             })
         }
@@ -354,10 +356,8 @@ impl ::protobuf::Message for HTTP {
     }
 
     // Compute sizes of nested messages
-    fn compute_sizes(&self, sizes: &mut ::std::vec::Vec<u32>) -> u32 {
+    fn compute_size(&self) -> u32 {
         use protobuf::{Message};
-        let pos = sizes.len();
-        sizes.push(0);
         let mut my_size = 0;
         for value in self.protocol.iter() {
             my_size += ::protobuf::rt::enum_size(1, *value);
@@ -387,13 +387,11 @@ impl ::protobuf::Message for HTTP {
             my_size += ::protobuf::rt::string_size(9, value.as_slice());
         };
         my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
-        sizes[pos] = my_size;
-        // value is returned for convenience
+        self.cached_size.set(my_size);
         my_size
     }
 
-    #[allow(unused_variables)]
-    fn write_to_with_computed_sizes(&self, os: &mut ::protobuf::CodedOutputStream, sizes: &[u32], sizes_pos: &mut uint) -> ::protobuf::ProtobufResult<()> {
+    fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream) -> ::protobuf::ProtobufResult<()> {
         use protobuf::{Message};
         match self.protocol {
             Some(v) => {
@@ -453,6 +451,10 @@ impl ::protobuf::Message for HTTP {
         ::std::result::Ok(())
     }
 
+    fn get_cached_size(&self) -> u32 {
+        self.cached_size.get()
+    }
+
     fn get_unknown_fields<'s>(&'s self) -> &'s ::protobuf::UnknownFields {
         &self.unknown_fields
     }
@@ -505,6 +507,21 @@ impl ::protobuf::Clear for HTTP {
         self.clear_referer();
         self.clear_request_uri();
         self.unknown_fields.clear();
+    }
+}
+
+impl ::std::cmp::PartialEq for HTTP {
+    fn eq(&self, other: &HTTP) -> bool {
+        self.protocol == other.protocol &&
+        self.status == other.status &&
+        self.host_status == other.host_status &&
+        self.up_status == other.up_status &&
+        self.method == other.method &&
+        self.content_type == other.content_type &&
+        self.user_agent == other.user_agent &&
+        self.referer == other.referer &&
+        self.request_uri == other.request_uri &&
+        self.unknown_fields == other.unknown_fields
     }
 }
 
@@ -768,13 +785,14 @@ impl ::protobuf::ProtobufEnum for HTTP_Method {
     }
 }
 
-#[deriving(Clone,PartialEq,Default)]
+#[deriving(Clone,Default)]
 pub struct Origin {
     ip: ::protobuf::SingularField<::std::vec::Vec<u8>>,
     port: ::std::option::Option<u32>,
     hostname: ::protobuf::SingularField<::std::string::String>,
     protocol: ::std::option::Option<Origin_Protocol>,
     unknown_fields: ::protobuf::UnknownFields,
+    cached_size: ::std::cell::Cell<u32>,
 }
 
 impl<'a> Origin {
@@ -795,6 +813,7 @@ impl<'a> Origin {
                     hostname: ::protobuf::SingularField::none(),
                     protocol: ::std::option::None,
                     unknown_fields: ::protobuf::UnknownFields::new(),
+                    cached_size: ::std::cell::Cell::new(0),
                 }
             })
         }
@@ -952,10 +971,8 @@ impl ::protobuf::Message for Origin {
     }
 
     // Compute sizes of nested messages
-    fn compute_sizes(&self, sizes: &mut ::std::vec::Vec<u32>) -> u32 {
+    fn compute_size(&self) -> u32 {
         use protobuf::{Message};
-        let pos = sizes.len();
-        sizes.push(0);
         let mut my_size = 0;
         for value in self.ip.iter() {
             my_size += ::protobuf::rt::bytes_size(1, value.as_slice());
@@ -970,13 +987,11 @@ impl ::protobuf::Message for Origin {
             my_size += ::protobuf::rt::enum_size(4, *value);
         };
         my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
-        sizes[pos] = my_size;
-        // value is returned for convenience
+        self.cached_size.set(my_size);
         my_size
     }
 
-    #[allow(unused_variables)]
-    fn write_to_with_computed_sizes(&self, os: &mut ::protobuf::CodedOutputStream, sizes: &[u32], sizes_pos: &mut uint) -> ::protobuf::ProtobufResult<()> {
+    fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream) -> ::protobuf::ProtobufResult<()> {
         use protobuf::{Message};
         match self.ip.as_ref() {
             Some(v) => {
@@ -1004,6 +1019,10 @@ impl ::protobuf::Message for Origin {
         };
         try!(os.write_unknown_fields(self.get_unknown_fields()));
         ::std::result::Ok(())
+    }
+
+    fn get_cached_size(&self) -> u32 {
+        self.cached_size.get()
     }
 
     fn get_unknown_fields<'s>(&'s self) -> &'s ::protobuf::UnknownFields {
@@ -1048,6 +1067,16 @@ impl ::protobuf::Clear for Origin {
         self.clear_hostname();
         self.clear_protocol();
         self.unknown_fields.clear();
+    }
+}
+
+impl ::std::cmp::PartialEq for Origin {
+    fn eq(&self, other: &Origin) -> bool {
+        self.ip == other.ip &&
+        self.port == other.port &&
+        self.hostname == other.hostname &&
+        self.protocol == other.protocol &&
+        self.unknown_fields == other.unknown_fields
     }
 }
 
@@ -1168,7 +1197,7 @@ impl ::protobuf::ProtobufEnum for Origin_Protocol {
     }
 }
 
-#[deriving(Clone,PartialEq,Default)]
+#[deriving(Clone,Default)]
 pub struct Log {
     timestamp: ::std::option::Option<i64>,
     zone_id: ::std::option::Option<u32>,
@@ -1183,6 +1212,7 @@ pub struct Log {
     bytes_dlv: ::std::option::Option<u64>,
     ray_id: ::protobuf::SingularField<::std::string::String>,
     unknown_fields: ::protobuf::UnknownFields,
+    cached_size: ::std::cell::Cell<u32>,
 }
 
 impl<'a> Log {
@@ -1211,6 +1241,7 @@ impl<'a> Log {
                     bytes_dlv: ::std::option::None,
                     ray_id: ::protobuf::SingularField::none(),
                     unknown_fields: ::protobuf::UnknownFields::new(),
+                    cached_size: ::std::cell::Cell::new(0),
                 }
             })
         }
@@ -1618,10 +1649,8 @@ impl ::protobuf::Message for Log {
     }
 
     // Compute sizes of nested messages
-    fn compute_sizes(&self, sizes: &mut ::std::vec::Vec<u32>) -> u32 {
+    fn compute_size(&self) -> u32 {
         use protobuf::{Message};
-        let pos = sizes.len();
-        sizes.push(0);
         let mut my_size = 0;
         if self.timestamp.is_some() {
             my_size += 9;
@@ -1633,11 +1662,11 @@ impl ::protobuf::Message for Log {
             my_size += ::protobuf::rt::enum_size(3, *value);
         };
         for value in self.http.iter() {
-            let len = value.compute_sizes(sizes);
+            let len = value.compute_size();
             my_size += 1 + ::protobuf::rt::compute_raw_varint32_size(len) + len;
         };
         for value in self.origin.iter() {
-            let len = value.compute_sizes(sizes);
+            let len = value.compute_size();
             my_size += 1 + ::protobuf::rt::compute_raw_varint32_size(len) + len;
         };
         for value in self.country.iter() {
@@ -1662,12 +1691,11 @@ impl ::protobuf::Message for Log {
             my_size += ::protobuf::rt::string_size(12, value.as_slice());
         };
         my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
-        sizes[pos] = my_size;
-        // value is returned for convenience
+        self.cached_size.set(my_size);
         my_size
     }
 
-    fn write_to_with_computed_sizes(&self, os: &mut ::protobuf::CodedOutputStream, sizes: &[u32], sizes_pos: &mut uint) -> ::protobuf::ProtobufResult<()> {
+    fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream) -> ::protobuf::ProtobufResult<()> {
         use protobuf::{Message};
         match self.timestamp {
             Some(v) => {
@@ -1690,18 +1718,16 @@ impl ::protobuf::Message for Log {
         match self.http.as_ref() {
             Some(v) => {
                 try!(os.write_tag(4, ::protobuf::wire_format::WireTypeLengthDelimited));
-                try!(os.write_raw_varint32(sizes[*sizes_pos]));
-                *sizes_pos += 1;
-                try!(v.write_to_with_computed_sizes(os, sizes.as_slice(), sizes_pos));
+                try!(os.write_raw_varint32(v.get_cached_size()));
+                try!(v.write_to_with_cached_sizes(os));
             },
             None => {},
         };
         match self.origin.as_ref() {
             Some(v) => {
                 try!(os.write_tag(5, ::protobuf::wire_format::WireTypeLengthDelimited));
-                try!(os.write_raw_varint32(sizes[*sizes_pos]));
-                *sizes_pos += 1;
-                try!(v.write_to_with_computed_sizes(os, sizes.as_slice(), sizes_pos));
+                try!(os.write_raw_varint32(v.get_cached_size()));
+                try!(v.write_to_with_cached_sizes(os));
             },
             None => {},
         };
@@ -1749,6 +1775,10 @@ impl ::protobuf::Message for Log {
         };
         try!(os.write_unknown_fields(self.get_unknown_fields()));
         ::std::result::Ok(())
+    }
+
+    fn get_cached_size(&self) -> u32 {
+        self.cached_size.get()
     }
 
     fn get_unknown_fields<'s>(&'s self) -> &'s ::protobuf::UnknownFields {
@@ -1809,6 +1839,24 @@ impl ::protobuf::Clear for Log {
         self.clear_bytes_dlv();
         self.clear_ray_id();
         self.unknown_fields.clear();
+    }
+}
+
+impl ::std::cmp::PartialEq for Log {
+    fn eq(&self, other: &Log) -> bool {
+        self.timestamp == other.timestamp &&
+        self.zone_id == other.zone_id &&
+        self.zone_plan == other.zone_plan &&
+        self.http == other.http &&
+        self.origin == other.origin &&
+        self.country == other.country &&
+        self.cache_status == other.cache_status &&
+        self.server_ip == other.server_ip &&
+        self.server_name == other.server_name &&
+        self.remote_ip == other.remote_ip &&
+        self.bytes_dlv == other.bytes_dlv &&
+        self.ray_id == other.ray_id &&
+        self.unknown_fields == other.unknown_fields
     }
 }
 
