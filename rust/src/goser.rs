@@ -3,8 +3,8 @@ use serde::ser;
 use serde::de;
 
 #[deriving(Encodable, Decodable)]
-#[deriving_serializable]
-#[deriving_deserializable]
+#[deriving_serialize]
+#[deriving_deserialize]
 pub struct Http {
     protocol: HttpProtocol,
     status: u32,
@@ -40,14 +40,14 @@ impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for HttpProtocol 
     }
 }
 
-impl<S: ser::Serializer<E>, E> ser::Serializable<S, E> for HttpProtocol {
+impl<S: ser::Serializer<E>, E> ser::Serialize<S, E> for HttpProtocol {
     #[inline]
     fn serialize(&self, s: &mut S) -> Result<(), E> {
         s.serialize_uint(*self as uint)
     }
 }
 
-impl<D: de::Deserializer<E>, E> de::Deserializable<D, E> for HttpProtocol {
+impl<D: de::Deserializer<E>, E> de::Deserialize<D, E> for HttpProtocol {
     #[inline]
     fn deserialize_token(d: &mut D, token: de::Token) -> Result<HttpProtocol, E> {
         d.expect_from_primitive(token)
@@ -85,14 +85,14 @@ impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for HttpMethod {
     }
 }
 
-impl<S: ser::Serializer<E>, E> ser::Serializable<S, E> for HttpMethod {
+impl<S: ser::Serializer<E>, E> ser::Serialize<S, E> for HttpMethod {
     #[inline]
     fn serialize(&self, s: &mut S) -> Result<(), E> {
         s.serialize_uint(*self as uint)
     }
 }
 
-impl<D: de::Deserializer<E>, E> de::Deserializable<D, E> for HttpMethod {
+impl<D: de::Deserializer<E>, E> de::Deserialize<D, E> for HttpMethod {
     #[inline]
     fn deserialize_token(d: &mut D, token: de::Token) -> Result<HttpMethod, E> {
         d.expect_from_primitive(token)
@@ -123,14 +123,14 @@ impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for CacheStatus {
     }
 }
 
-impl<S: ser::Serializer<E>, E> ser::Serializable<S, E> for CacheStatus {
+impl<S: ser::Serializer<E>, E> ser::Serialize<S, E> for CacheStatus {
     #[inline]
     fn serialize(&self, s: &mut S) -> Result<(), E> {
         s.serialize_uint(*self as uint)
     }
 }
 
-impl<D: de::Deserializer<E>, E> de::Deserializable<D, E> for CacheStatus {
+impl<D: de::Deserializer<E>, E> de::Deserialize<D, E> for CacheStatus {
     #[inline]
     fn deserialize_token(d: &mut D, token: de::Token) -> Result<CacheStatus, E> {
         d.expect_from_primitive(token)
@@ -138,8 +138,8 @@ impl<D: de::Deserializer<E>, E> de::Deserializable<D, E> for CacheStatus {
 }
 
 #[deriving(Encodable, Decodable)]
-#[deriving_serializable]
-#[deriving_deserializable]
+#[deriving_serialize]
+#[deriving_deserialize]
 pub struct Origin {
     ip: String,
     port: u32,
@@ -170,14 +170,14 @@ impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for OriginProtoco
     }
 }
 
-impl<S: ser::Serializer<E>, E> ser::Serializable<S, E> for OriginProtocol {
+impl<S: ser::Serializer<E>, E> ser::Serialize<S, E> for OriginProtocol {
     #[inline]
     fn serialize(&self, s: &mut S) -> Result<(), E> {
         s.serialize_uint(*self as uint)
     }
 }
 
-impl<D: de::Deserializer<E>, E> de::Deserializable<D, E> for OriginProtocol {
+impl<D: de::Deserializer<E>, E> de::Deserialize<D, E> for OriginProtocol {
     #[inline]
     fn deserialize_token(d: &mut D, token: de::Token) -> Result<OriginProtocol, E> {
         d.expect_from_primitive(token)
@@ -209,14 +209,14 @@ impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for ZonePlan {
     }
 }
 
-impl<S: ser::Serializer<E>, E> ser::Serializable<S, E> for ZonePlan {
+impl<S: ser::Serializer<E>, E> ser::Serialize<S, E> for ZonePlan {
     #[inline]
     fn serialize(&self, s: &mut S) -> Result<(), E> {
         s.serialize_uint(*self as uint)
     }
 }
 
-impl<D: de::Deserializer<E>, E> de::Deserializable<D, E> for ZonePlan {
+impl<D: de::Deserializer<E>, E> de::Deserialize<D, E> for ZonePlan {
     #[inline]
     fn deserialize_token(d: &mut D, token: de::Token) -> Result<ZonePlan, E> {
         d.expect_from_primitive(token)
@@ -498,14 +498,14 @@ impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for Country {
     }
 }
 
-impl<S: ser::Serializer<E>, E> ser::Serializable<S, E> for Country {
+impl<S: ser::Serializer<E>, E> ser::Serialize<S, E> for Country {
     #[inline]
     fn serialize(&self, s: &mut S) -> Result<(), E> {
         s.serialize_uint(*self as uint)
     }
 }
 
-impl<D: de::Deserializer<E>, E> de::Deserializable<D, E> for Country {
+impl<D: de::Deserializer<E>, E> de::Deserialize<D, E> for Country {
     #[inline]
     fn deserialize_token(d: &mut D, token: de::Token) -> Result<Country, E> {
         d.expect_from_primitive(token)
@@ -513,8 +513,8 @@ impl<D: de::Deserializer<E>, E> de::Deserializable<D, E> for Country {
 }
 
 #[deriving(Encodable, Decodable)]
-#[deriving_serializable]
-#[deriving_deserializable]
+#[deriving_serialize]
+#[deriving_deserialize]
 pub struct Log {
     timestamp: i64,
     zone_id: u32,
@@ -535,13 +535,13 @@ impl Log {
         Log {
             timestamp: 2837513946597,
             zone_id: 123456,
-            zone_plan: FREE,
+            zone_plan: ZonePlan::FREE,
             http: Http {
-                protocol: HTTP11,
+                protocol: HttpProtocol::HTTP11,
                 status: 200,
                 host_status: 503,
                 up_status: 520,
-                method: GET,
+                method: HttpMethod::GET,
                 content_type: "text/html".to_string(),
                 user_agent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36".to_string(),
                 referer: "https://www.cloudflare.com/".to_string(),
@@ -551,10 +551,10 @@ impl Log {
                 ip: "1.2.3.4".to_string(),
                 port: 8000,
                 hostname: "www.example.com".to_string(),
-                protocol: HTTPS,
+                protocol: OriginProtocol::HTTPS,
             },
-            country: US,
-            cache_status: Hit,
+            country: Country::US,
+            cache_status: CacheStatus::Hit,
             server_ip: "192.168.1.1".to_string(),
             server_name: "metal.cloudflare.com".to_string(),
             remote_ip: "10.1.2.3".to_string(),
@@ -577,17 +577,17 @@ mod capnp {
     use log_capnp;
     use country_capnp;
 
-    fn new_log<'a, M: MessageBuilder<'a>>(msg: &'a mut M) -> log_capnp::log::Builder<'a> {
+    fn new_log<'a, M: MessageBuilder>(msg: &'a mut M) -> log_capnp::log::Builder<'a> {
         let log = msg.init_root::<log_capnp::log::Builder>();
         log.set_timestamp(2837513946597);
         log.set_zone_id(123456);
-        log.set_zone_plan(log_capnp::zone_plan::Free);
+        log.set_zone_plan(log_capnp::ZonePlan::Free);
 
         let http = log.init_http();
-        http.set_protocol(log_capnp::h_t_t_p::protocol::Http11);
+        http.set_protocol(log_capnp::h_t_t_p::Protocol::Http11);
         http.set_host_status(200);
         http.set_up_status(520);
-        http.set_method(log_capnp::h_t_t_p::method::Get);
+        http.set_method(log_capnp::h_t_t_p::Method::Get);
         http.set_content_type("text/html");
         http.set_user_agent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36");
         http.set_referer("https://www.cloudflare.com/");
@@ -597,10 +597,10 @@ mod capnp {
         origin.set_ip("1.2.3.4");
         origin.set_port(8000);
         origin.set_hostname("www.example.com");
-        origin.set_protocol(log_capnp::origin::protocol::Https);
+        origin.set_protocol(log_capnp::origin::Protocol::Https);
 
-        log.set_country(country_capnp::country::Us);
-        log.set_cache_status(log_capnp::cache_status::Hit);
+        log.set_country(country_capnp::Country::Us);
+        log.set_cache_status(log_capnp::CacheStatus::Hit);
         log.set_server_ip("192.168.1.1");
         log.set_server_name("metal.cloudflare.com");
         log.set_remote_ip("10.1.2.3");
@@ -736,10 +736,10 @@ mod serialize_json {
 
 #[cfg(test)]
 mod serde_json {
-    use std::io::AsRefWriter;
+    use std::io::ByRefWriter;
     use test::Bencher;
 
-    use serde::Serializable;
+    use serde::Serialize;
     use serde::json;
 
     use super::Log;
@@ -839,13 +839,13 @@ mod protobuf {
         let mut log = log_proto::Log::new();
         log.set_timestamp(2837513946597);
         log.set_zone_id(123456);
-        log.set_zone_plan(log_proto::FREE);
+        log.set_zone_plan(log_proto::ZonePlan::FREE);
 
         let mut http = log_proto::HTTP::new();
-        http.set_protocol(log_proto::HTTP_HTTP11);
+        http.set_protocol(log_proto::HTTP_Protocol::HTTP11);
         http.set_host_status(200);
         http.set_up_status(520);
-        http.set_method(log_proto::HTTP_GET);
+        http.set_method(log_proto::HTTP_Method::GET);
         http.set_content_type("text/html".to_string());
         http.set_user_agent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36".to_string());
         http.set_referer("https://www.cloudflare.com/".to_string());
@@ -856,11 +856,11 @@ mod protobuf {
         origin.set_ip([1, 2, 3, 4].to_vec());
         origin.set_port(8000);
         origin.set_hostname("www.example.com".to_string());
-        origin.set_protocol(log_proto::Origin_HTTPS);
+        origin.set_protocol(log_proto::Origin_Protocol::HTTPS);
         log.set_origin(origin);
 
-        log.set_country(log_proto::US);
-        log.set_cache_status(log_proto::HIT);
+        log.set_country(log_proto::Country::US);
+        log.set_cache_status(log_proto::CacheStatus::HIT);
         log.set_server_ip([192, 168, 1, 1].to_vec());
         log.set_server_name("metal.cloudflare.com".to_string());
         log.set_remote_ip([10, 1, 2, 3].to_vec());

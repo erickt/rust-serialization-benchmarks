@@ -3,9 +3,9 @@ name = "rust-serde-benchmarks"
 version = "0.0.1"
 dependencies = [
  "bincode 0.0.1 (git+https://github.com/TyOverby/bincode)",
- "capnp 0.1.0 (git+https://github.com/dwrensha/capnproto-rust)",
+ "capnp 0.0.4 (git+https://github.com/dwrensha/capnproto-rust)",
  "msgpack 0.0.1 (git+https://github.com/erickt/rust-msgpack)",
- "protobuf 0.0.1 (git+https://github.com/stepancheg/rust-protobuf)",
+ "protobuf 0.0.3 (git+https://github.com/stepancheg/rust-protobuf)",
  "serde 0.1.0 (git+https://github.com/erickt/rust-serde)",
  "serde_macros 0.1.0 (git+https://github.com/erickt/rust-serde)",
 ]
@@ -13,27 +13,27 @@ dependencies = [
 [[package]]
 name = "bincode"
 version = "0.0.1"
-source = "git+https://github.com/TyOverby/bincode#75e71d5858959e60b30e16b25ec26443d51af590"
+source = "git+https://github.com/TyOverby/bincode#7446079481964fe24af4a94838ac0634762a7612"
 
 [[package]]
 name = "capnp"
-version = "0.1.0"
-source = "git+https://github.com/dwrensha/capnproto-rust#eff80436f6ac3048bbc432698dc192d2b925ce8f"
+version = "0.0.4"
+source = "git+https://github.com/dwrensha/capnproto-rust#336b81ff7d1ed5161a65844f95cf37130efaf9fc"
 
 [[package]]
 name = "msgpack"
 version = "0.0.1"
-source = "git+https://github.com/erickt/rust-msgpack#fdd37e180314b6a5e56bd44be51b23d51dcab6c8"
+source = "git+https://github.com/erickt/rust-msgpack#26ca8f99f7f07a7d3bb334361170f14f238f35e8"
 
 [[package]]
 name = "protobuf"
-version = "0.0.1"
-source = "git+https://github.com/stepancheg/rust-protobuf#b0b9dcc9ab3afce2e4a024a243cbf560ce8fa3de"
+version = "0.0.3"
+source = "git+https://github.com/stepancheg/rust-protobuf#a42e82061c76a519a535b8e1902ff91715db1228"
 
 [[package]]
 name = "serde"
 version = "0.1.0"
-source = "git+https://github.com/erickt/rust-serde#45247c7ef68144dd310aabd7d803778dd20b5ecb"
+source = "git+https://github.com/erickt/rust-serde#857723dff6e668c81e8dccf6207e0fd9018e1349"
 dependencies = [
  "serde_macros 0.1.0 (git+https://github.com/erickt/rust-serde)",
 ]
@@ -41,5 +41,5 @@ dependencies = [
 [[package]]
 name = "serde_macros"
 version = "0.1.0"
-source = "git+https://github.com/erickt/rust-serde#45247c7ef68144dd310aabd7d803778dd20b5ecb"
+source = "git+https://github.com/erickt/rust-serde#857723dff6e668c81e8dccf6207e0fd9018e1349"
 
