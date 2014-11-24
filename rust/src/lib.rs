@@ -1,5 +1,6 @@
 #![feature(phase, macro_rules, slicing_syntax)]
 
+extern crate alloc;
 extern crate bincode;
 extern crate capnp;
 extern crate msgpack;
@@ -12,7 +13,9 @@ extern crate test;
 extern crate serde_macros;
 
 pub mod goser;
-//pub mod writer;
+
+#[cfg(test)]
+pub mod writer;
 
 // Unfortunately these need to be at the toplevel of the module.
 #[allow(dead_code)]
