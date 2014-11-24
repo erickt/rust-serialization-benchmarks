@@ -59,3 +59,30 @@ To run the tests, do:
 % git submodule update
 % make
 ```
+
+---
+
+Current results:
+
+```
+test goser::bincode::bench_decoder                          ... bench:      7682 ns/iter (+/- 3680) = 52 MB/s
+test goser::bincode::bench_encoder                          ... bench:       516 ns/iter (+/- 265) = 775 MB/s
+test goser::bincode::bench_populate                         ... bench:      1504 ns/iter (+/- 324)
+test goser::capnp::bench_deserialize                        ... bench:       251 ns/iter (+/- 140) = 1784 MB/s
+test goser::capnp::bench_deserialize_packed_unbuffered      ... bench:      1344 ns/iter (+/- 533) = 250 MB/s
+test goser::capnp::bench_populate                           ... bench:       663 ns/iter (+/- 236)
+test goser::capnp::bench_serialize                          ... bench:       144 ns/iter (+/- 37) = 3111 MB/s
+test goser::capnp::bench_serialize_packed_unbuffered        ... bench:       913 ns/iter (+/- 436) = 369 MB/s
+test goser::msgpack::bench_decoder                          ... bench:      3411 ns/iter (+/- 1837) = 84 MB/s
+test goser::msgpack::bench_encoder                          ... bench:       961 ns/iter (+/- 477) = 298 MB/s
+test goser::msgpack::bench_populate                         ... bench:      1564 ns/iter (+/- 453)
+test goser::protobuf::bench_decoder                         ... bench:      3116 ns/iter (+/- 1485) = 91 MB/s
+test goser::protobuf::bench_encoder                         ... bench:      1220 ns/iter (+/- 482) = 234 MB/s
+test goser::protobuf::bench_populate                        ... bench:       942 ns/iter (+/- 836)
+test goser::serde_json::bench_deserializer                  ... bench:     13372 ns/iter (+/- 7310) = 45 MB/s
+test goser::serde_json::bench_populate                      ... bench:      1497 ns/iter (+/- 450)
+test goser::serde_json::bench_serializer                    ... bench:      4233 ns/iter (+/- 1090) = 142 MB/s
+test goser::serialize_json::bench_decoder                   ... bench:     31934 ns/iter (+/- 16186) = 18 MB/s
+test goser::serialize_json::bench_encoder                   ... bench:      8481 ns/iter (+/- 3392) = 71 MB/s
+test goser::serialize_json::bench_populate                  ... bench:      1471 ns/iter (+/- 426)
+```
