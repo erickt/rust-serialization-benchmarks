@@ -3,7 +3,7 @@ name = "rust-serde-benchmarks"
 version = "0.0.1"
 dependencies = [
  "bincode 0.0.1 (git+https://github.com/TyOverby/bincode)",
- "capnp 0.0.4 (git+https://github.com/dwrensha/capnproto-rust)",
+ "capnp 0.0.5 (git+https://github.com/dwrensha/capnproto-rust)",
  "msgpack 0.0.1 (git+https://github.com/erickt/rust-msgpack)",
  "protobuf 0.0.3 (git+https://github.com/stepancheg/rust-protobuf)",
  "serde 0.1.0 (git+https://github.com/erickt/rust-serde)",
@@ -17,8 +17,8 @@ source = "git+https://github.com/TyOverby/bincode#7446079481964fe24af4a94838ac06
 
 [[package]]
 name = "capnp"
-version = "0.0.4"
-source = "git+https://github.com/dwrensha/capnproto-rust#336b81ff7d1ed5161a65844f95cf37130efaf9fc"
+version = "0.0.5"
+source = "git+https://github.com/dwrensha/capnproto-rust#3a19e7b10f079a316fb273a872367c5e3651c4ce"
 
 [[package]]
 name = "msgpack"
@@ -28,7 +28,7 @@ source = "git+https://github.com/erickt/rust-msgpack#26ca8f99f7f07a7d3bb33436117
 [[package]]
 name = "protobuf"
 version = "0.0.3"
-source = "git+https://github.com/stepancheg/rust-protobuf#f69f3acde21c58c65242afb2c1a9f87c20a05524"
+source = "git+https://github.com/stepancheg/rust-protobuf#12b5c784f06b226927449e995ea26f19b9674db5"
 
 [[package]]
 name = "serde"
