@@ -831,8 +831,8 @@ mod msgpack {
 mod protobuf {
     use test::Bencher;
 
-    use protobuf;
     use protobuf::Message;
+    use protobuf::Clear;
     use log_proto;
 
     fn new_log() -> log_proto::Log {
@@ -896,8 +896,11 @@ mod protobuf {
         let bytes = log.write_to_bytes().unwrap();
         b.bytes = bytes.len() as u64;
 
+        let mut log = log_proto::Log::new();
         b.iter(|| {
-            let _log: log_proto::Log = protobuf::parse_from_bytes(bytes.as_slice()).unwrap();
+            log.clear();
+            log.merge_from_bytes(bytes.as_slice()).unwrap();
+            assert!(log.is_initialized());
         });
     }
 }

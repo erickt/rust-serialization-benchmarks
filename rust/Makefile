@@ -7,7 +7,7 @@ test: capn proto
 
 .PHONY: bench
 bench: capn proto
-	cargo test
+	cargo bench
 
 capn: src/country_capnp.rs src/log_capnp.rs
 

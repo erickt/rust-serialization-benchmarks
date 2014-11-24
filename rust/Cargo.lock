@@ -28,7 +28,7 @@ source = "git+https://github.com/erickt/rust-msgpack#26ca8f99f7f07a7d3bb33436117
 [[package]]
 name = "protobuf"
 version = "0.0.3"
-source = "git+https://github.com/stepancheg/rust-protobuf#a42e82061c76a519a535b8e1902ff91715db1228"
+source = "git+https://github.com/stepancheg/rust-protobuf#f69f3acde21c58c65242afb2c1a9f87c20a05524"
 
 [[package]]
 name = "serde"
