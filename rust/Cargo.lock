@@ -2,23 +2,23 @@
 name = "rust-serde-benchmarks"
 version = "0.0.1"
 dependencies = [
- "bincode 0.0.1 (git+https://github.com/TyOverby/bincode)",
+ "bincode 0.0.2 (git+https://github.com/TyOverby/bincode)",
  "capnp 0.0.5 (git+https://github.com/dwrensha/capnproto-rust)",
  "msgpack 0.0.1 (git+https://github.com/erickt/rust-msgpack)",
- "protobuf 0.0.3 (git+https://github.com/stepancheg/rust-protobuf)",
+ "protobuf 0.0.5 (git+https://github.com/stepancheg/rust-protobuf)",
  "serde 0.1.0 (git+https://github.com/erickt/rust-serde)",
  "serde_macros 0.1.0 (git+https://github.com/erickt/rust-serde)",
 ]
 
 [[package]]
 name = "bincode"
-version = "0.0.1"
-source = "git+https://github.com/TyOverby/bincode#7446079481964fe24af4a94838ac0634762a7612"
+version = "0.0.2"
+source = "git+https://github.com/TyOverby/bincode#77f36d29d6eeef5e0fecaf2f1598696651a173c0"
 
 [[package]]
 name = "capnp"
 version = "0.0.5"
-source = "git+https://github.com/dwrensha/capnproto-rust#3a19e7b10f079a316fb273a872367c5e3651c4ce"
+source = "git+https://github.com/dwrensha/capnproto-rust#4b50b5bb3f37ecbb7b6e106723504d59f14e5145"
 
 [[package]]
 name = "msgpack"
@@ -27,13 +27,13 @@ source = "git+https://github.com/erickt/rust-msgpack#26ca8f99f7f07a7d3bb33436117
 
 [[package]]
 name = "protobuf"
-version = "0.0.3"
-source = "git+https://github.com/stepancheg/rust-protobuf#12b5c784f06b226927449e995ea26f19b9674db5"
+version = "0.0.5"
+source = "git+https://github.com/stepancheg/rust-protobuf#27a83a1ed6b84fbd5218a8911bc7743ddd32a875"
 
 [[package]]
 name = "serde"
 version = "0.1.0"
-source = "git+https://github.com/erickt/rust-serde#857723dff6e668c81e8dccf6207e0fd9018e1349"
+source = "git+https://github.com/erickt/rust-serde#9d55333f06258d5f7e984c5b64b57a712f842c48"
 dependencies = [
  "serde_macros 0.1.0 (git+https://github.com/erickt/rust-serde)",
 ]
@@ -41,5 +41,5 @@ dependencies = [
 [[package]]
 name = "serde_macros"
 version = "0.1.0"
-source = "git+https://github.com/erickt/rust-serde#857723dff6e668c81e8dccf6207e0fd9018e1349"
+source = "git+https://github.com/erickt/rust-serde#9d55333f06258d5f7e984c5b64b57a712f842c48"
 

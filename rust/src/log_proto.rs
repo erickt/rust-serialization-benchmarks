@@ -5,6 +5,8 @@
 #![allow(non_upper_case_globals)]
 #![allow(unused_imports)]
 
+use protobuf::Message as Message_imported_for_functions;
+use protobuf::ProtobufEnum as ProtobufEnum_imported_for_functions;
 
 #[deriving(Clone,Default)]
 pub struct HTTP {
@@ -53,7 +55,7 @@ impl<'a> HTTP {
     // optional .pb.HTTP.Protocol protocol = 1;
 
     pub fn clear_protocol(&mut self) {
-        self.protocol = None;
+        self.protocol = ::std::option::None;
     }
 
     pub fn has_protocol(&self) -> bool {
@@ -62,7 +64,7 @@ impl<'a> HTTP {
 
     // Param is passed by value, moved
     pub fn set_protocol(&mut self, v: HTTP_Protocol) {
-        self.protocol = Some(v);
+        self.protocol = ::std::option::Some(v);
     }
 
     pub fn get_protocol(&self) -> HTTP_Protocol {
@@ -72,7 +74,7 @@ impl<'a> HTTP {
     // optional uint32 status = 2;
 
     pub fn clear_status(&mut self) {
-        self.status = None;
+        self.status = ::std::option::None;
     }
 
     pub fn has_status(&self) -> bool {
@@ -81,7 +83,7 @@ impl<'a> HTTP {
 
     // Param is passed by value, moved
     pub fn set_status(&mut self, v: u32) {
-        self.status = Some(v);
+        self.status = ::std::option::Some(v);
     }
 
     pub fn get_status(&self) -> u32 {
@@ -91,7 +93,7 @@ impl<'a> HTTP {
     // optional uint32 host_status = 3;
 
     pub fn clear_host_status(&mut self) {
-        self.host_status = None;
+        self.host_status = ::std::option::None;
     }
 
     pub fn has_host_status(&self) -> bool {
@@ -100,7 +102,7 @@ impl<'a> HTTP {
 
     // Param is passed by value, moved
     pub fn set_host_status(&mut self, v: u32) {
-        self.host_status = Some(v);
+        self.host_status = ::std::option::Some(v);
     }
 
     pub fn get_host_status(&self) -> u32 {
@@ -110,7 +112,7 @@ impl<'a> HTTP {
     // optional uint32 up_status = 4;
 
     pub fn clear_up_status(&mut self) {
-        self.up_status = None;
+        self.up_status = ::std::option::None;
     }
 
     pub fn has_up_status(&self) -> bool {
@@ -119,7 +121,7 @@ impl<'a> HTTP {
 
     // Param is passed by value, moved
     pub fn set_up_status(&mut self, v: u32) {
-        self.up_status = Some(v);
+        self.up_status = ::std::option::Some(v);
     }
 
     pub fn get_up_status(&self) -> u32 {
@@ -129,7 +131,7 @@ impl<'a> HTTP {
     // optional .pb.HTTP.Method method = 5;
 
     pub fn clear_method(&mut self) {
-        self.method = None;
+        self.method = ::std::option::None;
     }
 
     pub fn has_method(&self) -> bool {
@@ -138,7 +140,7 @@ impl<'a> HTTP {
 
     // Param is passed by value, moved
     pub fn set_method(&mut self, v: HTTP_Method) {
-        self.method = Some(v);
+        self.method = ::std::option::Some(v);
     }
 
     pub fn get_method(&self) -> HTTP_Method {
@@ -167,6 +169,11 @@ impl<'a> HTTP {
             self.content_type.set_default();
         };
         self.content_type.as_mut().unwrap()
+    }
+
+    // Take field
+    pub fn take_content_type(&mut self) -> ::std::string::String {
+        self.content_type.take().unwrap_or_else(|| ::std::string::String::new())
     }
 
     pub fn get_content_type(&'a self) -> &'a str {
@@ -200,6 +207,11 @@ impl<'a> HTTP {
         self.user_agent.as_mut().unwrap()
     }
 
+    // Take field
+    pub fn take_user_agent(&mut self) -> ::std::string::String {
+        self.user_agent.take().unwrap_or_else(|| ::std::string::String::new())
+    }
+
     pub fn get_user_agent(&'a self) -> &'a str {
         match self.user_agent.as_ref() {
             Some(v) => v.as_slice(),
@@ -229,6 +241,11 @@ impl<'a> HTTP {
             self.referer.set_default();
         };
         self.referer.as_mut().unwrap()
+    }
+
+    // Take field
+    pub fn take_referer(&mut self) -> ::std::string::String {
+        self.referer.take().unwrap_or_else(|| ::std::string::String::new())
     }
 
     pub fn get_referer(&'a self) -> &'a str {
@@ -262,6 +279,11 @@ impl<'a> HTTP {
         self.request_uri.as_mut().unwrap()
     }
 
+    // Take field
+    pub fn take_request_uri(&mut self) -> ::std::string::String {
+        self.request_uri.take().unwrap_or_else(|| ::std::string::String::new())
+    }
+
     pub fn get_request_uri(&'a self) -> &'a str {
         match self.request_uri.as_ref() {
             Some(v) => v.as_slice(),
@@ -287,36 +309,36 @@ impl ::protobuf::Message for HTTP {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
                         return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
-                    let tmp = HTTP_Protocol::new(try!(is.read_int32()));
-                    self.protocol = Some(tmp);
+                    let tmp = try!(is.read_enum());
+                    self.protocol = ::std::option::Some(tmp);
                 },
                 2 => {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
                         return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = try!(is.read_uint32());
-                    self.status = Some(tmp);
+                    self.status = ::std::option::Some(tmp);
                 },
                 3 => {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
                         return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = try!(is.read_uint32());
-                    self.host_status = Some(tmp);
+                    self.host_status = ::std::option::Some(tmp);
                 },
                 4 => {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
                         return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = try!(is.read_uint32());
-                    self.up_status = Some(tmp);
+                    self.up_status = ::std::option::Some(tmp);
                 },
                 5 => {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
                         return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
-                    let tmp = HTTP_Method::new(try!(is.read_int32()));
-                    self.method = Some(tmp);
+                    let tmp = try!(is.read_enum());
+                    self.method = ::std::option::Some(tmp);
                 },
                 6 => {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
@@ -357,7 +379,6 @@ impl ::protobuf::Message for HTTP {
 
     // Compute sizes of nested messages
     fn compute_size(&self) -> u32 {
-        use protobuf::{Message};
         let mut my_size = 0;
         for value in self.protocol.iter() {
             my_size += ::protobuf::rt::enum_size(1, *value);
@@ -392,7 +413,6 @@ impl ::protobuf::Message for HTTP {
     }
 
     fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream) -> ::protobuf::ProtobufResult<()> {
-        use protobuf::{Message};
         match self.protocol {
             Some(v) => {
                 try!(os.write_enum(1, v as i32));
@@ -527,7 +547,6 @@ impl ::std::cmp::PartialEq for HTTP {
 
 impl ::std::fmt::Show for HTTP {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        use protobuf::{Message};
         self.fmt_impl(f)
     }
 }
@@ -547,7 +566,6 @@ impl ::protobuf::reflect::FieldAccessor<HTTP> for HTTP_protocol_acc_type {
     }
 
     fn get_enum<'a>(&self, m: &HTTP) -> &'static ::protobuf::reflect::EnumValueDescriptor {
-        use protobuf::{ProtobufEnum};
         m.get_protocol().descriptor()
     }
 }
@@ -620,7 +638,6 @@ impl ::protobuf::reflect::FieldAccessor<HTTP> for HTTP_method_acc_type {
     }
 
     fn get_enum<'a>(&self, m: &HTTP) -> &'static ::protobuf::reflect::EnumValueDescriptor {
-        use protobuf::{ProtobufEnum};
         m.get_method().descriptor()
     }
 }
@@ -704,20 +721,19 @@ pub enum HTTP_Protocol {
     HTTP11 = 2,
 }
 
-impl HTTP_Protocol {
-    pub fn new(value: i32) -> HTTP_Protocol {
-        match value {
-            0 => HTTP_Protocol::HTTP_PROTOCOL_UNKNOWN,
-            1 => HTTP_Protocol::HTTP10,
-            2 => HTTP_Protocol::HTTP11,
-            _ => panic!()
-        }
-    }
-}
 
 impl ::protobuf::ProtobufEnum for HTTP_Protocol {
     fn value(&self) -> i32 {
         *self as i32
+    }
+
+    fn from_i32(value: i32) -> ::std::option::Option<HTTP_Protocol> {
+        match value {
+            0 => ::std::option::Some(HTTP_Protocol::HTTP_PROTOCOL_UNKNOWN),
+            1 => ::std::option::Some(HTTP_Protocol::HTTP10),
+            2 => ::std::option::Some(HTTP_Protocol::HTTP11),
+            _ => ::std::option::None
+        }
     }
 
     fn enum_descriptor_static(_: Option<HTTP_Protocol>) -> &'static ::protobuf::reflect::EnumDescriptor {
@@ -748,28 +764,27 @@ pub enum HTTP_Method {
     PATCH = 10,
 }
 
-impl HTTP_Method {
-    pub fn new(value: i32) -> HTTP_Method {
-        match value {
-            0 => HTTP_Method::METHOD_UNKNOWN,
-            1 => HTTP_Method::GET,
-            2 => HTTP_Method::POST,
-            3 => HTTP_Method::DELETE,
-            4 => HTTP_Method::PUT,
-            5 => HTTP_Method::HEAD,
-            6 => HTTP_Method::PURGE,
-            7 => HTTP_Method::OPTIONS,
-            8 => HTTP_Method::PROPFIND,
-            9 => HTTP_Method::MKCOL,
-            10 => HTTP_Method::PATCH,
-            _ => panic!()
-        }
-    }
-}
 
 impl ::protobuf::ProtobufEnum for HTTP_Method {
     fn value(&self) -> i32 {
         *self as i32
+    }
+
+    fn from_i32(value: i32) -> ::std::option::Option<HTTP_Method> {
+        match value {
+            0 => ::std::option::Some(HTTP_Method::METHOD_UNKNOWN),
+            1 => ::std::option::Some(HTTP_Method::GET),
+            2 => ::std::option::Some(HTTP_Method::POST),
+            3 => ::std::option::Some(HTTP_Method::DELETE),
+            4 => ::std::option::Some(HTTP_Method::PUT),
+            5 => ::std::option::Some(HTTP_Method::HEAD),
+            6 => ::std::option::Some(HTTP_Method::PURGE),
+            7 => ::std::option::Some(HTTP_Method::OPTIONS),
+            8 => ::std::option::Some(HTTP_Method::PROPFIND),
+            9 => ::std::option::Some(HTTP_Method::MKCOL),
+            10 => ::std::option::Some(HTTP_Method::PATCH),
+            _ => ::std::option::None
+        }
     }
 
     fn enum_descriptor_static(_: Option<HTTP_Method>) -> &'static ::protobuf::reflect::EnumDescriptor {
@@ -843,6 +858,11 @@ impl<'a> Origin {
         self.ip.as_mut().unwrap()
     }
 
+    // Take field
+    pub fn take_ip(&mut self) -> ::std::vec::Vec<u8> {
+        self.ip.take().unwrap_or_else(|| ::std::vec::Vec::new())
+    }
+
     pub fn get_ip(&'a self) -> &'a [u8] {
         match self.ip.as_ref() {
             Some(v) => v.as_slice(),
@@ -853,7 +873,7 @@ impl<'a> Origin {
     // optional uint32 port = 2;
 
     pub fn clear_port(&mut self) {
-        self.port = None;
+        self.port = ::std::option::None;
     }
 
     pub fn has_port(&self) -> bool {
@@ -862,7 +882,7 @@ impl<'a> Origin {
 
     // Param is passed by value, moved
     pub fn set_port(&mut self, v: u32) {
-        self.port = Some(v);
+        self.port = ::std::option::Some(v);
     }
 
     pub fn get_port(&self) -> u32 {
@@ -893,6 +913,11 @@ impl<'a> Origin {
         self.hostname.as_mut().unwrap()
     }
 
+    // Take field
+    pub fn take_hostname(&mut self) -> ::std::string::String {
+        self.hostname.take().unwrap_or_else(|| ::std::string::String::new())
+    }
+
     pub fn get_hostname(&'a self) -> &'a str {
         match self.hostname.as_ref() {
             Some(v) => v.as_slice(),
@@ -903,7 +928,7 @@ impl<'a> Origin {
     // optional .pb.Origin.Protocol protocol = 4;
 
     pub fn clear_protocol(&mut self) {
-        self.protocol = None;
+        self.protocol = ::std::option::None;
     }
 
     pub fn has_protocol(&self) -> bool {
@@ -912,7 +937,7 @@ impl<'a> Origin {
 
     // Param is passed by value, moved
     pub fn set_protocol(&mut self, v: Origin_Protocol) {
-        self.protocol = Some(v);
+        self.protocol = ::std::option::Some(v);
     }
 
     pub fn get_protocol(&self) -> Origin_Protocol {
@@ -945,7 +970,7 @@ impl ::protobuf::Message for Origin {
                         return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = try!(is.read_uint32());
-                    self.port = Some(tmp);
+                    self.port = ::std::option::Some(tmp);
                 },
                 3 => {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
@@ -958,8 +983,8 @@ impl ::protobuf::Message for Origin {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
                         return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
-                    let tmp = Origin_Protocol::new(try!(is.read_int32()));
-                    self.protocol = Some(tmp);
+                    let tmp = try!(is.read_enum());
+                    self.protocol = ::std::option::Some(tmp);
                 },
                 _ => {
                     let unknown = try!(is.read_unknown(wire_type));
@@ -972,7 +997,6 @@ impl ::protobuf::Message for Origin {
 
     // Compute sizes of nested messages
     fn compute_size(&self) -> u32 {
-        use protobuf::{Message};
         let mut my_size = 0;
         for value in self.ip.iter() {
             my_size += ::protobuf::rt::bytes_size(1, value.as_slice());
@@ -992,7 +1016,6 @@ impl ::protobuf::Message for Origin {
     }
 
     fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream) -> ::protobuf::ProtobufResult<()> {
-        use protobuf::{Message};
         match self.ip.as_ref() {
             Some(v) => {
                 try!(os.write_bytes(1, v.as_slice()));
@@ -1082,7 +1105,6 @@ impl ::std::cmp::PartialEq for Origin {
 
 impl ::std::fmt::Show for Origin {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        use protobuf::{Message};
         self.fmt_impl(f)
     }
 }
@@ -1156,7 +1178,6 @@ impl ::protobuf::reflect::FieldAccessor<Origin> for Origin_protocol_acc_type {
     }
 
     fn get_enum<'a>(&self, m: &Origin) -> &'static ::protobuf::reflect::EnumValueDescriptor {
-        use protobuf::{ProtobufEnum};
         m.get_protocol().descriptor()
     }
 }
@@ -1168,20 +1189,19 @@ pub enum Origin_Protocol {
     HTTPS = 2,
 }
 
-impl Origin_Protocol {
-    pub fn new(value: i32) -> Origin_Protocol {
-        match value {
-            0 => Origin_Protocol::ORIGIN_PROTOCOL_UNKNOWN,
-            1 => Origin_Protocol::HTTP,
-            2 => Origin_Protocol::HTTPS,
-            _ => panic!()
-        }
-    }
-}
 
 impl ::protobuf::ProtobufEnum for Origin_Protocol {
     fn value(&self) -> i32 {
         *self as i32
+    }
+
+    fn from_i32(value: i32) -> ::std::option::Option<Origin_Protocol> {
+        match value {
+            0 => ::std::option::Some(Origin_Protocol::ORIGIN_PROTOCOL_UNKNOWN),
+            1 => ::std::option::Some(Origin_Protocol::HTTP),
+            2 => ::std::option::Some(Origin_Protocol::HTTPS),
+            _ => ::std::option::None
+        }
     }
 
     fn enum_descriptor_static(_: Option<Origin_Protocol>) -> &'static ::protobuf::reflect::EnumDescriptor {
@@ -1250,7 +1270,7 @@ impl<'a> Log {
     // optional sfixed64 timestamp = 1;
 
     pub fn clear_timestamp(&mut self) {
-        self.timestamp = None;
+        self.timestamp = ::std::option::None;
     }
 
     pub fn has_timestamp(&self) -> bool {
@@ -1259,7 +1279,7 @@ impl<'a> Log {
 
     // Param is passed by value, moved
     pub fn set_timestamp(&mut self, v: i64) {
-        self.timestamp = Some(v);
+        self.timestamp = ::std::option::Some(v);
     }
 
     pub fn get_timestamp(&self) -> i64 {
@@ -1269,7 +1289,7 @@ impl<'a> Log {
     // optional uint32 zone_id = 2;
 
     pub fn clear_zone_id(&mut self) {
-        self.zone_id = None;
+        self.zone_id = ::std::option::None;
     }
 
     pub fn has_zone_id(&self) -> bool {
@@ -1278,7 +1298,7 @@ impl<'a> Log {
 
     // Param is passed by value, moved
     pub fn set_zone_id(&mut self, v: u32) {
-        self.zone_id = Some(v);
+        self.zone_id = ::std::option::Some(v);
     }
 
     pub fn get_zone_id(&self) -> u32 {
@@ -1288,7 +1308,7 @@ impl<'a> Log {
     // optional .pb.ZonePlan zone_plan = 3;
 
     pub fn clear_zone_plan(&mut self) {
-        self.zone_plan = None;
+        self.zone_plan = ::std::option::None;
     }
 
     pub fn has_zone_plan(&self) -> bool {
@@ -1297,7 +1317,7 @@ impl<'a> Log {
 
     // Param is passed by value, moved
     pub fn set_zone_plan(&mut self, v: ZonePlan) {
-        self.zone_plan = Some(v);
+        self.zone_plan = ::std::option::Some(v);
     }
 
     pub fn get_zone_plan(&self) -> ZonePlan {
@@ -1328,6 +1348,11 @@ impl<'a> Log {
         self.http.as_mut().unwrap()
     }
 
+    // Take field
+    pub fn take_http(&mut self) -> HTTP {
+        self.http.take().unwrap_or_else(|| HTTP::new())
+    }
+
     pub fn get_http(&'a self) -> &'a HTTP {
         self.http.as_ref().unwrap_or_else(|| HTTP::default_instance())
     }
@@ -1356,6 +1381,11 @@ impl<'a> Log {
         self.origin.as_mut().unwrap()
     }
 
+    // Take field
+    pub fn take_origin(&mut self) -> Origin {
+        self.origin.take().unwrap_or_else(|| Origin::new())
+    }
+
     pub fn get_origin(&'a self) -> &'a Origin {
         self.origin.as_ref().unwrap_or_else(|| Origin::default_instance())
     }
@@ -1363,7 +1393,7 @@ impl<'a> Log {
     // optional .pb.Country country = 6;
 
     pub fn clear_country(&mut self) {
-        self.country = None;
+        self.country = ::std::option::None;
     }
 
     pub fn has_country(&self) -> bool {
@@ -1372,7 +1402,7 @@ impl<'a> Log {
 
     // Param is passed by value, moved
     pub fn set_country(&mut self, v: Country) {
-        self.country = Some(v);
+        self.country = ::std::option::Some(v);
     }
 
     pub fn get_country(&self) -> Country {
@@ -1382,7 +1412,7 @@ impl<'a> Log {
     // optional .pb.CacheStatus cache_status = 7;
 
     pub fn clear_cache_status(&mut self) {
-        self.cache_status = None;
+        self.cache_status = ::std::option::None;
     }
 
     pub fn has_cache_status(&self) -> bool {
@@ -1391,7 +1421,7 @@ impl<'a> Log {
 
     // Param is passed by value, moved
     pub fn set_cache_status(&mut self, v: CacheStatus) {
-        self.cache_status = Some(v);
+        self.cache_status = ::std::option::Some(v);
     }
 
     pub fn get_cache_status(&self) -> CacheStatus {
@@ -1420,6 +1450,11 @@ impl<'a> Log {
             self.server_ip.set_default();
         };
         self.server_ip.as_mut().unwrap()
+    }
+
+    // Take field
+    pub fn take_server_ip(&mut self) -> ::std::vec::Vec<u8> {
+        self.server_ip.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
     pub fn get_server_ip(&'a self) -> &'a [u8] {
@@ -1453,6 +1488,11 @@ impl<'a> Log {
         self.server_name.as_mut().unwrap()
     }
 
+    // Take field
+    pub fn take_server_name(&mut self) -> ::std::string::String {
+        self.server_name.take().unwrap_or_else(|| ::std::string::String::new())
+    }
+
     pub fn get_server_name(&'a self) -> &'a str {
         match self.server_name.as_ref() {
             Some(v) => v.as_slice(),
@@ -1484,6 +1524,11 @@ impl<'a> Log {
         self.remote_ip.as_mut().unwrap()
     }
 
+    // Take field
+    pub fn take_remote_ip(&mut self) -> ::std::vec::Vec<u8> {
+        self.remote_ip.take().unwrap_or_else(|| ::std::vec::Vec::new())
+    }
+
     pub fn get_remote_ip(&'a self) -> &'a [u8] {
         match self.remote_ip.as_ref() {
             Some(v) => v.as_slice(),
@@ -1494,7 +1539,7 @@ impl<'a> Log {
     // optional uint64 bytes_dlv = 11;
 
     pub fn clear_bytes_dlv(&mut self) {
-        self.bytes_dlv = None;
+        self.bytes_dlv = ::std::option::None;
     }
 
     pub fn has_bytes_dlv(&self) -> bool {
@@ -1503,7 +1548,7 @@ impl<'a> Log {
 
     // Param is passed by value, moved
     pub fn set_bytes_dlv(&mut self, v: u64) {
-        self.bytes_dlv = Some(v);
+        self.bytes_dlv = ::std::option::Some(v);
     }
 
     pub fn get_bytes_dlv(&self) -> u64 {
@@ -1534,6 +1579,11 @@ impl<'a> Log {
         self.ray_id.as_mut().unwrap()
     }
 
+    // Take field
+    pub fn take_ray_id(&mut self) -> ::std::string::String {
+        self.ray_id.take().unwrap_or_else(|| ::std::string::String::new())
+    }
+
     pub fn get_ray_id(&'a self) -> &'a str {
         match self.ray_id.as_ref() {
             Some(v) => v.as_slice(),
@@ -1560,21 +1610,21 @@ impl ::protobuf::Message for Log {
                         return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = try!(is.read_sfixed64());
-                    self.timestamp = Some(tmp);
+                    self.timestamp = ::std::option::Some(tmp);
                 },
                 2 => {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
                         return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = try!(is.read_uint32());
-                    self.zone_id = Some(tmp);
+                    self.zone_id = ::std::option::Some(tmp);
                 },
                 3 => {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
                         return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
-                    let tmp = ZonePlan::new(try!(is.read_int32()));
-                    self.zone_plan = Some(tmp);
+                    let tmp = try!(is.read_enum());
+                    self.zone_plan = ::std::option::Some(tmp);
                 },
                 4 => {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
@@ -1594,15 +1644,15 @@ impl ::protobuf::Message for Log {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
                         return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
-                    let tmp = Country::new(try!(is.read_int32()));
-                    self.country = Some(tmp);
+                    let tmp = try!(is.read_enum());
+                    self.country = ::std::option::Some(tmp);
                 },
                 7 => {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
                         return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
-                    let tmp = CacheStatus::new(try!(is.read_int32()));
-                    self.cache_status = Some(tmp);
+                    let tmp = try!(is.read_enum());
+                    self.cache_status = ::std::option::Some(tmp);
                 },
                 8 => {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
@@ -1630,7 +1680,7 @@ impl ::protobuf::Message for Log {
                         return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = try!(is.read_uint64());
-                    self.bytes_dlv = Some(tmp);
+                    self.bytes_dlv = ::std::option::Some(tmp);
                 },
                 12 => {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
@@ -1650,7 +1700,6 @@ impl ::protobuf::Message for Log {
 
     // Compute sizes of nested messages
     fn compute_size(&self) -> u32 {
-        use protobuf::{Message};
         let mut my_size = 0;
         if self.timestamp.is_some() {
             my_size += 9;
@@ -1696,7 +1745,6 @@ impl ::protobuf::Message for Log {
     }
 
     fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream) -> ::protobuf::ProtobufResult<()> {
-        use protobuf::{Message};
         match self.timestamp {
             Some(v) => {
                 try!(os.write_sfixed64(1, v));
@@ -1862,7 +1910,6 @@ impl ::std::cmp::PartialEq for Log {
 
 impl ::std::fmt::Show for Log {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        use protobuf::{Message};
         self.fmt_impl(f)
     }
 }
@@ -1918,7 +1965,6 @@ impl ::protobuf::reflect::FieldAccessor<Log> for Log_zone_plan_acc_type {
     }
 
     fn get_enum<'a>(&self, m: &Log) -> &'static ::protobuf::reflect::EnumValueDescriptor {
-        use protobuf::{ProtobufEnum};
         m.get_zone_plan().descriptor()
     }
 }
@@ -1973,7 +2019,6 @@ impl ::protobuf::reflect::FieldAccessor<Log> for Log_country_acc_type {
     }
 
     fn get_enum<'a>(&self, m: &Log) -> &'static ::protobuf::reflect::EnumValueDescriptor {
-        use protobuf::{ProtobufEnum};
         m.get_country().descriptor()
     }
 }
@@ -1992,7 +2037,6 @@ impl ::protobuf::reflect::FieldAccessor<Log> for Log_cache_status_acc_type {
     }
 
     fn get_enum<'a>(&self, m: &Log) -> &'static ::protobuf::reflect::EnumValueDescriptor {
-        use protobuf::{ProtobufEnum};
         m.get_cache_status().descriptor()
     }
 }
@@ -2095,21 +2139,20 @@ pub enum CacheStatus {
     HIT = 3,
 }
 
-impl CacheStatus {
-    pub fn new(value: i32) -> CacheStatus {
-        match value {
-            0 => CacheStatus::CACHESTATUS_UNKNOWN,
-            1 => CacheStatus::MISS,
-            2 => CacheStatus::EXPIRED,
-            3 => CacheStatus::HIT,
-            _ => panic!()
-        }
-    }
-}
 
 impl ::protobuf::ProtobufEnum for CacheStatus {
     fn value(&self) -> i32 {
         *self as i32
+    }
+
+    fn from_i32(value: i32) -> ::std::option::Option<CacheStatus> {
+        match value {
+            0 => ::std::option::Some(CacheStatus::CACHESTATUS_UNKNOWN),
+            1 => ::std::option::Some(CacheStatus::MISS),
+            2 => ::std::option::Some(CacheStatus::EXPIRED),
+            3 => ::std::option::Some(CacheStatus::HIT),
+            _ => ::std::option::None
+        }
     }
 
     fn enum_descriptor_static(_: Option<CacheStatus>) -> &'static ::protobuf::reflect::EnumDescriptor {
@@ -2134,22 +2177,21 @@ pub enum ZonePlan {
     ENT = 4,
 }
 
-impl ZonePlan {
-    pub fn new(value: i32) -> ZonePlan {
-        match value {
-            0 => ZonePlan::ZONEPLAN_UNKNOWN,
-            1 => ZonePlan::FREE,
-            2 => ZonePlan::PRO,
-            3 => ZonePlan::BIZ,
-            4 => ZonePlan::ENT,
-            _ => panic!()
-        }
-    }
-}
 
 impl ::protobuf::ProtobufEnum for ZonePlan {
     fn value(&self) -> i32 {
         *self as i32
+    }
+
+    fn from_i32(value: i32) -> ::std::option::Option<ZonePlan> {
+        match value {
+            0 => ::std::option::Some(ZonePlan::ZONEPLAN_UNKNOWN),
+            1 => ::std::option::Some(ZonePlan::FREE),
+            2 => ::std::option::Some(ZonePlan::PRO),
+            3 => ::std::option::Some(ZonePlan::BIZ),
+            4 => ::std::option::Some(ZonePlan::ENT),
+            _ => ::std::option::None
+        }
     }
 
     fn enum_descriptor_static(_: Option<ZonePlan>) -> &'static ::protobuf::reflect::EnumDescriptor {
@@ -2425,273 +2467,272 @@ pub enum Country {
     ZW = 255,
 }
 
-impl Country {
-    pub fn new(value: i32) -> Country {
-        match value {
-            0 => Country::UNKNOWN,
-            1 => Country::A1,
-            2 => Country::A2,
-            3 => Country::O1,
-            4 => Country::AD,
-            5 => Country::AE,
-            6 => Country::AF,
-            7 => Country::AG,
-            8 => Country::AI,
-            9 => Country::AL,
-            10 => Country::AM,
-            11 => Country::AO,
-            12 => Country::AP,
-            13 => Country::AQ,
-            14 => Country::AR,
-            15 => Country::AS,
-            16 => Country::AT,
-            17 => Country::AU,
-            18 => Country::AW,
-            19 => Country::AX,
-            20 => Country::AZ,
-            21 => Country::BA,
-            22 => Country::BB,
-            23 => Country::BD,
-            24 => Country::BE,
-            25 => Country::BF,
-            26 => Country::BG,
-            27 => Country::BH,
-            28 => Country::BI,
-            29 => Country::BJ,
-            30 => Country::BL,
-            31 => Country::BM,
-            32 => Country::BN,
-            33 => Country::BO,
-            34 => Country::BQ,
-            35 => Country::BR,
-            36 => Country::BS,
-            37 => Country::BT,
-            38 => Country::BV,
-            39 => Country::BW,
-            40 => Country::BY,
-            41 => Country::BZ,
-            42 => Country::CA,
-            43 => Country::CC,
-            44 => Country::CD,
-            45 => Country::CF,
-            46 => Country::CG,
-            47 => Country::CH,
-            48 => Country::CI,
-            49 => Country::CK,
-            50 => Country::CL,
-            51 => Country::CM,
-            52 => Country::CN,
-            53 => Country::CO,
-            54 => Country::CR,
-            55 => Country::CU,
-            56 => Country::CV,
-            57 => Country::CW,
-            58 => Country::CX,
-            59 => Country::CY,
-            60 => Country::CZ,
-            61 => Country::DE,
-            62 => Country::DJ,
-            63 => Country::DK,
-            64 => Country::DM,
-            65 => Country::DO,
-            66 => Country::DZ,
-            67 => Country::EC,
-            68 => Country::EE,
-            69 => Country::EG,
-            70 => Country::EH,
-            71 => Country::ER,
-            72 => Country::ES,
-            73 => Country::ET,
-            74 => Country::EU,
-            75 => Country::FI,
-            76 => Country::FJ,
-            77 => Country::FK,
-            78 => Country::FM,
-            79 => Country::FO,
-            80 => Country::FR,
-            81 => Country::GA,
-            82 => Country::GB,
-            83 => Country::GD,
-            84 => Country::GE,
-            85 => Country::GF,
-            86 => Country::GG,
-            87 => Country::GH,
-            88 => Country::GI,
-            89 => Country::GL,
-            90 => Country::GM,
-            91 => Country::GN,
-            92 => Country::GP,
-            93 => Country::GQ,
-            94 => Country::GR,
-            95 => Country::GS,
-            96 => Country::GT,
-            97 => Country::GU,
-            98 => Country::GW,
-            99 => Country::GY,
-            100 => Country::HK,
-            101 => Country::HM,
-            102 => Country::HN,
-            103 => Country::HR,
-            104 => Country::HT,
-            105 => Country::HU,
-            106 => Country::ID,
-            107 => Country::IE,
-            108 => Country::IL,
-            109 => Country::IM,
-            110 => Country::IN,
-            111 => Country::IO,
-            112 => Country::IQ,
-            113 => Country::IR,
-            114 => Country::IS,
-            115 => Country::IT,
-            116 => Country::JE,
-            117 => Country::JM,
-            118 => Country::JO,
-            119 => Country::JP,
-            120 => Country::KE,
-            121 => Country::KG,
-            122 => Country::KH,
-            123 => Country::KI,
-            124 => Country::KM,
-            125 => Country::KN,
-            126 => Country::KP,
-            127 => Country::KR,
-            128 => Country::KW,
-            129 => Country::KY,
-            130 => Country::KZ,
-            131 => Country::LA,
-            132 => Country::LB,
-            133 => Country::LC,
-            134 => Country::LI,
-            135 => Country::LK,
-            136 => Country::LR,
-            137 => Country::LS,
-            138 => Country::LT,
-            139 => Country::LU,
-            140 => Country::LV,
-            141 => Country::LY,
-            142 => Country::MA,
-            143 => Country::MC,
-            144 => Country::MD,
-            145 => Country::ME,
-            146 => Country::MF,
-            147 => Country::MG,
-            148 => Country::MH,
-            149 => Country::MK,
-            150 => Country::ML,
-            151 => Country::MM,
-            152 => Country::MN,
-            153 => Country::MO,
-            154 => Country::MP,
-            155 => Country::MQ,
-            156 => Country::MR,
-            157 => Country::MS,
-            158 => Country::MT,
-            159 => Country::MU,
-            160 => Country::MV,
-            161 => Country::MW,
-            162 => Country::MX,
-            163 => Country::MY,
-            164 => Country::MZ,
-            165 => Country::NA,
-            166 => Country::NC,
-            167 => Country::NE,
-            168 => Country::NF,
-            169 => Country::NG,
-            170 => Country::NI,
-            171 => Country::NL,
-            172 => Country::NO,
-            173 => Country::NP,
-            174 => Country::NR,
-            175 => Country::NU,
-            176 => Country::NZ,
-            177 => Country::OM,
-            178 => Country::PA,
-            179 => Country::PE,
-            180 => Country::PF,
-            181 => Country::PG,
-            182 => Country::PH,
-            183 => Country::PK,
-            184 => Country::PL,
-            185 => Country::PM,
-            186 => Country::PN,
-            187 => Country::PR,
-            188 => Country::PS,
-            189 => Country::PT,
-            190 => Country::PW,
-            191 => Country::PY,
-            192 => Country::QA,
-            193 => Country::RE,
-            194 => Country::RO,
-            195 => Country::RS,
-            196 => Country::RU,
-            197 => Country::RW,
-            198 => Country::SA,
-            199 => Country::SB,
-            200 => Country::SC,
-            201 => Country::SD,
-            202 => Country::SE,
-            203 => Country::SG,
-            204 => Country::SH,
-            205 => Country::SI,
-            206 => Country::SJ,
-            207 => Country::SK,
-            208 => Country::SL,
-            209 => Country::SM,
-            210 => Country::SN,
-            211 => Country::SO,
-            212 => Country::SR,
-            213 => Country::SS,
-            214 => Country::ST,
-            215 => Country::SV,
-            216 => Country::SX,
-            217 => Country::SY,
-            218 => Country::SZ,
-            219 => Country::TC,
-            220 => Country::TD,
-            221 => Country::TF,
-            222 => Country::TG,
-            223 => Country::TH,
-            224 => Country::TJ,
-            225 => Country::TK,
-            226 => Country::TL,
-            227 => Country::TM,
-            228 => Country::TN,
-            229 => Country::TO,
-            230 => Country::TR,
-            231 => Country::TT,
-            232 => Country::TV,
-            233 => Country::TW,
-            234 => Country::TZ,
-            235 => Country::UA,
-            236 => Country::UG,
-            237 => Country::UM,
-            238 => Country::US,
-            239 => Country::UY,
-            240 => Country::UZ,
-            241 => Country::VA,
-            242 => Country::VC,
-            243 => Country::VE,
-            244 => Country::VG,
-            245 => Country::VI,
-            246 => Country::VN,
-            247 => Country::VU,
-            248 => Country::WF,
-            249 => Country::WS,
-            250 => Country::XX,
-            251 => Country::YE,
-            252 => Country::YT,
-            253 => Country::ZA,
-            254 => Country::ZM,
-            255 => Country::ZW,
-            _ => panic!()
-        }
-    }
-}
 
 impl ::protobuf::ProtobufEnum for Country {
     fn value(&self) -> i32 {
         *self as i32
+    }
+
+    fn from_i32(value: i32) -> ::std::option::Option<Country> {
+        match value {
+            0 => ::std::option::Some(Country::UNKNOWN),
+            1 => ::std::option::Some(Country::A1),
+            2 => ::std::option::Some(Country::A2),
+            3 => ::std::option::Some(Country::O1),
+            4 => ::std::option::Some(Country::AD),
+            5 => ::std::option::Some(Country::AE),
+            6 => ::std::option::Some(Country::AF),
+            7 => ::std::option::Some(Country::AG),
+            8 => ::std::option::Some(Country::AI),
+            9 => ::std::option::Some(Country::AL),
+            10 => ::std::option::Some(Country::AM),
+            11 => ::std::option::Some(Country::AO),
+            12 => ::std::option::Some(Country::AP),
+            13 => ::std::option::Some(Country::AQ),
+            14 => ::std::option::Some(Country::AR),
+            15 => ::std::option::Some(Country::AS),
+            16 => ::std::option::Some(Country::AT),
+            17 => ::std::option::Some(Country::AU),
+            18 => ::std::option::Some(Country::AW),
+            19 => ::std::option::Some(Country::AX),
+            20 => ::std::option::Some(Country::AZ),
+            21 => ::std::option::Some(Country::BA),
+            22 => ::std::option::Some(Country::BB),
+            23 => ::std::option::Some(Country::BD),
+            24 => ::std::option::Some(Country::BE),
+            25 => ::std::option::Some(Country::BF),
+            26 => ::std::option::Some(Country::BG),
+            27 => ::std::option::Some(Country::BH),
+            28 => ::std::option::Some(Country::BI),
+            29 => ::std::option::Some(Country::BJ),
+            30 => ::std::option::Some(Country::BL),
+            31 => ::std::option::Some(Country::BM),
+            32 => ::std::option::Some(Country::BN),
+            33 => ::std::option::Some(Country::BO),
+            34 => ::std::option::Some(Country::BQ),
+            35 => ::std::option::Some(Country::BR),
+            36 => ::std::option::Some(Country::BS),
+            37 => ::std::option::Some(Country::BT),
+            38 => ::std::option::Some(Country::BV),
+            39 => ::std::option::Some(Country::BW),
+            40 => ::std::option::Some(Country::BY),
+            41 => ::std::option::Some(Country::BZ),
+            42 => ::std::option::Some(Country::CA),
+            43 => ::std::option::Some(Country::CC),
+            44 => ::std::option::Some(Country::CD),
+            45 => ::std::option::Some(Country::CF),
+            46 => ::std::option::Some(Country::CG),
+            47 => ::std::option::Some(Country::CH),
+            48 => ::std::option::Some(Country::CI),
+            49 => ::std::option::Some(Country::CK),
+            50 => ::std::option::Some(Country::CL),
+            51 => ::std::option::Some(Country::CM),
+            52 => ::std::option::Some(Country::CN),
+            53 => ::std::option::Some(Country::CO),
+            54 => ::std::option::Some(Country::CR),
+            55 => ::std::option::Some(Country::CU),
+            56 => ::std::option::Some(Country::CV),
+            57 => ::std::option::Some(Country::CW),
+            58 => ::std::option::Some(Country::CX),
+            59 => ::std::option::Some(Country::CY),
+            60 => ::std::option::Some(Country::CZ),
+            61 => ::std::option::Some(Country::DE),
+            62 => ::std::option::Some(Country::DJ),
+            63 => ::std::option::Some(Country::DK),
+            64 => ::std::option::Some(Country::DM),
+            65 => ::std::option::Some(Country::DO),
+            66 => ::std::option::Some(Country::DZ),
+            67 => ::std::option::Some(Country::EC),
+            68 => ::std::option::Some(Country::EE),
+            69 => ::std::option::Some(Country::EG),
+            70 => ::std::option::Some(Country::EH),
+            71 => ::std::option::Some(Country::ER),
+            72 => ::std::option::Some(Country::ES),
+            73 => ::std::option::Some(Country::ET),
+            74 => ::std::option::Some(Country::EU),
+            75 => ::std::option::Some(Country::FI),
+            76 => ::std::option::Some(Country::FJ),
+            77 => ::std::option::Some(Country::FK),
+            78 => ::std::option::Some(Country::FM),
+            79 => ::std::option::Some(Country::FO),
+            80 => ::std::option::Some(Country::FR),
+            81 => ::std::option::Some(Country::GA),
+            82 => ::std::option::Some(Country::GB),
+            83 => ::std::option::Some(Country::GD),
+            84 => ::std::option::Some(Country::GE),
+            85 => ::std::option::Some(Country::GF),
+            86 => ::std::option::Some(Country::GG),
+            87 => ::std::option::Some(Country::GH),
+            88 => ::std::option::Some(Country::GI),
+            89 => ::std::option::Some(Country::GL),
+            90 => ::std::option::Some(Country::GM),
+            91 => ::std::option::Some(Country::GN),
+            92 => ::std::option::Some(Country::GP),
+            93 => ::std::option::Some(Country::GQ),
+            94 => ::std::option::Some(Country::GR),
+            95 => ::std::option::Some(Country::GS),
+            96 => ::std::option::Some(Country::GT),
+            97 => ::std::option::Some(Country::GU),
+            98 => ::std::option::Some(Country::GW),
+            99 => ::std::option::Some(Country::GY),
+            100 => ::std::option::Some(Country::HK),
+            101 => ::std::option::Some(Country::HM),
+            102 => ::std::option::Some(Country::HN),
+            103 => ::std::option::Some(Country::HR),
+            104 => ::std::option::Some(Country::HT),
+            105 => ::std::option::Some(Country::HU),
+            106 => ::std::option::Some(Country::ID),
+            107 => ::std::option::Some(Country::IE),
+            108 => ::std::option::Some(Country::IL),
+            109 => ::std::option::Some(Country::IM),
+            110 => ::std::option::Some(Country::IN),
+            111 => ::std::option::Some(Country::IO),
+            112 => ::std::option::Some(Country::IQ),
+            113 => ::std::option::Some(Country::IR),
+            114 => ::std::option::Some(Country::IS),
+            115 => ::std::option::Some(Country::IT),
+            116 => ::std::option::Some(Country::JE),
+            117 => ::std::option::Some(Country::JM),
+            118 => ::std::option::Some(Country::JO),
+            119 => ::std::option::Some(Country::JP),
+            120 => ::std::option::Some(Country::KE),
+            121 => ::std::option::Some(Country::KG),
+            122 => ::std::option::Some(Country::KH),
+            123 => ::std::option::Some(Country::KI),
+            124 => ::std::option::Some(Country::KM),
+            125 => ::std::option::Some(Country::KN),
+            126 => ::std::option::Some(Country::KP),
+            127 => ::std::option::Some(Country::KR),
+            128 => ::std::option::Some(Country::KW),
+            129 => ::std::option::Some(Country::KY),
+            130 => ::std::option::Some(Country::KZ),
+            131 => ::std::option::Some(Country::LA),
+            132 => ::std::option::Some(Country::LB),
+            133 => ::std::option::Some(Country::LC),
+            134 => ::std::option::Some(Country::LI),
+            135 => ::std::option::Some(Country::LK),
+            136 => ::std::option::Some(Country::LR),
+            137 => ::std::option::Some(Country::LS),
+            138 => ::std::option::Some(Country::LT),
+            139 => ::std::option::Some(Country::LU),
+            140 => ::std::option::Some(Country::LV),
+            141 => ::std::option::Some(Country::LY),
+            142 => ::std::option::Some(Country::MA),
+            143 => ::std::option::Some(Country::MC),
+            144 => ::std::option::Some(Country::MD),
+            145 => ::std::option::Some(Country::ME),
+            146 => ::std::option::Some(Country::MF),
+            147 => ::std::option::Some(Country::MG),
+            148 => ::std::option::Some(Country::MH),
+            149 => ::std::option::Some(Country::MK),
+            150 => ::std::option::Some(Country::ML),
+            151 => ::std::option::Some(Country::MM),
+            152 => ::std::option::Some(Country::MN),
+            153 => ::std::option::Some(Country::MO),
+            154 => ::std::option::Some(Country::MP),
+            155 => ::std::option::Some(Country::MQ),
+            156 => ::std::option::Some(Country::MR),
+            157 => ::std::option::Some(Country::MS),
+            158 => ::std::option::Some(Country::MT),
+            159 => ::std::option::Some(Country::MU),
+            160 => ::std::option::Some(Country::MV),
+            161 => ::std::option::Some(Country::MW),
+            162 => ::std::option::Some(Country::MX),
+            163 => ::std::option::Some(Country::MY),
+            164 => ::std::option::Some(Country::MZ),
+            165 => ::std::option::Some(Country::NA),
+            166 => ::std::option::Some(Country::NC),
+            167 => ::std::option::Some(Country::NE),
+            168 => ::std::option::Some(Country::NF),
+            169 => ::std::option::Some(Country::NG),
+            170 => ::std::option::Some(Country::NI),
+            171 => ::std::option::Some(Country::NL),
+            172 => ::std::option::Some(Country::NO),
+            173 => ::std::option::Some(Country::NP),
+            174 => ::std::option::Some(Country::NR),
+            175 => ::std::option::Some(Country::NU),
+            176 => ::std::option::Some(Country::NZ),
+            177 => ::std::option::Some(Country::OM),
+            178 => ::std::option::Some(Country::PA),
+            179 => ::std::option::Some(Country::PE),
+            180 => ::std::option::Some(Country::PF),
+            181 => ::std::option::Some(Country::PG),
+            182 => ::std::option::Some(Country::PH),
+            183 => ::std::option::Some(Country::PK),
+            184 => ::std::option::Some(Country::PL),
+            185 => ::std::option::Some(Country::PM),
+            186 => ::std::option::Some(Country::PN),
+            187 => ::std::option::Some(Country::PR),
+            188 => ::std::option::Some(Country::PS),
+            189 => ::std::option::Some(Country::PT),
+            190 => ::std::option::Some(Country::PW),
+            191 => ::std::option::Some(Country::PY),
+            192 => ::std::option::Some(Country::QA),
+            193 => ::std::option::Some(Country::RE),
+            194 => ::std::option::Some(Country::RO),
+            195 => ::std::option::Some(Country::RS),
+            196 => ::std::option::Some(Country::RU),
+            197 => ::std::option::Some(Country::RW),
+            198 => ::std::option::Some(Country::SA),
+            199 => ::std::option::Some(Country::SB),
+            200 => ::std::option::Some(Country::SC),
+            201 => ::std::option::Some(Country::SD),
+            202 => ::std::option::Some(Country::SE),
+            203 => ::std::option::Some(Country::SG),
+            204 => ::std::option::Some(Country::SH),
+            205 => ::std::option::Some(Country::SI),
+            206 => ::std::option::Some(Country::SJ),
+            207 => ::std::option::Some(Country::SK),
+            208 => ::std::option::Some(Country::SL),
+            209 => ::std::option::Some(Country::SM),
+            210 => ::std::option::Some(Country::SN),
+            211 => ::std::option::Some(Country::SO),
+            212 => ::std::option::Some(Country::SR),
+            213 => ::std::option::Some(Country::SS),
+            214 => ::std::option::Some(Country::ST),
+            215 => ::std::option::Some(Country::SV),
+            216 => ::std::option::Some(Country::SX),
+            217 => ::std::option::Some(Country::SY),
+            218 => ::std::option::Some(Country::SZ),
+            219 => ::std::option::Some(Country::TC),
+            220 => ::std::option::Some(Country::TD),
+            221 => ::std::option::Some(Country::TF),
+            222 => ::std::option::Some(Country::TG),
+            223 => ::std::option::Some(Country::TH),
+            224 => ::std::option::Some(Country::TJ),
+            225 => ::std::option::Some(Country::TK),
+            226 => ::std::option::Some(Country::TL),
+            227 => ::std::option::Some(Country::TM),
+            228 => ::std::option::Some(Country::TN),
+            229 => ::std::option::Some(Country::TO),
+            230 => ::std::option::Some(Country::TR),
+            231 => ::std::option::Some(Country::TT),
+            232 => ::std::option::Some(Country::TV),
+            233 => ::std::option::Some(Country::TW),
+            234 => ::std::option::Some(Country::TZ),
+            235 => ::std::option::Some(Country::UA),
+            236 => ::std::option::Some(Country::UG),
+            237 => ::std::option::Some(Country::UM),
+            238 => ::std::option::Some(Country::US),
+            239 => ::std::option::Some(Country::UY),
+            240 => ::std::option::Some(Country::UZ),
+            241 => ::std::option::Some(Country::VA),
+            242 => ::std::option::Some(Country::VC),
+            243 => ::std::option::Some(Country::VE),
+            244 => ::std::option::Some(Country::VG),
+            245 => ::std::option::Some(Country::VI),
+            246 => ::std::option::Some(Country::VN),
+            247 => ::std::option::Some(Country::VU),
+            248 => ::std::option::Some(Country::WF),
+            249 => ::std::option::Some(Country::WS),
+            250 => ::std::option::Some(Country::XX),
+            251 => ::std::option::Some(Country::YE),
+            252 => ::std::option::Some(Country::YT),
+            253 => ::std::option::Some(Country::ZA),
+            254 => ::std::option::Some(Country::ZM),
+            255 => ::std::option::Some(Country::ZW),
+            _ => ::std::option::None
+        }
     }
 
     fn enum_descriptor_static(_: Option<Country>) -> &'static ::protobuf::reflect::EnumDescriptor {
