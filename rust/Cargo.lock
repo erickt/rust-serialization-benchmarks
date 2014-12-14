@@ -3,9 +3,9 @@ name = "rust-serde-benchmarks"
 version = "0.0.1"
 dependencies = [
  "bincode 0.0.2 (git+https://github.com/TyOverby/bincode)",
- "capnp 0.0.5 (git+https://github.com/dwrensha/capnproto-rust)",
+ "capnp 0.0.6 (git+https://github.com/dwrensha/capnproto-rust)",
  "msgpack 0.0.1 (git+https://github.com/erickt/rust-msgpack)",
- "protobuf 0.0.5 (git+https://github.com/stepancheg/rust-protobuf)",
+ "protobuf 0.0.8 (git+https://github.com/stepancheg/rust-protobuf)",
  "serde 0.1.0 (git+https://github.com/erickt/rust-serde)",
  "serde_macros 0.1.0 (git+https://github.com/erickt/rust-serde)",
 ]
@@ -17,23 +17,23 @@ source = "git+https://github.com/TyOverby/bincode#77f36d29d6eeef5e0fecaf2f159869
 
 [[package]]
 name = "capnp"
-version = "0.0.5"
-source = "git+https://github.com/dwrensha/capnproto-rust#4b50b5bb3f37ecbb7b6e106723504d59f14e5145"
+version = "0.0.6"
+source = "git+https://github.com/dwrensha/capnproto-rust#db2c3327ce2dc898861224ae08bc4c6f2dc06307"
 
 [[package]]
 name = "msgpack"
 version = "0.0.1"
-source = "git+https://github.com/erickt/rust-msgpack#26ca8f99f7f07a7d3bb334361170f14f238f35e8"
+source = "git+https://github.com/erickt/rust-msgpack#b9f476aa08b2877909c8c42abeadc52c7c7c304d"
 
 [[package]]
 name = "protobuf"
-version = "0.0.5"
-source = "git+https://github.com/stepancheg/rust-protobuf#27a83a1ed6b84fbd5218a8911bc7743ddd32a875"
+version = "0.0.8"
+source = "git+https://github.com/stepancheg/rust-protobuf#1d2e7a151f52b37bb2b49a6da08d59c82c53f2e9"
 
 [[package]]
 name = "serde"
 version = "0.1.0"
-source = "git+https://github.com/erickt/rust-serde#9d55333f06258d5f7e984c5b64b57a712f842c48"
+source = "git+https://github.com/erickt/rust-serde#b87f0f5fdedc67c1d13ab289f81e1371f753fe6f"
 dependencies = [
  "serde_macros 0.1.0 (git+https://github.com/erickt/rust-serde)",
 ]
@@ -41,5 +41,5 @@ dependencies = [
 [[package]]
 name = "serde_macros"
 version = "0.1.0"
-source = "git+https://github.com/erickt/rust-serde#9d55333f06258d5f7e984c5b64b57a712f842c48"
+source = "git+https://github.com/erickt/rust-serde#b87f0f5fdedc67c1d13ab289f81e1371f753fe6f"
 

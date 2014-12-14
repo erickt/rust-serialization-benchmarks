@@ -23,7 +23,7 @@ pub struct HTTP {
     cached_size: ::std::cell::Cell<u32>,
 }
 
-impl<'a> HTTP {
+impl HTTP {
     pub fn new() -> HTTP {
         ::std::default::Default::default()
     }
@@ -36,11 +36,11 @@ impl<'a> HTTP {
         unsafe {
             instance.get(|| {
                 HTTP {
-                    protocol: ::std::option::None,
-                    status: ::std::option::None,
-                    host_status: ::std::option::None,
-                    up_status: ::std::option::None,
-                    method: ::std::option::None,
+                    protocol: ::std::option::Option::None,
+                    status: ::std::option::Option::None,
+                    host_status: ::std::option::Option::None,
+                    up_status: ::std::option::Option::None,
+                    method: ::std::option::Option::None,
                     content_type: ::protobuf::SingularField::none(),
                     user_agent: ::protobuf::SingularField::none(),
                     referer: ::protobuf::SingularField::none(),
@@ -55,7 +55,7 @@ impl<'a> HTTP {
     // optional .pb.HTTP.Protocol protocol = 1;
 
     pub fn clear_protocol(&mut self) {
-        self.protocol = ::std::option::None;
+        self.protocol = ::std::option::Option::None;
     }
 
     pub fn has_protocol(&self) -> bool {
@@ -64,17 +64,17 @@ impl<'a> HTTP {
 
     // Param is passed by value, moved
     pub fn set_protocol(&mut self, v: HTTP_Protocol) {
-        self.protocol = ::std::option::Some(v);
+        self.protocol = ::std::option::Option::Some(v);
     }
 
-    pub fn get_protocol(&self) -> HTTP_Protocol {
+    pub fn get_protocol<'a>(&self) -> HTTP_Protocol {
         self.protocol.unwrap_or(HTTP_Protocol::HTTP_PROTOCOL_UNKNOWN)
     }
 
     // optional uint32 status = 2;
 
     pub fn clear_status(&mut self) {
-        self.status = ::std::option::None;
+        self.status = ::std::option::Option::None;
     }
 
     pub fn has_status(&self) -> bool {
@@ -83,17 +83,17 @@ impl<'a> HTTP {
 
     // Param is passed by value, moved
     pub fn set_status(&mut self, v: u32) {
-        self.status = ::std::option::Some(v);
+        self.status = ::std::option::Option::Some(v);
     }
 
-    pub fn get_status(&self) -> u32 {
+    pub fn get_status<'a>(&self) -> u32 {
         self.status.unwrap_or(0)
     }
 
     // optional uint32 host_status = 3;
 
     pub fn clear_host_status(&mut self) {
-        self.host_status = ::std::option::None;
+        self.host_status = ::std::option::Option::None;
     }
 
     pub fn has_host_status(&self) -> bool {
@@ -102,17 +102,17 @@ impl<'a> HTTP {
 
     // Param is passed by value, moved
     pub fn set_host_status(&mut self, v: u32) {
-        self.host_status = ::std::option::Some(v);
+        self.host_status = ::std::option::Option::Some(v);
     }
 
-    pub fn get_host_status(&self) -> u32 {
+    pub fn get_host_status<'a>(&self) -> u32 {
         self.host_status.unwrap_or(0)
     }
 
     // optional uint32 up_status = 4;
 
     pub fn clear_up_status(&mut self) {
-        self.up_status = ::std::option::None;
+        self.up_status = ::std::option::Option::None;
     }
 
     pub fn has_up_status(&self) -> bool {
@@ -121,17 +121,17 @@ impl<'a> HTTP {
 
     // Param is passed by value, moved
     pub fn set_up_status(&mut self, v: u32) {
-        self.up_status = ::std::option::Some(v);
+        self.up_status = ::std::option::Option::Some(v);
     }
 
-    pub fn get_up_status(&self) -> u32 {
+    pub fn get_up_status<'a>(&self) -> u32 {
         self.up_status.unwrap_or(0)
     }
 
     // optional .pb.HTTP.Method method = 5;
 
     pub fn clear_method(&mut self) {
-        self.method = ::std::option::None;
+        self.method = ::std::option::Option::None;
     }
 
     pub fn has_method(&self) -> bool {
@@ -140,10 +140,10 @@ impl<'a> HTTP {
 
     // Param is passed by value, moved
     pub fn set_method(&mut self, v: HTTP_Method) {
-        self.method = ::std::option::Some(v);
+        self.method = ::std::option::Option::Some(v);
     }
 
-    pub fn get_method(&self) -> HTTP_Method {
+    pub fn get_method<'a>(&self) -> HTTP_Method {
         self.method.unwrap_or(HTTP_Method::METHOD_UNKNOWN)
     }
 
@@ -164,7 +164,7 @@ impl<'a> HTTP {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_content_type(&'a mut self) -> &'a mut ::std::string::String {
+    pub fn mut_content_type<'a>(&'a mut self) -> &'a mut ::std::string::String {
         if self.content_type.is_none() {
             self.content_type.set_default();
         };
@@ -176,7 +176,7 @@ impl<'a> HTTP {
         self.content_type.take().unwrap_or_else(|| ::std::string::String::new())
     }
 
-    pub fn get_content_type(&'a self) -> &'a str {
+    pub fn get_content_type<'a>(&'a self) -> &'a str {
         match self.content_type.as_ref() {
             Some(v) => v.as_slice(),
             None => "",
@@ -200,7 +200,7 @@ impl<'a> HTTP {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_user_agent(&'a mut self) -> &'a mut ::std::string::String {
+    pub fn mut_user_agent<'a>(&'a mut self) -> &'a mut ::std::string::String {
         if self.user_agent.is_none() {
             self.user_agent.set_default();
         };
@@ -212,7 +212,7 @@ impl<'a> HTTP {
         self.user_agent.take().unwrap_or_else(|| ::std::string::String::new())
     }
 
-    pub fn get_user_agent(&'a self) -> &'a str {
+    pub fn get_user_agent<'a>(&'a self) -> &'a str {
         match self.user_agent.as_ref() {
             Some(v) => v.as_slice(),
             None => "",
@@ -236,7 +236,7 @@ impl<'a> HTTP {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_referer(&'a mut self) -> &'a mut ::std::string::String {
+    pub fn mut_referer<'a>(&'a mut self) -> &'a mut ::std::string::String {
         if self.referer.is_none() {
             self.referer.set_default();
         };
@@ -248,7 +248,7 @@ impl<'a> HTTP {
         self.referer.take().unwrap_or_else(|| ::std::string::String::new())
     }
 
-    pub fn get_referer(&'a self) -> &'a str {
+    pub fn get_referer<'a>(&'a self) -> &'a str {
         match self.referer.as_ref() {
             Some(v) => v.as_slice(),
             None => "",
@@ -272,7 +272,7 @@ impl<'a> HTTP {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_request_uri(&'a mut self) -> &'a mut ::std::string::String {
+    pub fn mut_request_uri<'a>(&'a mut self) -> &'a mut ::std::string::String {
         if self.request_uri.is_none() {
             self.request_uri.set_default();
         };
@@ -284,7 +284,7 @@ impl<'a> HTTP {
         self.request_uri.take().unwrap_or_else(|| ::std::string::String::new())
     }
 
-    pub fn get_request_uri(&'a self) -> &'a str {
+    pub fn get_request_uri<'a>(&'a self) -> &'a str {
         match self.request_uri.as_ref() {
             Some(v) => v.as_slice(),
             None => "",
@@ -307,63 +307,63 @@ impl ::protobuf::Message for HTTP {
             match field_number {
                 1 => {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = try!(is.read_enum());
-                    self.protocol = ::std::option::Some(tmp);
+                    self.protocol = ::std::option::Option::Some(tmp);
                 },
                 2 => {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = try!(is.read_uint32());
-                    self.status = ::std::option::Some(tmp);
+                    self.status = ::std::option::Option::Some(tmp);
                 },
                 3 => {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = try!(is.read_uint32());
-                    self.host_status = ::std::option::Some(tmp);
+                    self.host_status = ::std::option::Option::Some(tmp);
                 },
                 4 => {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = try!(is.read_uint32());
-                    self.up_status = ::std::option::Some(tmp);
+                    self.up_status = ::std::option::Option::Some(tmp);
                 },
                 5 => {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = try!(is.read_enum());
-                    self.method = ::std::option::Some(tmp);
+                    self.method = ::std::option::Option::Some(tmp);
                 },
                 6 => {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = self.content_type.set_default();
                     try!(is.read_string_into(tmp))
                 },
                 7 => {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = self.user_agent.set_default();
                     try!(is.read_string_into(tmp))
                 },
                 8 => {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = self.referer.set_default();
                     try!(is.read_string_into(tmp))
                 },
                 9 => {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = self.request_uri.set_default();
                     try!(is.read_string_into(tmp))
@@ -374,7 +374,7 @@ impl ::protobuf::Message for HTTP {
                 },
             };
         }
-        ::std::result::Ok(())
+        ::std::result::Result::Ok(())
     }
 
     // Compute sizes of nested messages
@@ -413,62 +413,35 @@ impl ::protobuf::Message for HTTP {
     }
 
     fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream) -> ::protobuf::ProtobufResult<()> {
-        match self.protocol {
-            Some(v) => {
-                try!(os.write_enum(1, v as i32));
-            },
-            None => {},
+        if let Some(v) = self.protocol {
+            try!(os.write_enum(1, v as i32));
         };
-        match self.status {
-            Some(v) => {
-                try!(os.write_uint32(2, v));
-            },
-            None => {},
+        if let Some(v) = self.status {
+            try!(os.write_uint32(2, v));
         };
-        match self.host_status {
-            Some(v) => {
-                try!(os.write_uint32(3, v));
-            },
-            None => {},
+        if let Some(v) = self.host_status {
+            try!(os.write_uint32(3, v));
         };
-        match self.up_status {
-            Some(v) => {
-                try!(os.write_uint32(4, v));
-            },
-            None => {},
+        if let Some(v) = self.up_status {
+            try!(os.write_uint32(4, v));
         };
-        match self.method {
-            Some(v) => {
-                try!(os.write_enum(5, v as i32));
-            },
-            None => {},
+        if let Some(v) = self.method {
+            try!(os.write_enum(5, v as i32));
         };
-        match self.content_type.as_ref() {
-            Some(v) => {
-                try!(os.write_string(6, v.as_slice()));
-            },
-            None => {},
+        if let Some(v) = self.content_type.as_ref() {
+            try!(os.write_string(6, v.as_slice()));
         };
-        match self.user_agent.as_ref() {
-            Some(v) => {
-                try!(os.write_string(7, v.as_slice()));
-            },
-            None => {},
+        if let Some(v) = self.user_agent.as_ref() {
+            try!(os.write_string(7, v.as_slice()));
         };
-        match self.referer.as_ref() {
-            Some(v) => {
-                try!(os.write_string(8, v.as_slice()));
-            },
-            None => {},
+        if let Some(v) = self.referer.as_ref() {
+            try!(os.write_string(8, v.as_slice()));
         };
-        match self.request_uri.as_ref() {
-            Some(v) => {
-                try!(os.write_string(9, v.as_slice()));
-            },
-            None => {},
+        if let Some(v) = self.request_uri.as_ref() {
+            try!(os.write_string(9, v.as_slice()));
         };
         try!(os.write_unknown_fields(self.get_unknown_fields()));
-        ::std::result::Ok(())
+        ::std::result::Result::Ok(())
     }
 
     fn get_cached_size(&self) -> u32 {
@@ -491,16 +464,52 @@ impl ::protobuf::Message for HTTP {
         };
         unsafe {
             descriptor.get(|| {
-                let mut fields: ::std::vec::Vec<&'static ::protobuf::reflect::FieldAccessor<HTTP>> = ::std::vec::Vec::new();
-                fields.push(unsafe { ::std::mem::transmute(&HTTP_protocol_acc as &'static ::protobuf::reflect::FieldAccessor<HTTP>) });
-                fields.push(unsafe { ::std::mem::transmute(&HTTP_status_acc as &'static ::protobuf::reflect::FieldAccessor<HTTP>) });
-                fields.push(unsafe { ::std::mem::transmute(&HTTP_host_status_acc as &'static ::protobuf::reflect::FieldAccessor<HTTP>) });
-                fields.push(unsafe { ::std::mem::transmute(&HTTP_up_status_acc as &'static ::protobuf::reflect::FieldAccessor<HTTP>) });
-                fields.push(unsafe { ::std::mem::transmute(&HTTP_method_acc as &'static ::protobuf::reflect::FieldAccessor<HTTP>) });
-                fields.push(unsafe { ::std::mem::transmute(&HTTP_content_type_acc as &'static ::protobuf::reflect::FieldAccessor<HTTP>) });
-                fields.push(unsafe { ::std::mem::transmute(&HTTP_user_agent_acc as &'static ::protobuf::reflect::FieldAccessor<HTTP>) });
-                fields.push(unsafe { ::std::mem::transmute(&HTTP_referer_acc as &'static ::protobuf::reflect::FieldAccessor<HTTP>) });
-                fields.push(unsafe { ::std::mem::transmute(&HTTP_request_uri_acc as &'static ::protobuf::reflect::FieldAccessor<HTTP>) });
+                let mut fields = ::std::vec::Vec::new();
+                fields.push(::protobuf::reflect::accessor::make_singular_enum_accessor(
+                    "protocol",
+                    HTTP::has_protocol,
+                    HTTP::get_protocol,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_u32_accessor(
+                    "status",
+                    HTTP::has_status,
+                    HTTP::get_status,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_u32_accessor(
+                    "host_status",
+                    HTTP::has_host_status,
+                    HTTP::get_host_status,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_u32_accessor(
+                    "up_status",
+                    HTTP::has_up_status,
+                    HTTP::get_up_status,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_enum_accessor(
+                    "method",
+                    HTTP::has_method,
+                    HTTP::get_method,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_string_accessor(
+                    "content_type",
+                    HTTP::has_content_type,
+                    HTTP::get_content_type,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_string_accessor(
+                    "user_agent",
+                    HTTP::has_user_agent,
+                    HTTP::get_user_agent,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_string_accessor(
+                    "referer",
+                    HTTP::has_referer,
+                    HTTP::get_referer,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_string_accessor(
+                    "request_uri",
+                    HTTP::has_request_uri,
+                    HTTP::get_request_uri,
+                ));
                 ::protobuf::reflect::MessageDescriptor::new::<HTTP>(
                     "HTTP",
                     fields,
@@ -551,176 +560,12 @@ impl ::std::fmt::Show for HTTP {
     }
 }
 
-
-#[allow(non_camel_case_types)]
-struct HTTP_protocol_acc_type;
-static HTTP_protocol_acc: HTTP_protocol_acc_type = HTTP_protocol_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<HTTP> for HTTP_protocol_acc_type {
-    fn name(&self) -> &'static str {
-        "protocol"
-    }
-
-    fn has_field(&self, m: &HTTP) -> bool {
-        m.has_protocol()
-    }
-
-    fn get_enum<'a>(&self, m: &HTTP) -> &'static ::protobuf::reflect::EnumValueDescriptor {
-        m.get_protocol().descriptor()
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct HTTP_status_acc_type;
-static HTTP_status_acc: HTTP_status_acc_type = HTTP_status_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<HTTP> for HTTP_status_acc_type {
-    fn name(&self) -> &'static str {
-        "status"
-    }
-
-    fn has_field(&self, m: &HTTP) -> bool {
-        m.has_status()
-    }
-
-    fn get_u32(&self, m: &HTTP) -> u32 {
-        m.get_status()
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct HTTP_host_status_acc_type;
-static HTTP_host_status_acc: HTTP_host_status_acc_type = HTTP_host_status_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<HTTP> for HTTP_host_status_acc_type {
-    fn name(&self) -> &'static str {
-        "host_status"
-    }
-
-    fn has_field(&self, m: &HTTP) -> bool {
-        m.has_host_status()
-    }
-
-    fn get_u32(&self, m: &HTTP) -> u32 {
-        m.get_host_status()
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct HTTP_up_status_acc_type;
-static HTTP_up_status_acc: HTTP_up_status_acc_type = HTTP_up_status_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<HTTP> for HTTP_up_status_acc_type {
-    fn name(&self) -> &'static str {
-        "up_status"
-    }
-
-    fn has_field(&self, m: &HTTP) -> bool {
-        m.has_up_status()
-    }
-
-    fn get_u32(&self, m: &HTTP) -> u32 {
-        m.get_up_status()
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct HTTP_method_acc_type;
-static HTTP_method_acc: HTTP_method_acc_type = HTTP_method_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<HTTP> for HTTP_method_acc_type {
-    fn name(&self) -> &'static str {
-        "method"
-    }
-
-    fn has_field(&self, m: &HTTP) -> bool {
-        m.has_method()
-    }
-
-    fn get_enum<'a>(&self, m: &HTTP) -> &'static ::protobuf::reflect::EnumValueDescriptor {
-        m.get_method().descriptor()
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct HTTP_content_type_acc_type;
-static HTTP_content_type_acc: HTTP_content_type_acc_type = HTTP_content_type_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<HTTP> for HTTP_content_type_acc_type {
-    fn name(&self) -> &'static str {
-        "content_type"
-    }
-
-    fn has_field(&self, m: &HTTP) -> bool {
-        m.has_content_type()
-    }
-
-    fn get_str<'a>(&self, m: &'a HTTP) -> &'a str {
-        m.get_content_type()
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct HTTP_user_agent_acc_type;
-static HTTP_user_agent_acc: HTTP_user_agent_acc_type = HTTP_user_agent_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<HTTP> for HTTP_user_agent_acc_type {
-    fn name(&self) -> &'static str {
-        "user_agent"
-    }
-
-    fn has_field(&self, m: &HTTP) -> bool {
-        m.has_user_agent()
-    }
-
-    fn get_str<'a>(&self, m: &'a HTTP) -> &'a str {
-        m.get_user_agent()
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct HTTP_referer_acc_type;
-static HTTP_referer_acc: HTTP_referer_acc_type = HTTP_referer_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<HTTP> for HTTP_referer_acc_type {
-    fn name(&self) -> &'static str {
-        "referer"
-    }
-
-    fn has_field(&self, m: &HTTP) -> bool {
-        m.has_referer()
-    }
-
-    fn get_str<'a>(&self, m: &'a HTTP) -> &'a str {
-        m.get_referer()
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct HTTP_request_uri_acc_type;
-static HTTP_request_uri_acc: HTTP_request_uri_acc_type = HTTP_request_uri_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<HTTP> for HTTP_request_uri_acc_type {
-    fn name(&self) -> &'static str {
-        "request_uri"
-    }
-
-    fn has_field(&self, m: &HTTP) -> bool {
-        m.has_request_uri()
-    }
-
-    fn get_str<'a>(&self, m: &'a HTTP) -> &'a str {
-        m.get_request_uri()
-    }
-}
-
 #[deriving(Clone,PartialEq,Eq,Show)]
 pub enum HTTP_Protocol {
     HTTP_PROTOCOL_UNKNOWN = 0,
     HTTP10 = 1,
     HTTP11 = 2,
 }
-
 
 impl ::protobuf::ProtobufEnum for HTTP_Protocol {
     fn value(&self) -> i32 {
@@ -729,10 +574,10 @@ impl ::protobuf::ProtobufEnum for HTTP_Protocol {
 
     fn from_i32(value: i32) -> ::std::option::Option<HTTP_Protocol> {
         match value {
-            0 => ::std::option::Some(HTTP_Protocol::HTTP_PROTOCOL_UNKNOWN),
-            1 => ::std::option::Some(HTTP_Protocol::HTTP10),
-            2 => ::std::option::Some(HTTP_Protocol::HTTP11),
-            _ => ::std::option::None
+            0 => ::std::option::Option::Some(HTTP_Protocol::HTTP_PROTOCOL_UNKNOWN),
+            1 => ::std::option::Option::Some(HTTP_Protocol::HTTP10),
+            2 => ::std::option::Option::Some(HTTP_Protocol::HTTP11),
+            _ => ::std::option::Option::None
         }
     }
 
@@ -747,6 +592,9 @@ impl ::protobuf::ProtobufEnum for HTTP_Protocol {
             })
         }
     }
+}
+
+impl ::std::kinds::Copy for HTTP_Protocol {
 }
 
 #[deriving(Clone,PartialEq,Eq,Show)]
@@ -764,7 +612,6 @@ pub enum HTTP_Method {
     PATCH = 10,
 }
 
-
 impl ::protobuf::ProtobufEnum for HTTP_Method {
     fn value(&self) -> i32 {
         *self as i32
@@ -772,18 +619,18 @@ impl ::protobuf::ProtobufEnum for HTTP_Method {
 
     fn from_i32(value: i32) -> ::std::option::Option<HTTP_Method> {
         match value {
-            0 => ::std::option::Some(HTTP_Method::METHOD_UNKNOWN),
-            1 => ::std::option::Some(HTTP_Method::GET),
-            2 => ::std::option::Some(HTTP_Method::POST),
-            3 => ::std::option::Some(HTTP_Method::DELETE),
-            4 => ::std::option::Some(HTTP_Method::PUT),
-            5 => ::std::option::Some(HTTP_Method::HEAD),
-            6 => ::std::option::Some(HTTP_Method::PURGE),
-            7 => ::std::option::Some(HTTP_Method::OPTIONS),
-            8 => ::std::option::Some(HTTP_Method::PROPFIND),
-            9 => ::std::option::Some(HTTP_Method::MKCOL),
-            10 => ::std::option::Some(HTTP_Method::PATCH),
-            _ => ::std::option::None
+            0 => ::std::option::Option::Some(HTTP_Method::METHOD_UNKNOWN),
+            1 => ::std::option::Option::Some(HTTP_Method::GET),
+            2 => ::std::option::Option::Some(HTTP_Method::POST),
+            3 => ::std::option::Option::Some(HTTP_Method::DELETE),
+            4 => ::std::option::Option::Some(HTTP_Method::PUT),
+            5 => ::std::option::Option::Some(HTTP_Method::HEAD),
+            6 => ::std::option::Option::Some(HTTP_Method::PURGE),
+            7 => ::std::option::Option::Some(HTTP_Method::OPTIONS),
+            8 => ::std::option::Option::Some(HTTP_Method::PROPFIND),
+            9 => ::std::option::Option::Some(HTTP_Method::MKCOL),
+            10 => ::std::option::Option::Some(HTTP_Method::PATCH),
+            _ => ::std::option::Option::None
         }
     }
 
@@ -800,6 +647,9 @@ impl ::protobuf::ProtobufEnum for HTTP_Method {
     }
 }
 
+impl ::std::kinds::Copy for HTTP_Method {
+}
+
 #[deriving(Clone,Default)]
 pub struct Origin {
     ip: ::protobuf::SingularField<::std::vec::Vec<u8>>,
@@ -810,7 +660,7 @@ pub struct Origin {
     cached_size: ::std::cell::Cell<u32>,
 }
 
-impl<'a> Origin {
+impl Origin {
     pub fn new() -> Origin {
         ::std::default::Default::default()
     }
@@ -824,9 +674,9 @@ impl<'a> Origin {
             instance.get(|| {
                 Origin {
                     ip: ::protobuf::SingularField::none(),
-                    port: ::std::option::None,
+                    port: ::std::option::Option::None,
                     hostname: ::protobuf::SingularField::none(),
-                    protocol: ::std::option::None,
+                    protocol: ::std::option::Option::None,
                     unknown_fields: ::protobuf::UnknownFields::new(),
                     cached_size: ::std::cell::Cell::new(0),
                 }
@@ -851,7 +701,7 @@ impl<'a> Origin {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_ip(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_ip<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
         if self.ip.is_none() {
             self.ip.set_default();
         };
@@ -863,7 +713,7 @@ impl<'a> Origin {
         self.ip.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_ip(&'a self) -> &'a [u8] {
+    pub fn get_ip<'a>(&'a self) -> &'a [u8] {
         match self.ip.as_ref() {
             Some(v) => v.as_slice(),
             None => [].as_slice(),
@@ -873,7 +723,7 @@ impl<'a> Origin {
     // optional uint32 port = 2;
 
     pub fn clear_port(&mut self) {
-        self.port = ::std::option::None;
+        self.port = ::std::option::Option::None;
     }
 
     pub fn has_port(&self) -> bool {
@@ -882,10 +732,10 @@ impl<'a> Origin {
 
     // Param is passed by value, moved
     pub fn set_port(&mut self, v: u32) {
-        self.port = ::std::option::Some(v);
+        self.port = ::std::option::Option::Some(v);
     }
 
-    pub fn get_port(&self) -> u32 {
+    pub fn get_port<'a>(&self) -> u32 {
         self.port.unwrap_or(0)
     }
 
@@ -906,7 +756,7 @@ impl<'a> Origin {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_hostname(&'a mut self) -> &'a mut ::std::string::String {
+    pub fn mut_hostname<'a>(&'a mut self) -> &'a mut ::std::string::String {
         if self.hostname.is_none() {
             self.hostname.set_default();
         };
@@ -918,7 +768,7 @@ impl<'a> Origin {
         self.hostname.take().unwrap_or_else(|| ::std::string::String::new())
     }
 
-    pub fn get_hostname(&'a self) -> &'a str {
+    pub fn get_hostname<'a>(&'a self) -> &'a str {
         match self.hostname.as_ref() {
             Some(v) => v.as_slice(),
             None => "",
@@ -928,7 +778,7 @@ impl<'a> Origin {
     // optional .pb.Origin.Protocol protocol = 4;
 
     pub fn clear_protocol(&mut self) {
-        self.protocol = ::std::option::None;
+        self.protocol = ::std::option::Option::None;
     }
 
     pub fn has_protocol(&self) -> bool {
@@ -937,10 +787,10 @@ impl<'a> Origin {
 
     // Param is passed by value, moved
     pub fn set_protocol(&mut self, v: Origin_Protocol) {
-        self.protocol = ::std::option::Some(v);
+        self.protocol = ::std::option::Option::Some(v);
     }
 
-    pub fn get_protocol(&self) -> Origin_Protocol {
+    pub fn get_protocol<'a>(&self) -> Origin_Protocol {
         self.protocol.unwrap_or(Origin_Protocol::ORIGIN_PROTOCOL_UNKNOWN)
     }
 }
@@ -960,31 +810,31 @@ impl ::protobuf::Message for Origin {
             match field_number {
                 1 => {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = self.ip.set_default();
                     try!(is.read_bytes_into(tmp))
                 },
                 2 => {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = try!(is.read_uint32());
-                    self.port = ::std::option::Some(tmp);
+                    self.port = ::std::option::Option::Some(tmp);
                 },
                 3 => {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = self.hostname.set_default();
                     try!(is.read_string_into(tmp))
                 },
                 4 => {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = try!(is.read_enum());
-                    self.protocol = ::std::option::Some(tmp);
+                    self.protocol = ::std::option::Option::Some(tmp);
                 },
                 _ => {
                     let unknown = try!(is.read_unknown(wire_type));
@@ -992,7 +842,7 @@ impl ::protobuf::Message for Origin {
                 },
             };
         }
-        ::std::result::Ok(())
+        ::std::result::Result::Ok(())
     }
 
     // Compute sizes of nested messages
@@ -1016,32 +866,20 @@ impl ::protobuf::Message for Origin {
     }
 
     fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream) -> ::protobuf::ProtobufResult<()> {
-        match self.ip.as_ref() {
-            Some(v) => {
-                try!(os.write_bytes(1, v.as_slice()));
-            },
-            None => {},
+        if let Some(v) = self.ip.as_ref() {
+            try!(os.write_bytes(1, v.as_slice()));
         };
-        match self.port {
-            Some(v) => {
-                try!(os.write_uint32(2, v));
-            },
-            None => {},
+        if let Some(v) = self.port {
+            try!(os.write_uint32(2, v));
         };
-        match self.hostname.as_ref() {
-            Some(v) => {
-                try!(os.write_string(3, v.as_slice()));
-            },
-            None => {},
+        if let Some(v) = self.hostname.as_ref() {
+            try!(os.write_string(3, v.as_slice()));
         };
-        match self.protocol {
-            Some(v) => {
-                try!(os.write_enum(4, v as i32));
-            },
-            None => {},
+        if let Some(v) = self.protocol {
+            try!(os.write_enum(4, v as i32));
         };
         try!(os.write_unknown_fields(self.get_unknown_fields()));
-        ::std::result::Ok(())
+        ::std::result::Result::Ok(())
     }
 
     fn get_cached_size(&self) -> u32 {
@@ -1064,11 +902,27 @@ impl ::protobuf::Message for Origin {
         };
         unsafe {
             descriptor.get(|| {
-                let mut fields: ::std::vec::Vec<&'static ::protobuf::reflect::FieldAccessor<Origin>> = ::std::vec::Vec::new();
-                fields.push(unsafe { ::std::mem::transmute(&Origin_ip_acc as &'static ::protobuf::reflect::FieldAccessor<Origin>) });
-                fields.push(unsafe { ::std::mem::transmute(&Origin_port_acc as &'static ::protobuf::reflect::FieldAccessor<Origin>) });
-                fields.push(unsafe { ::std::mem::transmute(&Origin_hostname_acc as &'static ::protobuf::reflect::FieldAccessor<Origin>) });
-                fields.push(unsafe { ::std::mem::transmute(&Origin_protocol_acc as &'static ::protobuf::reflect::FieldAccessor<Origin>) });
+                let mut fields = ::std::vec::Vec::new();
+                fields.push(::protobuf::reflect::accessor::make_singular_bytes_accessor(
+                    "ip",
+                    Origin::has_ip,
+                    Origin::get_ip,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_u32_accessor(
+                    "port",
+                    Origin::has_port,
+                    Origin::get_port,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_string_accessor(
+                    "hostname",
+                    Origin::has_hostname,
+                    Origin::get_hostname,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_enum_accessor(
+                    "protocol",
+                    Origin::has_protocol,
+                    Origin::get_protocol,
+                ));
                 ::protobuf::reflect::MessageDescriptor::new::<Origin>(
                     "Origin",
                     fields,
@@ -1109,86 +963,12 @@ impl ::std::fmt::Show for Origin {
     }
 }
 
-
-#[allow(non_camel_case_types)]
-struct Origin_ip_acc_type;
-static Origin_ip_acc: Origin_ip_acc_type = Origin_ip_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<Origin> for Origin_ip_acc_type {
-    fn name(&self) -> &'static str {
-        "ip"
-    }
-
-    fn has_field(&self, m: &Origin) -> bool {
-        m.has_ip()
-    }
-
-    fn get_bytes<'a>(&self, m: &'a Origin) -> &'a [u8] {
-        m.get_ip()
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct Origin_port_acc_type;
-static Origin_port_acc: Origin_port_acc_type = Origin_port_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<Origin> for Origin_port_acc_type {
-    fn name(&self) -> &'static str {
-        "port"
-    }
-
-    fn has_field(&self, m: &Origin) -> bool {
-        m.has_port()
-    }
-
-    fn get_u32(&self, m: &Origin) -> u32 {
-        m.get_port()
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct Origin_hostname_acc_type;
-static Origin_hostname_acc: Origin_hostname_acc_type = Origin_hostname_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<Origin> for Origin_hostname_acc_type {
-    fn name(&self) -> &'static str {
-        "hostname"
-    }
-
-    fn has_field(&self, m: &Origin) -> bool {
-        m.has_hostname()
-    }
-
-    fn get_str<'a>(&self, m: &'a Origin) -> &'a str {
-        m.get_hostname()
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct Origin_protocol_acc_type;
-static Origin_protocol_acc: Origin_protocol_acc_type = Origin_protocol_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<Origin> for Origin_protocol_acc_type {
-    fn name(&self) -> &'static str {
-        "protocol"
-    }
-
-    fn has_field(&self, m: &Origin) -> bool {
-        m.has_protocol()
-    }
-
-    fn get_enum<'a>(&self, m: &Origin) -> &'static ::protobuf::reflect::EnumValueDescriptor {
-        m.get_protocol().descriptor()
-    }
-}
-
 #[deriving(Clone,PartialEq,Eq,Show)]
 pub enum Origin_Protocol {
     ORIGIN_PROTOCOL_UNKNOWN = 0,
     HTTP = 1,
     HTTPS = 2,
 }
-
 
 impl ::protobuf::ProtobufEnum for Origin_Protocol {
     fn value(&self) -> i32 {
@@ -1197,10 +977,10 @@ impl ::protobuf::ProtobufEnum for Origin_Protocol {
 
     fn from_i32(value: i32) -> ::std::option::Option<Origin_Protocol> {
         match value {
-            0 => ::std::option::Some(Origin_Protocol::ORIGIN_PROTOCOL_UNKNOWN),
-            1 => ::std::option::Some(Origin_Protocol::HTTP),
-            2 => ::std::option::Some(Origin_Protocol::HTTPS),
-            _ => ::std::option::None
+            0 => ::std::option::Option::Some(Origin_Protocol::ORIGIN_PROTOCOL_UNKNOWN),
+            1 => ::std::option::Option::Some(Origin_Protocol::HTTP),
+            2 => ::std::option::Option::Some(Origin_Protocol::HTTPS),
+            _ => ::std::option::Option::None
         }
     }
 
@@ -1215,6 +995,9 @@ impl ::protobuf::ProtobufEnum for Origin_Protocol {
             })
         }
     }
+}
+
+impl ::std::kinds::Copy for Origin_Protocol {
 }
 
 #[deriving(Clone,Default)]
@@ -1235,7 +1018,7 @@ pub struct Log {
     cached_size: ::std::cell::Cell<u32>,
 }
 
-impl<'a> Log {
+impl Log {
     pub fn new() -> Log {
         ::std::default::Default::default()
     }
@@ -1248,17 +1031,17 @@ impl<'a> Log {
         unsafe {
             instance.get(|| {
                 Log {
-                    timestamp: ::std::option::None,
-                    zone_id: ::std::option::None,
-                    zone_plan: ::std::option::None,
+                    timestamp: ::std::option::Option::None,
+                    zone_id: ::std::option::Option::None,
+                    zone_plan: ::std::option::Option::None,
                     http: ::protobuf::SingularPtrField::none(),
                     origin: ::protobuf::SingularPtrField::none(),
-                    country: ::std::option::None,
-                    cache_status: ::std::option::None,
+                    country: ::std::option::Option::None,
+                    cache_status: ::std::option::Option::None,
                     server_ip: ::protobuf::SingularField::none(),
                     server_name: ::protobuf::SingularField::none(),
                     remote_ip: ::protobuf::SingularField::none(),
-                    bytes_dlv: ::std::option::None,
+                    bytes_dlv: ::std::option::Option::None,
                     ray_id: ::protobuf::SingularField::none(),
                     unknown_fields: ::protobuf::UnknownFields::new(),
                     cached_size: ::std::cell::Cell::new(0),
@@ -1270,7 +1053,7 @@ impl<'a> Log {
     // optional sfixed64 timestamp = 1;
 
     pub fn clear_timestamp(&mut self) {
-        self.timestamp = ::std::option::None;
+        self.timestamp = ::std::option::Option::None;
     }
 
     pub fn has_timestamp(&self) -> bool {
@@ -1279,17 +1062,17 @@ impl<'a> Log {
 
     // Param is passed by value, moved
     pub fn set_timestamp(&mut self, v: i64) {
-        self.timestamp = ::std::option::Some(v);
+        self.timestamp = ::std::option::Option::Some(v);
     }
 
-    pub fn get_timestamp(&self) -> i64 {
+    pub fn get_timestamp<'a>(&self) -> i64 {
         self.timestamp.unwrap_or(0)
     }
 
     // optional uint32 zone_id = 2;
 
     pub fn clear_zone_id(&mut self) {
-        self.zone_id = ::std::option::None;
+        self.zone_id = ::std::option::Option::None;
     }
 
     pub fn has_zone_id(&self) -> bool {
@@ -1298,17 +1081,17 @@ impl<'a> Log {
 
     // Param is passed by value, moved
     pub fn set_zone_id(&mut self, v: u32) {
-        self.zone_id = ::std::option::Some(v);
+        self.zone_id = ::std::option::Option::Some(v);
     }
 
-    pub fn get_zone_id(&self) -> u32 {
+    pub fn get_zone_id<'a>(&self) -> u32 {
         self.zone_id.unwrap_or(0)
     }
 
     // optional .pb.ZonePlan zone_plan = 3;
 
     pub fn clear_zone_plan(&mut self) {
-        self.zone_plan = ::std::option::None;
+        self.zone_plan = ::std::option::Option::None;
     }
 
     pub fn has_zone_plan(&self) -> bool {
@@ -1317,10 +1100,10 @@ impl<'a> Log {
 
     // Param is passed by value, moved
     pub fn set_zone_plan(&mut self, v: ZonePlan) {
-        self.zone_plan = ::std::option::Some(v);
+        self.zone_plan = ::std::option::Option::Some(v);
     }
 
-    pub fn get_zone_plan(&self) -> ZonePlan {
+    pub fn get_zone_plan<'a>(&self) -> ZonePlan {
         self.zone_plan.unwrap_or(ZonePlan::ZONEPLAN_UNKNOWN)
     }
 
@@ -1341,7 +1124,7 @@ impl<'a> Log {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_http(&'a mut self) -> &'a mut HTTP {
+    pub fn mut_http<'a>(&'a mut self) -> &'a mut HTTP {
         if self.http.is_none() {
             self.http.set_default();
         };
@@ -1353,7 +1136,7 @@ impl<'a> Log {
         self.http.take().unwrap_or_else(|| HTTP::new())
     }
 
-    pub fn get_http(&'a self) -> &'a HTTP {
+    pub fn get_http<'a>(&'a self) -> &'a HTTP {
         self.http.as_ref().unwrap_or_else(|| HTTP::default_instance())
     }
 
@@ -1374,7 +1157,7 @@ impl<'a> Log {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_origin(&'a mut self) -> &'a mut Origin {
+    pub fn mut_origin<'a>(&'a mut self) -> &'a mut Origin {
         if self.origin.is_none() {
             self.origin.set_default();
         };
@@ -1386,14 +1169,14 @@ impl<'a> Log {
         self.origin.take().unwrap_or_else(|| Origin::new())
     }
 
-    pub fn get_origin(&'a self) -> &'a Origin {
+    pub fn get_origin<'a>(&'a self) -> &'a Origin {
         self.origin.as_ref().unwrap_or_else(|| Origin::default_instance())
     }
 
     // optional .pb.Country country = 6;
 
     pub fn clear_country(&mut self) {
-        self.country = ::std::option::None;
+        self.country = ::std::option::Option::None;
     }
 
     pub fn has_country(&self) -> bool {
@@ -1402,17 +1185,17 @@ impl<'a> Log {
 
     // Param is passed by value, moved
     pub fn set_country(&mut self, v: Country) {
-        self.country = ::std::option::Some(v);
+        self.country = ::std::option::Option::Some(v);
     }
 
-    pub fn get_country(&self) -> Country {
+    pub fn get_country<'a>(&self) -> Country {
         self.country.unwrap_or(Country::UNKNOWN)
     }
 
     // optional .pb.CacheStatus cache_status = 7;
 
     pub fn clear_cache_status(&mut self) {
-        self.cache_status = ::std::option::None;
+        self.cache_status = ::std::option::Option::None;
     }
 
     pub fn has_cache_status(&self) -> bool {
@@ -1421,10 +1204,10 @@ impl<'a> Log {
 
     // Param is passed by value, moved
     pub fn set_cache_status(&mut self, v: CacheStatus) {
-        self.cache_status = ::std::option::Some(v);
+        self.cache_status = ::std::option::Option::Some(v);
     }
 
-    pub fn get_cache_status(&self) -> CacheStatus {
+    pub fn get_cache_status<'a>(&self) -> CacheStatus {
         self.cache_status.unwrap_or(CacheStatus::CACHESTATUS_UNKNOWN)
     }
 
@@ -1445,7 +1228,7 @@ impl<'a> Log {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_server_ip(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_server_ip<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
         if self.server_ip.is_none() {
             self.server_ip.set_default();
         };
@@ -1457,7 +1240,7 @@ impl<'a> Log {
         self.server_ip.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_server_ip(&'a self) -> &'a [u8] {
+    pub fn get_server_ip<'a>(&'a self) -> &'a [u8] {
         match self.server_ip.as_ref() {
             Some(v) => v.as_slice(),
             None => [].as_slice(),
@@ -1481,7 +1264,7 @@ impl<'a> Log {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_server_name(&'a mut self) -> &'a mut ::std::string::String {
+    pub fn mut_server_name<'a>(&'a mut self) -> &'a mut ::std::string::String {
         if self.server_name.is_none() {
             self.server_name.set_default();
         };
@@ -1493,7 +1276,7 @@ impl<'a> Log {
         self.server_name.take().unwrap_or_else(|| ::std::string::String::new())
     }
 
-    pub fn get_server_name(&'a self) -> &'a str {
+    pub fn get_server_name<'a>(&'a self) -> &'a str {
         match self.server_name.as_ref() {
             Some(v) => v.as_slice(),
             None => "",
@@ -1517,7 +1300,7 @@ impl<'a> Log {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_remote_ip(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_remote_ip<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
         if self.remote_ip.is_none() {
             self.remote_ip.set_default();
         };
@@ -1529,7 +1312,7 @@ impl<'a> Log {
         self.remote_ip.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_remote_ip(&'a self) -> &'a [u8] {
+    pub fn get_remote_ip<'a>(&'a self) -> &'a [u8] {
         match self.remote_ip.as_ref() {
             Some(v) => v.as_slice(),
             None => [].as_slice(),
@@ -1539,7 +1322,7 @@ impl<'a> Log {
     // optional uint64 bytes_dlv = 11;
 
     pub fn clear_bytes_dlv(&mut self) {
-        self.bytes_dlv = ::std::option::None;
+        self.bytes_dlv = ::std::option::Option::None;
     }
 
     pub fn has_bytes_dlv(&self) -> bool {
@@ -1548,10 +1331,10 @@ impl<'a> Log {
 
     // Param is passed by value, moved
     pub fn set_bytes_dlv(&mut self, v: u64) {
-        self.bytes_dlv = ::std::option::Some(v);
+        self.bytes_dlv = ::std::option::Option::Some(v);
     }
 
-    pub fn get_bytes_dlv(&self) -> u64 {
+    pub fn get_bytes_dlv<'a>(&self) -> u64 {
         self.bytes_dlv.unwrap_or(0)
     }
 
@@ -1572,7 +1355,7 @@ impl<'a> Log {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_ray_id(&'a mut self) -> &'a mut ::std::string::String {
+    pub fn mut_ray_id<'a>(&'a mut self) -> &'a mut ::std::string::String {
         if self.ray_id.is_none() {
             self.ray_id.set_default();
         };
@@ -1584,7 +1367,7 @@ impl<'a> Log {
         self.ray_id.take().unwrap_or_else(|| ::std::string::String::new())
     }
 
-    pub fn get_ray_id(&'a self) -> &'a str {
+    pub fn get_ray_id<'a>(&'a self) -> &'a str {
         match self.ray_id.as_ref() {
             Some(v) => v.as_slice(),
             None => "",
@@ -1607,84 +1390,84 @@ impl ::protobuf::Message for Log {
             match field_number {
                 1 => {
                     if wire_type != ::protobuf::wire_format::WireTypeFixed64 {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = try!(is.read_sfixed64());
-                    self.timestamp = ::std::option::Some(tmp);
+                    self.timestamp = ::std::option::Option::Some(tmp);
                 },
                 2 => {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = try!(is.read_uint32());
-                    self.zone_id = ::std::option::Some(tmp);
+                    self.zone_id = ::std::option::Option::Some(tmp);
                 },
                 3 => {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = try!(is.read_enum());
-                    self.zone_plan = ::std::option::Some(tmp);
+                    self.zone_plan = ::std::option::Option::Some(tmp);
                 },
                 4 => {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = self.http.set_default();
                     try!(is.merge_message(tmp))
                 },
                 5 => {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = self.origin.set_default();
                     try!(is.merge_message(tmp))
                 },
                 6 => {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = try!(is.read_enum());
-                    self.country = ::std::option::Some(tmp);
+                    self.country = ::std::option::Option::Some(tmp);
                 },
                 7 => {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = try!(is.read_enum());
-                    self.cache_status = ::std::option::Some(tmp);
+                    self.cache_status = ::std::option::Option::Some(tmp);
                 },
                 8 => {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = self.server_ip.set_default();
                     try!(is.read_bytes_into(tmp))
                 },
                 9 => {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = self.server_name.set_default();
                     try!(is.read_string_into(tmp))
                 },
                 10 => {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = self.remote_ip.set_default();
                     try!(is.read_bytes_into(tmp))
                 },
                 11 => {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = try!(is.read_uint64());
-                    self.bytes_dlv = ::std::option::Some(tmp);
+                    self.bytes_dlv = ::std::option::Option::Some(tmp);
                 },
                 12 => {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
-                        return ::std::result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
+                        return ::std::result::Result::Err(::protobuf::ProtobufError::WireError("unexpected wire type".to_string()));
                     };
                     let tmp = self.ray_id.set_default();
                     try!(is.read_string_into(tmp))
@@ -1695,7 +1478,7 @@ impl ::protobuf::Message for Log {
                 },
             };
         }
-        ::std::result::Ok(())
+        ::std::result::Result::Ok(())
     }
 
     // Compute sizes of nested messages
@@ -1745,84 +1528,48 @@ impl ::protobuf::Message for Log {
     }
 
     fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream) -> ::protobuf::ProtobufResult<()> {
-        match self.timestamp {
-            Some(v) => {
-                try!(os.write_sfixed64(1, v));
-            },
-            None => {},
+        if let Some(v) = self.timestamp {
+            try!(os.write_sfixed64(1, v));
         };
-        match self.zone_id {
-            Some(v) => {
-                try!(os.write_uint32(2, v));
-            },
-            None => {},
+        if let Some(v) = self.zone_id {
+            try!(os.write_uint32(2, v));
         };
-        match self.zone_plan {
-            Some(v) => {
-                try!(os.write_enum(3, v as i32));
-            },
-            None => {},
+        if let Some(v) = self.zone_plan {
+            try!(os.write_enum(3, v as i32));
         };
-        match self.http.as_ref() {
-            Some(v) => {
-                try!(os.write_tag(4, ::protobuf::wire_format::WireTypeLengthDelimited));
-                try!(os.write_raw_varint32(v.get_cached_size()));
-                try!(v.write_to_with_cached_sizes(os));
-            },
-            None => {},
+        if let Some(v) = self.http.as_ref() {
+            try!(os.write_tag(4, ::protobuf::wire_format::WireTypeLengthDelimited));
+            try!(os.write_raw_varint32(v.get_cached_size()));
+            try!(v.write_to_with_cached_sizes(os));
         };
-        match self.origin.as_ref() {
-            Some(v) => {
-                try!(os.write_tag(5, ::protobuf::wire_format::WireTypeLengthDelimited));
-                try!(os.write_raw_varint32(v.get_cached_size()));
-                try!(v.write_to_with_cached_sizes(os));
-            },
-            None => {},
+        if let Some(v) = self.origin.as_ref() {
+            try!(os.write_tag(5, ::protobuf::wire_format::WireTypeLengthDelimited));
+            try!(os.write_raw_varint32(v.get_cached_size()));
+            try!(v.write_to_with_cached_sizes(os));
         };
-        match self.country {
-            Some(v) => {
-                try!(os.write_enum(6, v as i32));
-            },
-            None => {},
+        if let Some(v) = self.country {
+            try!(os.write_enum(6, v as i32));
         };
-        match self.cache_status {
-            Some(v) => {
-                try!(os.write_enum(7, v as i32));
-            },
-            None => {},
+        if let Some(v) = self.cache_status {
+            try!(os.write_enum(7, v as i32));
         };
-        match self.server_ip.as_ref() {
-            Some(v) => {
-                try!(os.write_bytes(8, v.as_slice()));
-            },
-            None => {},
+        if let Some(v) = self.server_ip.as_ref() {
+            try!(os.write_bytes(8, v.as_slice()));
         };
-        match self.server_name.as_ref() {
-            Some(v) => {
-                try!(os.write_string(9, v.as_slice()));
-            },
-            None => {},
+        if let Some(v) = self.server_name.as_ref() {
+            try!(os.write_string(9, v.as_slice()));
         };
-        match self.remote_ip.as_ref() {
-            Some(v) => {
-                try!(os.write_bytes(10, v.as_slice()));
-            },
-            None => {},
+        if let Some(v) = self.remote_ip.as_ref() {
+            try!(os.write_bytes(10, v.as_slice()));
         };
-        match self.bytes_dlv {
-            Some(v) => {
-                try!(os.write_uint64(11, v));
-            },
-            None => {},
+        if let Some(v) = self.bytes_dlv {
+            try!(os.write_uint64(11, v));
         };
-        match self.ray_id.as_ref() {
-            Some(v) => {
-                try!(os.write_string(12, v.as_slice()));
-            },
-            None => {},
+        if let Some(v) = self.ray_id.as_ref() {
+            try!(os.write_string(12, v.as_slice()));
         };
         try!(os.write_unknown_fields(self.get_unknown_fields()));
-        ::std::result::Ok(())
+        ::std::result::Result::Ok(())
     }
 
     fn get_cached_size(&self) -> u32 {
@@ -1845,19 +1592,67 @@ impl ::protobuf::Message for Log {
         };
         unsafe {
             descriptor.get(|| {
-                let mut fields: ::std::vec::Vec<&'static ::protobuf::reflect::FieldAccessor<Log>> = ::std::vec::Vec::new();
-                fields.push(unsafe { ::std::mem::transmute(&Log_timestamp_acc as &'static ::protobuf::reflect::FieldAccessor<Log>) });
-                fields.push(unsafe { ::std::mem::transmute(&Log_zone_id_acc as &'static ::protobuf::reflect::FieldAccessor<Log>) });
-                fields.push(unsafe { ::std::mem::transmute(&Log_zone_plan_acc as &'static ::protobuf::reflect::FieldAccessor<Log>) });
-                fields.push(unsafe { ::std::mem::transmute(&Log_http_acc as &'static ::protobuf::reflect::FieldAccessor<Log>) });
-                fields.push(unsafe { ::std::mem::transmute(&Log_origin_acc as &'static ::protobuf::reflect::FieldAccessor<Log>) });
-                fields.push(unsafe { ::std::mem::transmute(&Log_country_acc as &'static ::protobuf::reflect::FieldAccessor<Log>) });
-                fields.push(unsafe { ::std::mem::transmute(&Log_cache_status_acc as &'static ::protobuf::reflect::FieldAccessor<Log>) });
-                fields.push(unsafe { ::std::mem::transmute(&Log_server_ip_acc as &'static ::protobuf::reflect::FieldAccessor<Log>) });
-                fields.push(unsafe { ::std::mem::transmute(&Log_server_name_acc as &'static ::protobuf::reflect::FieldAccessor<Log>) });
-                fields.push(unsafe { ::std::mem::transmute(&Log_remote_ip_acc as &'static ::protobuf::reflect::FieldAccessor<Log>) });
-                fields.push(unsafe { ::std::mem::transmute(&Log_bytes_dlv_acc as &'static ::protobuf::reflect::FieldAccessor<Log>) });
-                fields.push(unsafe { ::std::mem::transmute(&Log_ray_id_acc as &'static ::protobuf::reflect::FieldAccessor<Log>) });
+                let mut fields = ::std::vec::Vec::new();
+                fields.push(::protobuf::reflect::accessor::make_singular_i64_accessor(
+                    "timestamp",
+                    Log::has_timestamp,
+                    Log::get_timestamp,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_u32_accessor(
+                    "zone_id",
+                    Log::has_zone_id,
+                    Log::get_zone_id,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_enum_accessor(
+                    "zone_plan",
+                    Log::has_zone_plan,
+                    Log::get_zone_plan,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_message_accessor(
+                    "http",
+                    Log::has_http,
+                    Log::get_http,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_message_accessor(
+                    "origin",
+                    Log::has_origin,
+                    Log::get_origin,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_enum_accessor(
+                    "country",
+                    Log::has_country,
+                    Log::get_country,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_enum_accessor(
+                    "cache_status",
+                    Log::has_cache_status,
+                    Log::get_cache_status,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_bytes_accessor(
+                    "server_ip",
+                    Log::has_server_ip,
+                    Log::get_server_ip,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_string_accessor(
+                    "server_name",
+                    Log::has_server_name,
+                    Log::get_server_name,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_bytes_accessor(
+                    "remote_ip",
+                    Log::has_remote_ip,
+                    Log::get_remote_ip,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_u64_accessor(
+                    "bytes_dlv",
+                    Log::has_bytes_dlv,
+                    Log::get_bytes_dlv,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_string_accessor(
+                    "ray_id",
+                    Log::has_ray_id,
+                    Log::get_ray_id,
+                ));
                 ::protobuf::reflect::MessageDescriptor::new::<Log>(
                     "Log",
                     fields,
@@ -1914,223 +1709,6 @@ impl ::std::fmt::Show for Log {
     }
 }
 
-
-#[allow(non_camel_case_types)]
-struct Log_timestamp_acc_type;
-static Log_timestamp_acc: Log_timestamp_acc_type = Log_timestamp_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<Log> for Log_timestamp_acc_type {
-    fn name(&self) -> &'static str {
-        "timestamp"
-    }
-
-    fn has_field(&self, m: &Log) -> bool {
-        m.has_timestamp()
-    }
-
-    fn get_i64(&self, m: &Log) -> i64 {
-        m.get_timestamp()
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct Log_zone_id_acc_type;
-static Log_zone_id_acc: Log_zone_id_acc_type = Log_zone_id_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<Log> for Log_zone_id_acc_type {
-    fn name(&self) -> &'static str {
-        "zone_id"
-    }
-
-    fn has_field(&self, m: &Log) -> bool {
-        m.has_zone_id()
-    }
-
-    fn get_u32(&self, m: &Log) -> u32 {
-        m.get_zone_id()
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct Log_zone_plan_acc_type;
-static Log_zone_plan_acc: Log_zone_plan_acc_type = Log_zone_plan_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<Log> for Log_zone_plan_acc_type {
-    fn name(&self) -> &'static str {
-        "zone_plan"
-    }
-
-    fn has_field(&self, m: &Log) -> bool {
-        m.has_zone_plan()
-    }
-
-    fn get_enum<'a>(&self, m: &Log) -> &'static ::protobuf::reflect::EnumValueDescriptor {
-        m.get_zone_plan().descriptor()
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct Log_http_acc_type;
-static Log_http_acc: Log_http_acc_type = Log_http_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<Log> for Log_http_acc_type {
-    fn name(&self) -> &'static str {
-        "http"
-    }
-
-    fn has_field(&self, m: &Log) -> bool {
-        m.has_http()
-    }
-
-    fn get_message<'a>(&self, m: &'a Log) -> &'a ::protobuf::Message {
-        m.get_http() as &'a ::protobuf::Message
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct Log_origin_acc_type;
-static Log_origin_acc: Log_origin_acc_type = Log_origin_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<Log> for Log_origin_acc_type {
-    fn name(&self) -> &'static str {
-        "origin"
-    }
-
-    fn has_field(&self, m: &Log) -> bool {
-        m.has_origin()
-    }
-
-    fn get_message<'a>(&self, m: &'a Log) -> &'a ::protobuf::Message {
-        m.get_origin() as &'a ::protobuf::Message
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct Log_country_acc_type;
-static Log_country_acc: Log_country_acc_type = Log_country_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<Log> for Log_country_acc_type {
-    fn name(&self) -> &'static str {
-        "country"
-    }
-
-    fn has_field(&self, m: &Log) -> bool {
-        m.has_country()
-    }
-
-    fn get_enum<'a>(&self, m: &Log) -> &'static ::protobuf::reflect::EnumValueDescriptor {
-        m.get_country().descriptor()
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct Log_cache_status_acc_type;
-static Log_cache_status_acc: Log_cache_status_acc_type = Log_cache_status_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<Log> for Log_cache_status_acc_type {
-    fn name(&self) -> &'static str {
-        "cache_status"
-    }
-
-    fn has_field(&self, m: &Log) -> bool {
-        m.has_cache_status()
-    }
-
-    fn get_enum<'a>(&self, m: &Log) -> &'static ::protobuf::reflect::EnumValueDescriptor {
-        m.get_cache_status().descriptor()
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct Log_server_ip_acc_type;
-static Log_server_ip_acc: Log_server_ip_acc_type = Log_server_ip_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<Log> for Log_server_ip_acc_type {
-    fn name(&self) -> &'static str {
-        "server_ip"
-    }
-
-    fn has_field(&self, m: &Log) -> bool {
-        m.has_server_ip()
-    }
-
-    fn get_bytes<'a>(&self, m: &'a Log) -> &'a [u8] {
-        m.get_server_ip()
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct Log_server_name_acc_type;
-static Log_server_name_acc: Log_server_name_acc_type = Log_server_name_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<Log> for Log_server_name_acc_type {
-    fn name(&self) -> &'static str {
-        "server_name"
-    }
-
-    fn has_field(&self, m: &Log) -> bool {
-        m.has_server_name()
-    }
-
-    fn get_str<'a>(&self, m: &'a Log) -> &'a str {
-        m.get_server_name()
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct Log_remote_ip_acc_type;
-static Log_remote_ip_acc: Log_remote_ip_acc_type = Log_remote_ip_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<Log> for Log_remote_ip_acc_type {
-    fn name(&self) -> &'static str {
-        "remote_ip"
-    }
-
-    fn has_field(&self, m: &Log) -> bool {
-        m.has_remote_ip()
-    }
-
-    fn get_bytes<'a>(&self, m: &'a Log) -> &'a [u8] {
-        m.get_remote_ip()
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct Log_bytes_dlv_acc_type;
-static Log_bytes_dlv_acc: Log_bytes_dlv_acc_type = Log_bytes_dlv_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<Log> for Log_bytes_dlv_acc_type {
-    fn name(&self) -> &'static str {
-        "bytes_dlv"
-    }
-
-    fn has_field(&self, m: &Log) -> bool {
-        m.has_bytes_dlv()
-    }
-
-    fn get_u64(&self, m: &Log) -> u64 {
-        m.get_bytes_dlv()
-    }
-}
-
-#[allow(non_camel_case_types)]
-struct Log_ray_id_acc_type;
-static Log_ray_id_acc: Log_ray_id_acc_type = Log_ray_id_acc_type;
-
-impl ::protobuf::reflect::FieldAccessor<Log> for Log_ray_id_acc_type {
-    fn name(&self) -> &'static str {
-        "ray_id"
-    }
-
-    fn has_field(&self, m: &Log) -> bool {
-        m.has_ray_id()
-    }
-
-    fn get_str<'a>(&self, m: &'a Log) -> &'a str {
-        m.get_ray_id()
-    }
-}
-
 #[deriving(Clone,PartialEq,Eq,Show)]
 pub enum CacheStatus {
     CACHESTATUS_UNKNOWN = 0,
@@ -2139,7 +1717,6 @@ pub enum CacheStatus {
     HIT = 3,
 }
 
-
 impl ::protobuf::ProtobufEnum for CacheStatus {
     fn value(&self) -> i32 {
         *self as i32
@@ -2147,11 +1724,11 @@ impl ::protobuf::ProtobufEnum for CacheStatus {
 
     fn from_i32(value: i32) -> ::std::option::Option<CacheStatus> {
         match value {
-            0 => ::std::option::Some(CacheStatus::CACHESTATUS_UNKNOWN),
-            1 => ::std::option::Some(CacheStatus::MISS),
-            2 => ::std::option::Some(CacheStatus::EXPIRED),
-            3 => ::std::option::Some(CacheStatus::HIT),
-            _ => ::std::option::None
+            0 => ::std::option::Option::Some(CacheStatus::CACHESTATUS_UNKNOWN),
+            1 => ::std::option::Option::Some(CacheStatus::MISS),
+            2 => ::std::option::Option::Some(CacheStatus::EXPIRED),
+            3 => ::std::option::Option::Some(CacheStatus::HIT),
+            _ => ::std::option::Option::None
         }
     }
 
@@ -2168,6 +1745,9 @@ impl ::protobuf::ProtobufEnum for CacheStatus {
     }
 }
 
+impl ::std::kinds::Copy for CacheStatus {
+}
+
 #[deriving(Clone,PartialEq,Eq,Show)]
 pub enum ZonePlan {
     ZONEPLAN_UNKNOWN = 0,
@@ -2177,7 +1757,6 @@ pub enum ZonePlan {
     ENT = 4,
 }
 
-
 impl ::protobuf::ProtobufEnum for ZonePlan {
     fn value(&self) -> i32 {
         *self as i32
@@ -2185,12 +1764,12 @@ impl ::protobuf::ProtobufEnum for ZonePlan {
 
     fn from_i32(value: i32) -> ::std::option::Option<ZonePlan> {
         match value {
-            0 => ::std::option::Some(ZonePlan::ZONEPLAN_UNKNOWN),
-            1 => ::std::option::Some(ZonePlan::FREE),
-            2 => ::std::option::Some(ZonePlan::PRO),
-            3 => ::std::option::Some(ZonePlan::BIZ),
-            4 => ::std::option::Some(ZonePlan::ENT),
-            _ => ::std::option::None
+            0 => ::std::option::Option::Some(ZonePlan::ZONEPLAN_UNKNOWN),
+            1 => ::std::option::Option::Some(ZonePlan::FREE),
+            2 => ::std::option::Option::Some(ZonePlan::PRO),
+            3 => ::std::option::Option::Some(ZonePlan::BIZ),
+            4 => ::std::option::Option::Some(ZonePlan::ENT),
+            _ => ::std::option::Option::None
         }
     }
 
@@ -2205,6 +1784,9 @@ impl ::protobuf::ProtobufEnum for ZonePlan {
             })
         }
     }
+}
+
+impl ::std::kinds::Copy for ZonePlan {
 }
 
 #[deriving(Clone,PartialEq,Eq,Show)]
@@ -2467,7 +2049,6 @@ pub enum Country {
     ZW = 255,
 }
 
-
 impl ::protobuf::ProtobufEnum for Country {
     fn value(&self) -> i32 {
         *self as i32
@@ -2475,263 +2056,263 @@ impl ::protobuf::ProtobufEnum for Country {
 
     fn from_i32(value: i32) -> ::std::option::Option<Country> {
         match value {
-            0 => ::std::option::Some(Country::UNKNOWN),
-            1 => ::std::option::Some(Country::A1),
-            2 => ::std::option::Some(Country::A2),
-            3 => ::std::option::Some(Country::O1),
-            4 => ::std::option::Some(Country::AD),
-            5 => ::std::option::Some(Country::AE),
-            6 => ::std::option::Some(Country::AF),
-            7 => ::std::option::Some(Country::AG),
-            8 => ::std::option::Some(Country::AI),
-            9 => ::std::option::Some(Country::AL),
-            10 => ::std::option::Some(Country::AM),
-            11 => ::std::option::Some(Country::AO),
-            12 => ::std::option::Some(Country::AP),
-            13 => ::std::option::Some(Country::AQ),
-            14 => ::std::option::Some(Country::AR),
-            15 => ::std::option::Some(Country::AS),
-            16 => ::std::option::Some(Country::AT),
-            17 => ::std::option::Some(Country::AU),
-            18 => ::std::option::Some(Country::AW),
-            19 => ::std::option::Some(Country::AX),
-            20 => ::std::option::Some(Country::AZ),
-            21 => ::std::option::Some(Country::BA),
-            22 => ::std::option::Some(Country::BB),
-            23 => ::std::option::Some(Country::BD),
-            24 => ::std::option::Some(Country::BE),
-            25 => ::std::option::Some(Country::BF),
-            26 => ::std::option::Some(Country::BG),
-            27 => ::std::option::Some(Country::BH),
-            28 => ::std::option::Some(Country::BI),
-            29 => ::std::option::Some(Country::BJ),
-            30 => ::std::option::Some(Country::BL),
-            31 => ::std::option::Some(Country::BM),
-            32 => ::std::option::Some(Country::BN),
-            33 => ::std::option::Some(Country::BO),
-            34 => ::std::option::Some(Country::BQ),
-            35 => ::std::option::Some(Country::BR),
-            36 => ::std::option::Some(Country::BS),
-            37 => ::std::option::Some(Country::BT),
-            38 => ::std::option::Some(Country::BV),
-            39 => ::std::option::Some(Country::BW),
-            40 => ::std::option::Some(Country::BY),
-            41 => ::std::option::Some(Country::BZ),
-            42 => ::std::option::Some(Country::CA),
-            43 => ::std::option::Some(Country::CC),
-            44 => ::std::option::Some(Country::CD),
-            45 => ::std::option::Some(Country::CF),
-            46 => ::std::option::Some(Country::CG),
-            47 => ::std::option::Some(Country::CH),
-            48 => ::std::option::Some(Country::CI),
-            49 => ::std::option::Some(Country::CK),
-            50 => ::std::option::Some(Country::CL),
-            51 => ::std::option::Some(Country::CM),
-            52 => ::std::option::Some(Country::CN),
-            53 => ::std::option::Some(Country::CO),
-            54 => ::std::option::Some(Country::CR),
-            55 => ::std::option::Some(Country::CU),
-            56 => ::std::option::Some(Country::CV),
-            57 => ::std::option::Some(Country::CW),
-            58 => ::std::option::Some(Country::CX),
-            59 => ::std::option::Some(Country::CY),
-            60 => ::std::option::Some(Country::CZ),
-            61 => ::std::option::Some(Country::DE),
-            62 => ::std::option::Some(Country::DJ),
-            63 => ::std::option::Some(Country::DK),
-            64 => ::std::option::Some(Country::DM),
-            65 => ::std::option::Some(Country::DO),
-            66 => ::std::option::Some(Country::DZ),
-            67 => ::std::option::Some(Country::EC),
-            68 => ::std::option::Some(Country::EE),
-            69 => ::std::option::Some(Country::EG),
-            70 => ::std::option::Some(Country::EH),
-            71 => ::std::option::Some(Country::ER),
-            72 => ::std::option::Some(Country::ES),
-            73 => ::std::option::Some(Country::ET),
-            74 => ::std::option::Some(Country::EU),
-            75 => ::std::option::Some(Country::FI),
-            76 => ::std::option::Some(Country::FJ),
-            77 => ::std::option::Some(Country::FK),
-            78 => ::std::option::Some(Country::FM),
-            79 => ::std::option::Some(Country::FO),
-            80 => ::std::option::Some(Country::FR),
-            81 => ::std::option::Some(Country::GA),
-            82 => ::std::option::Some(Country::GB),
-            83 => ::std::option::Some(Country::GD),
-            84 => ::std::option::Some(Country::GE),
-            85 => ::std::option::Some(Country::GF),
-            86 => ::std::option::Some(Country::GG),
-            87 => ::std::option::Some(Country::GH),
-            88 => ::std::option::Some(Country::GI),
-            89 => ::std::option::Some(Country::GL),
-            90 => ::std::option::Some(Country::GM),
-            91 => ::std::option::Some(Country::GN),
-            92 => ::std::option::Some(Country::GP),
-            93 => ::std::option::Some(Country::GQ),
-            94 => ::std::option::Some(Country::GR),
-            95 => ::std::option::Some(Country::GS),
-            96 => ::std::option::Some(Country::GT),
-            97 => ::std::option::Some(Country::GU),
-            98 => ::std::option::Some(Country::GW),
-            99 => ::std::option::Some(Country::GY),
-            100 => ::std::option::Some(Country::HK),
-            101 => ::std::option::Some(Country::HM),
-            102 => ::std::option::Some(Country::HN),
-            103 => ::std::option::Some(Country::HR),
-            104 => ::std::option::Some(Country::HT),
-            105 => ::std::option::Some(Country::HU),
-            106 => ::std::option::Some(Country::ID),
-            107 => ::std::option::Some(Country::IE),
-            108 => ::std::option::Some(Country::IL),
-            109 => ::std::option::Some(Country::IM),
-            110 => ::std::option::Some(Country::IN),
-            111 => ::std::option::Some(Country::IO),
-            112 => ::std::option::Some(Country::IQ),
-            113 => ::std::option::Some(Country::IR),
-            114 => ::std::option::Some(Country::IS),
-            115 => ::std::option::Some(Country::IT),
-            116 => ::std::option::Some(Country::JE),
-            117 => ::std::option::Some(Country::JM),
-            118 => ::std::option::Some(Country::JO),
-            119 => ::std::option::Some(Country::JP),
-            120 => ::std::option::Some(Country::KE),
-            121 => ::std::option::Some(Country::KG),
-            122 => ::std::option::Some(Country::KH),
-            123 => ::std::option::Some(Country::KI),
-            124 => ::std::option::Some(Country::KM),
-            125 => ::std::option::Some(Country::KN),
-            126 => ::std::option::Some(Country::KP),
-            127 => ::std::option::Some(Country::KR),
-            128 => ::std::option::Some(Country::KW),
-            129 => ::std::option::Some(Country::KY),
-            130 => ::std::option::Some(Country::KZ),
-            131 => ::std::option::Some(Country::LA),
-            132 => ::std::option::Some(Country::LB),
-            133 => ::std::option::Some(Country::LC),
-            134 => ::std::option::Some(Country::LI),
-            135 => ::std::option::Some(Country::LK),
-            136 => ::std::option::Some(Country::LR),
-            137 => ::std::option::Some(Country::LS),
-            138 => ::std::option::Some(Country::LT),
-            139 => ::std::option::Some(Country::LU),
-            140 => ::std::option::Some(Country::LV),
-            141 => ::std::option::Some(Country::LY),
-            142 => ::std::option::Some(Country::MA),
-            143 => ::std::option::Some(Country::MC),
-            144 => ::std::option::Some(Country::MD),
-            145 => ::std::option::Some(Country::ME),
-            146 => ::std::option::Some(Country::MF),
-            147 => ::std::option::Some(Country::MG),
-            148 => ::std::option::Some(Country::MH),
-            149 => ::std::option::Some(Country::MK),
-            150 => ::std::option::Some(Country::ML),
-            151 => ::std::option::Some(Country::MM),
-            152 => ::std::option::Some(Country::MN),
-            153 => ::std::option::Some(Country::MO),
-            154 => ::std::option::Some(Country::MP),
-            155 => ::std::option::Some(Country::MQ),
-            156 => ::std::option::Some(Country::MR),
-            157 => ::std::option::Some(Country::MS),
-            158 => ::std::option::Some(Country::MT),
-            159 => ::std::option::Some(Country::MU),
-            160 => ::std::option::Some(Country::MV),
-            161 => ::std::option::Some(Country::MW),
-            162 => ::std::option::Some(Country::MX),
-            163 => ::std::option::Some(Country::MY),
-            164 => ::std::option::Some(Country::MZ),
-            165 => ::std::option::Some(Country::NA),
-            166 => ::std::option::Some(Country::NC),
-            167 => ::std::option::Some(Country::NE),
-            168 => ::std::option::Some(Country::NF),
-            169 => ::std::option::Some(Country::NG),
-            170 => ::std::option::Some(Country::NI),
-            171 => ::std::option::Some(Country::NL),
-            172 => ::std::option::Some(Country::NO),
-            173 => ::std::option::Some(Country::NP),
-            174 => ::std::option::Some(Country::NR),
-            175 => ::std::option::Some(Country::NU),
-            176 => ::std::option::Some(Country::NZ),
-            177 => ::std::option::Some(Country::OM),
-            178 => ::std::option::Some(Country::PA),
-            179 => ::std::option::Some(Country::PE),
-            180 => ::std::option::Some(Country::PF),
-            181 => ::std::option::Some(Country::PG),
-            182 => ::std::option::Some(Country::PH),
-            183 => ::std::option::Some(Country::PK),
-            184 => ::std::option::Some(Country::PL),
-            185 => ::std::option::Some(Country::PM),
-            186 => ::std::option::Some(Country::PN),
-            187 => ::std::option::Some(Country::PR),
-            188 => ::std::option::Some(Country::PS),
-            189 => ::std::option::Some(Country::PT),
-            190 => ::std::option::Some(Country::PW),
-            191 => ::std::option::Some(Country::PY),
-            192 => ::std::option::Some(Country::QA),
-            193 => ::std::option::Some(Country::RE),
-            194 => ::std::option::Some(Country::RO),
-            195 => ::std::option::Some(Country::RS),
-            196 => ::std::option::Some(Country::RU),
-            197 => ::std::option::Some(Country::RW),
-            198 => ::std::option::Some(Country::SA),
-            199 => ::std::option::Some(Country::SB),
-            200 => ::std::option::Some(Country::SC),
-            201 => ::std::option::Some(Country::SD),
-            202 => ::std::option::Some(Country::SE),
-            203 => ::std::option::Some(Country::SG),
-            204 => ::std::option::Some(Country::SH),
-            205 => ::std::option::Some(Country::SI),
-            206 => ::std::option::Some(Country::SJ),
-            207 => ::std::option::Some(Country::SK),
-            208 => ::std::option::Some(Country::SL),
-            209 => ::std::option::Some(Country::SM),
-            210 => ::std::option::Some(Country::SN),
-            211 => ::std::option::Some(Country::SO),
-            212 => ::std::option::Some(Country::SR),
-            213 => ::std::option::Some(Country::SS),
-            214 => ::std::option::Some(Country::ST),
-            215 => ::std::option::Some(Country::SV),
-            216 => ::std::option::Some(Country::SX),
-            217 => ::std::option::Some(Country::SY),
-            218 => ::std::option::Some(Country::SZ),
-            219 => ::std::option::Some(Country::TC),
-            220 => ::std::option::Some(Country::TD),
-            221 => ::std::option::Some(Country::TF),
-            222 => ::std::option::Some(Country::TG),
-            223 => ::std::option::Some(Country::TH),
-            224 => ::std::option::Some(Country::TJ),
-            225 => ::std::option::Some(Country::TK),
-            226 => ::std::option::Some(Country::TL),
-            227 => ::std::option::Some(Country::TM),
-            228 => ::std::option::Some(Country::TN),
-            229 => ::std::option::Some(Country::TO),
-            230 => ::std::option::Some(Country::TR),
-            231 => ::std::option::Some(Country::TT),
-            232 => ::std::option::Some(Country::TV),
-            233 => ::std::option::Some(Country::TW),
-            234 => ::std::option::Some(Country::TZ),
-            235 => ::std::option::Some(Country::UA),
-            236 => ::std::option::Some(Country::UG),
-            237 => ::std::option::Some(Country::UM),
-            238 => ::std::option::Some(Country::US),
-            239 => ::std::option::Some(Country::UY),
-            240 => ::std::option::Some(Country::UZ),
-            241 => ::std::option::Some(Country::VA),
-            242 => ::std::option::Some(Country::VC),
-            243 => ::std::option::Some(Country::VE),
-            244 => ::std::option::Some(Country::VG),
-            245 => ::std::option::Some(Country::VI),
-            246 => ::std::option::Some(Country::VN),
-            247 => ::std::option::Some(Country::VU),
-            248 => ::std::option::Some(Country::WF),
-            249 => ::std::option::Some(Country::WS),
-            250 => ::std::option::Some(Country::XX),
-            251 => ::std::option::Some(Country::YE),
-            252 => ::std::option::Some(Country::YT),
-            253 => ::std::option::Some(Country::ZA),
-            254 => ::std::option::Some(Country::ZM),
-            255 => ::std::option::Some(Country::ZW),
-            _ => ::std::option::None
+            0 => ::std::option::Option::Some(Country::UNKNOWN),
+            1 => ::std::option::Option::Some(Country::A1),
+            2 => ::std::option::Option::Some(Country::A2),
+            3 => ::std::option::Option::Some(Country::O1),
+            4 => ::std::option::Option::Some(Country::AD),
+            5 => ::std::option::Option::Some(Country::AE),
+            6 => ::std::option::Option::Some(Country::AF),
+            7 => ::std::option::Option::Some(Country::AG),
+            8 => ::std::option::Option::Some(Country::AI),
+            9 => ::std::option::Option::Some(Country::AL),
+            10 => ::std::option::Option::Some(Country::AM),
+            11 => ::std::option::Option::Some(Country::AO),
+            12 => ::std::option::Option::Some(Country::AP),
+            13 => ::std::option::Option::Some(Country::AQ),
+            14 => ::std::option::Option::Some(Country::AR),
+            15 => ::std::option::Option::Some(Country::AS),
+            16 => ::std::option::Option::Some(Country::AT),
+            17 => ::std::option::Option::Some(Country::AU),
+            18 => ::std::option::Option::Some(Country::AW),
+            19 => ::std::option::Option::Some(Country::AX),
+            20 => ::std::option::Option::Some(Country::AZ),
+            21 => ::std::option::Option::Some(Country::BA),
+            22 => ::std::option::Option::Some(Country::BB),
+            23 => ::std::option::Option::Some(Country::BD),
+            24 => ::std::option::Option::Some(Country::BE),
+            25 => ::std::option::Option::Some(Country::BF),
+            26 => ::std::option::Option::Some(Country::BG),
+            27 => ::std::option::Option::Some(Country::BH),
+            28 => ::std::option::Option::Some(Country::BI),
+            29 => ::std::option::Option::Some(Country::BJ),
+            30 => ::std::option::Option::Some(Country::BL),
+            31 => ::std::option::Option::Some(Country::BM),
+            32 => ::std::option::Option::Some(Country::BN),
+            33 => ::std::option::Option::Some(Country::BO),
+            34 => ::std::option::Option::Some(Country::BQ),
+            35 => ::std::option::Option::Some(Country::BR),
+            36 => ::std::option::Option::Some(Country::BS),
+            37 => ::std::option::Option::Some(Country::BT),
+            38 => ::std::option::Option::Some(Country::BV),
+            39 => ::std::option::Option::Some(Country::BW),
+            40 => ::std::option::Option::Some(Country::BY),
+            41 => ::std::option::Option::Some(Country::BZ),
+            42 => ::std::option::Option::Some(Country::CA),
+            43 => ::std::option::Option::Some(Country::CC),
+            44 => ::std::option::Option::Some(Country::CD),
+            45 => ::std::option::Option::Some(Country::CF),
+            46 => ::std::option::Option::Some(Country::CG),
+            47 => ::std::option::Option::Some(Country::CH),
+            48 => ::std::option::Option::Some(Country::CI),
+            49 => ::std::option::Option::Some(Country::CK),
+            50 => ::std::option::Option::Some(Country::CL),
+            51 => ::std::option::Option::Some(Country::CM),
+            52 => ::std::option::Option::Some(Country::CN),
+            53 => ::std::option::Option::Some(Country::CO),
+            54 => ::std::option::Option::Some(Country::CR),
+            55 => ::std::option::Option::Some(Country::CU),
+            56 => ::std::option::Option::Some(Country::CV),
+            57 => ::std::option::Option::Some(Country::CW),
+            58 => ::std::option::Option::Some(Country::CX),
+            59 => ::std::option::Option::Some(Country::CY),
+            60 => ::std::option::Option::Some(Country::CZ),
+            61 => ::std::option::Option::Some(Country::DE),
+            62 => ::std::option::Option::Some(Country::DJ),
+            63 => ::std::option::Option::Some(Country::DK),
+            64 => ::std::option::Option::Some(Country::DM),
+            65 => ::std::option::Option::Some(Country::DO),
+            66 => ::std::option::Option::Some(Country::DZ),
+            67 => ::std::option::Option::Some(Country::EC),
+            68 => ::std::option::Option::Some(Country::EE),
+            69 => ::std::option::Option::Some(Country::EG),
+            70 => ::std::option::Option::Some(Country::EH),
+            71 => ::std::option::Option::Some(Country::ER),
+            72 => ::std::option::Option::Some(Country::ES),
+            73 => ::std::option::Option::Some(Country::ET),
+            74 => ::std::option::Option::Some(Country::EU),
+            75 => ::std::option::Option::Some(Country::FI),
+            76 => ::std::option::Option::Some(Country::FJ),
+            77 => ::std::option::Option::Some(Country::FK),
+            78 => ::std::option::Option::Some(Country::FM),
+            79 => ::std::option::Option::Some(Country::FO),
+            80 => ::std::option::Option::Some(Country::FR),
+            81 => ::std::option::Option::Some(Country::GA),
+            82 => ::std::option::Option::Some(Country::GB),
+            83 => ::std::option::Option::Some(Country::GD),
+            84 => ::std::option::Option::Some(Country::GE),
+            85 => ::std::option::Option::Some(Country::GF),
+            86 => ::std::option::Option::Some(Country::GG),
+            87 => ::std::option::Option::Some(Country::GH),
+            88 => ::std::option::Option::Some(Country::GI),
+            89 => ::std::option::Option::Some(Country::GL),
+            90 => ::std::option::Option::Some(Country::GM),
+            91 => ::std::option::Option::Some(Country::GN),
+            92 => ::std::option::Option::Some(Country::GP),
+            93 => ::std::option::Option::Some(Country::GQ),
+            94 => ::std::option::Option::Some(Country::GR),
+            95 => ::std::option::Option::Some(Country::GS),
+            96 => ::std::option::Option::Some(Country::GT),
+            97 => ::std::option::Option::Some(Country::GU),
+            98 => ::std::option::Option::Some(Country::GW),
+            99 => ::std::option::Option::Some(Country::GY),
+            100 => ::std::option::Option::Some(Country::HK),
+            101 => ::std::option::Option::Some(Country::HM),
+            102 => ::std::option::Option::Some(Country::HN),
+            103 => ::std::option::Option::Some(Country::HR),
+            104 => ::std::option::Option::Some(Country::HT),
+            105 => ::std::option::Option::Some(Country::HU),
+            106 => ::std::option::Option::Some(Country::ID),
+            107 => ::std::option::Option::Some(Country::IE),
+            108 => ::std::option::Option::Some(Country::IL),
+            109 => ::std::option::Option::Some(Country::IM),
+            110 => ::std::option::Option::Some(Country::IN),
+            111 => ::std::option::Option::Some(Country::IO),
+            112 => ::std::option::Option::Some(Country::IQ),
+            113 => ::std::option::Option::Some(Country::IR),
+            114 => ::std::option::Option::Some(Country::IS),
+            115 => ::std::option::Option::Some(Country::IT),
+            116 => ::std::option::Option::Some(Country::JE),
+            117 => ::std::option::Option::Some(Country::JM),
+            118 => ::std::option::Option::Some(Country::JO),
+            119 => ::std::option::Option::Some(Country::JP),
+            120 => ::std::option::Option::Some(Country::KE),
+            121 => ::std::option::Option::Some(Country::KG),
+            122 => ::std::option::Option::Some(Country::KH),
+            123 => ::std::option::Option::Some(Country::KI),
+            124 => ::std::option::Option::Some(Country::KM),
+            125 => ::std::option::Option::Some(Country::KN),
+            126 => ::std::option::Option::Some(Country::KP),
+            127 => ::std::option::Option::Some(Country::KR),
+            128 => ::std::option::Option::Some(Country::KW),
+            129 => ::std::option::Option::Some(Country::KY),
+            130 => ::std::option::Option::Some(Country::KZ),
+            131 => ::std::option::Option::Some(Country::LA),
+            132 => ::std::option::Option::Some(Country::LB),
+            133 => ::std::option::Option::Some(Country::LC),
+            134 => ::std::option::Option::Some(Country::LI),
+            135 => ::std::option::Option::Some(Country::LK),
+            136 => ::std::option::Option::Some(Country::LR),
+            137 => ::std::option::Option::Some(Country::LS),
+            138 => ::std::option::Option::Some(Country::LT),
+            139 => ::std::option::Option::Some(Country::LU),
+            140 => ::std::option::Option::Some(Country::LV),
+            141 => ::std::option::Option::Some(Country::LY),
+            142 => ::std::option::Option::Some(Country::MA),
+            143 => ::std::option::Option::Some(Country::MC),
+            144 => ::std::option::Option::Some(Country::MD),
+            145 => ::std::option::Option::Some(Country::ME),
+            146 => ::std::option::Option::Some(Country::MF),
+            147 => ::std::option::Option::Some(Country::MG),
+            148 => ::std::option::Option::Some(Country::MH),
+            149 => ::std::option::Option::Some(Country::MK),
+            150 => ::std::option::Option::Some(Country::ML),
+            151 => ::std::option::Option::Some(Country::MM),
+            152 => ::std::option::Option::Some(Country::MN),
+            153 => ::std::option::Option::Some(Country::MO),
+            154 => ::std::option::Option::Some(Country::MP),
+            155 => ::std::option::Option::Some(Country::MQ),
+            156 => ::std::option::Option::Some(Country::MR),
+            157 => ::std::option::Option::Some(Country::MS),
+            158 => ::std::option::Option::Some(Country::MT),
+            159 => ::std::option::Option::Some(Country::MU),
+            160 => ::std::option::Option::Some(Country::MV),
+            161 => ::std::option::Option::Some(Country::MW),
+            162 => ::std::option::Option::Some(Country::MX),
+            163 => ::std::option::Option::Some(Country::MY),
+            164 => ::std::option::Option::Some(Country::MZ),
+            165 => ::std::option::Option::Some(Country::NA),
+            166 => ::std::option::Option::Some(Country::NC),
+            167 => ::std::option::Option::Some(Country::NE),
+            168 => ::std::option::Option::Some(Country::NF),
+            169 => ::std::option::Option::Some(Country::NG),
+            170 => ::std::option::Option::Some(Country::NI),
+            171 => ::std::option::Option::Some(Country::NL),
+            172 => ::std::option::Option::Some(Country::NO),
+            173 => ::std::option::Option::Some(Country::NP),
+            174 => ::std::option::Option::Some(Country::NR),
+            175 => ::std::option::Option::Some(Country::NU),
+            176 => ::std::option::Option::Some(Country::NZ),
+            177 => ::std::option::Option::Some(Country::OM),
+            178 => ::std::option::Option::Some(Country::PA),
+            179 => ::std::option::Option::Some(Country::PE),
+            180 => ::std::option::Option::Some(Country::PF),
+            181 => ::std::option::Option::Some(Country::PG),
+            182 => ::std::option::Option::Some(Country::PH),
+            183 => ::std::option::Option::Some(Country::PK),
+            184 => ::std::option::Option::Some(Country::PL),
+            185 => ::std::option::Option::Some(Country::PM),
+            186 => ::std::option::Option::Some(Country::PN),
+            187 => ::std::option::Option::Some(Country::PR),
+            188 => ::std::option::Option::Some(Country::PS),
+            189 => ::std::option::Option::Some(Country::PT),
+            190 => ::std::option::Option::Some(Country::PW),
+            191 => ::std::option::Option::Some(Country::PY),
+            192 => ::std::option::Option::Some(Country::QA),
+            193 => ::std::option::Option::Some(Country::RE),
+            194 => ::std::option::Option::Some(Country::RO),
+            195 => ::std::option::Option::Some(Country::RS),
+            196 => ::std::option::Option::Some(Country::RU),
+            197 => ::std::option::Option::Some(Country::RW),
+            198 => ::std::option::Option::Some(Country::SA),
+            199 => ::std::option::Option::Some(Country::SB),
+            200 => ::std::option::Option::Some(Country::SC),
+            201 => ::std::option::Option::Some(Country::SD),
+            202 => ::std::option::Option::Some(Country::SE),
+            203 => ::std::option::Option::Some(Country::SG),
+            204 => ::std::option::Option::Some(Country::SH),
+            205 => ::std::option::Option::Some(Country::SI),
+            206 => ::std::option::Option::Some(Country::SJ),
+            207 => ::std::option::Option::Some(Country::SK),
+            208 => ::std::option::Option::Some(Country::SL),
+            209 => ::std::option::Option::Some(Country::SM),
+            210 => ::std::option::Option::Some(Country::SN),
+            211 => ::std::option::Option::Some(Country::SO),
+            212 => ::std::option::Option::Some(Country::SR),
+            213 => ::std::option::Option::Some(Country::SS),
+            214 => ::std::option::Option::Some(Country::ST),
+            215 => ::std::option::Option::Some(Country::SV),
+            216 => ::std::option::Option::Some(Country::SX),
+            217 => ::std::option::Option::Some(Country::SY),
+            218 => ::std::option::Option::Some(Country::SZ),
+            219 => ::std::option::Option::Some(Country::TC),
+            220 => ::std::option::Option::Some(Country::TD),
+            221 => ::std::option::Option::Some(Country::TF),
+            222 => ::std::option::Option::Some(Country::TG),
+            223 => ::std::option::Option::Some(Country::TH),
+            224 => ::std::option::Option::Some(Country::TJ),
+            225 => ::std::option::Option::Some(Country::TK),
+            226 => ::std::option::Option::Some(Country::TL),
+            227 => ::std::option::Option::Some(Country::TM),
+            228 => ::std::option::Option::Some(Country::TN),
+            229 => ::std::option::Option::Some(Country::TO),
+            230 => ::std::option::Option::Some(Country::TR),
+            231 => ::std::option::Option::Some(Country::TT),
+            232 => ::std::option::Option::Some(Country::TV),
+            233 => ::std::option::Option::Some(Country::TW),
+            234 => ::std::option::Option::Some(Country::TZ),
+            235 => ::std::option::Option::Some(Country::UA),
+            236 => ::std::option::Option::Some(Country::UG),
+            237 => ::std::option::Option::Some(Country::UM),
+            238 => ::std::option::Option::Some(Country::US),
+            239 => ::std::option::Option::Some(Country::UY),
+            240 => ::std::option::Option::Some(Country::UZ),
+            241 => ::std::option::Option::Some(Country::VA),
+            242 => ::std::option::Option::Some(Country::VC),
+            243 => ::std::option::Option::Some(Country::VE),
+            244 => ::std::option::Option::Some(Country::VG),
+            245 => ::std::option::Option::Some(Country::VI),
+            246 => ::std::option::Option::Some(Country::VN),
+            247 => ::std::option::Option::Some(Country::VU),
+            248 => ::std::option::Option::Some(Country::WF),
+            249 => ::std::option::Option::Some(Country::WS),
+            250 => ::std::option::Option::Some(Country::XX),
+            251 => ::std::option::Option::Some(Country::YE),
+            252 => ::std::option::Option::Some(Country::YT),
+            253 => ::std::option::Option::Some(Country::ZA),
+            254 => ::std::option::Option::Some(Country::ZM),
+            255 => ::std::option::Option::Some(Country::ZW),
+            _ => ::std::option::Option::None
         }
     }
 
@@ -2746,6 +2327,9 @@ impl ::protobuf::ProtobufEnum for Country {
             })
         }
     }
+}
+
+impl ::std::kinds::Copy for Country {
 }
 
 static file_descriptor_proto_data: &'static [u8] = &[

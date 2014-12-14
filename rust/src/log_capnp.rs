@@ -13,6 +13,7 @@ pub mod h_t_t_p {
 
   pub const STRUCT_SIZE : layout::StructSize = layout::StructSize { data : 2, pointers : 4 };
 
+  #[deriving(Copy)]
   pub struct Reader<'a> { reader : layout::StructReader<'a> }
 
   impl <'a> ::capnp::traits::FromStructReader<'a> for Reader<'a> {
@@ -78,6 +79,7 @@ pub mod h_t_t_p {
     }
   }
 
+  #[deriving(Copy)]
   pub struct Builder<'a> { builder : ::capnp::layout::StructBuilder<'a> }
   impl <'a> ::capnp::traits::HasStructSize for Builder<'a> {
     #[inline]
@@ -218,8 +220,7 @@ pub mod h_t_t_p {
   }
 
   #[repr(u16)]
-  #[deriving(FromPrimitive)]
-  #[deriving(PartialEq)]
+  #[deriving(PartialEq, FromPrimitive, Copy)]
   pub enum Protocol {
     Unknown = 0,
     Http10 = 1,
@@ -232,8 +233,7 @@ pub mod h_t_t_p {
   }
 
   #[repr(u16)]
-  #[deriving(FromPrimitive)]
-  #[deriving(PartialEq)]
+  #[deriving(PartialEq, FromPrimitive, Copy)]
   pub enum Method {
     Unknown = 0,
     Get = 1,
@@ -255,8 +255,7 @@ pub mod h_t_t_p {
 }
 
 #[repr(u16)]
-#[deriving(FromPrimitive)]
-#[deriving(PartialEq)]
+#[deriving(PartialEq, FromPrimitive, Copy)]
 pub enum CacheStatus {
   Unknown = 0,
   Miss = 1,
@@ -279,6 +278,7 @@ pub mod origin {
 
   pub const STRUCT_SIZE : layout::StructSize = layout::StructSize { data : 1, pointers : 2 };
 
+  #[deriving(Copy)]
   pub struct Reader<'a> { reader : layout::StructReader<'a> }
 
   impl <'a> ::capnp::traits::FromStructReader<'a> for Reader<'a> {
@@ -318,6 +318,7 @@ pub mod origin {
     }
   }
 
+  #[deriving(Copy)]
   pub struct Builder<'a> { builder : ::capnp::layout::StructBuilder<'a> }
   impl <'a> ::capnp::traits::HasStructSize for Builder<'a> {
     #[inline]
@@ -404,8 +405,7 @@ pub mod origin {
   }
 
   #[repr(u16)]
-  #[deriving(FromPrimitive)]
-  #[deriving(PartialEq)]
+  #[deriving(PartialEq, FromPrimitive, Copy)]
   pub enum Protocol {
     Unknown = 0,
     Http = 1,
@@ -419,8 +419,7 @@ pub mod origin {
 }
 
 #[repr(u16)]
-#[deriving(FromPrimitive)]
-#[deriving(PartialEq)]
+#[deriving(PartialEq, FromPrimitive, Copy)]
 pub enum ZonePlan {
   Unknown = 0,
   Free = 1,
@@ -444,6 +443,7 @@ pub mod log {
 
   pub const STRUCT_SIZE : layout::StructSize = layout::StructSize { data : 4, pointers : 6 };
 
+  #[deriving(Copy)]
   pub struct Reader<'a> { reader : layout::StructReader<'a> }
 
   impl <'a> ::capnp::traits::FromStructReader<'a> for Reader<'a> {
@@ -527,6 +527,7 @@ pub mod log {
     }
   }
 
+  #[deriving(Copy)]
   pub struct Builder<'a> { builder : ::capnp::layout::StructBuilder<'a> }
   impl <'a> ::capnp::traits::HasStructSize for Builder<'a> {
     #[inline]

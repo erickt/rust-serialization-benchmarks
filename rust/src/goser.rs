@@ -18,7 +18,7 @@ pub struct Http {
 }
 
 #[allow(non_camel_case_types)]
-#[deriving(Show, FromPrimitive)]
+#[deriving(Copy, Show, FromPrimitive)]
 pub enum HttpProtocol {
     HTTP_PROTOCOL_UNKNOWN,
     HTTP10,
@@ -55,7 +55,7 @@ impl<D: de::Deserializer<E>, E> de::Deserialize<D, E> for HttpProtocol {
 }
 
 #[allow(non_camel_case_types)]
-#[deriving(Show, FromPrimitive)]
+#[deriving(Copy, Show, FromPrimitive)]
 pub enum HttpMethod {
     METHOD_UNKNOWN,
     GET,
@@ -100,7 +100,7 @@ impl<D: de::Deserializer<E>, E> de::Deserialize<D, E> for HttpMethod {
 }
 
 #[allow(non_camel_case_types)]
-#[deriving(Show, FromPrimitive)]
+#[deriving(Copy, Show, FromPrimitive)]
 pub enum CacheStatus {
     CACHESTATUS_UNKNOWN,
     Miss,
@@ -148,7 +148,7 @@ pub struct Origin {
 }
 
 #[allow(non_camel_case_types)]
-#[deriving(Show, FromPrimitive)]
+#[deriving(Copy, Show, FromPrimitive)]
 pub enum OriginProtocol {
     ORIGIN_PROTOCOL_UNKNOWN,
     HTTP,
@@ -185,7 +185,7 @@ impl<D: de::Deserializer<E>, E> de::Deserialize<D, E> for OriginProtocol {
 }
 
 #[allow(non_camel_case_types)]
-#[deriving(Show, FromPrimitive)]
+#[deriving(Copy, Show, FromPrimitive)]
 pub enum ZonePlan {
     ZONEPLAN_UNKNOWN,
     FREE,
@@ -223,7 +223,7 @@ impl<D: de::Deserializer<E>, E> de::Deserialize<D, E> for ZonePlan {
     }
 }
 
-#[deriving(Show, FromPrimitive)]
+#[deriving(Copy, Show, FromPrimitive)]
 pub enum Country {
 	UNKNOWN,
 	A1,

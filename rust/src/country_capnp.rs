@@ -4,8 +4,7 @@
 
 
 #[repr(u16)]
-#[deriving(FromPrimitive)]
-#[deriving(PartialEq)]
+#[deriving(PartialEq, FromPrimitive, Copy)]
 pub enum Country {
   Unknown = 0,
   A1 = 1,
