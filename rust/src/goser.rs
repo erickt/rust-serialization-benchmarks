@@ -1,10 +1,11 @@
-use serialize;
+use rustc_serialize;
 use serde::ser;
 use serde::de;
+use std::num::FromPrimitive;
 
-#[deriving(Encodable, Decodable)]
-#[deriving_serialize]
-#[deriving_deserialize]
+#[derive(RustcEncodable, RustcDecodable)]
+#[derive_serialize]
+#[derive_deserialize]
 pub struct Http {
     protocol: HttpProtocol,
     status: u32,
@@ -18,22 +19,22 @@ pub struct Http {
 }
 
 #[allow(non_camel_case_types)]
-#[deriving(Copy, Show, FromPrimitive)]
+#[derive(Copy, Debug, FromPrimitive)]
 pub enum HttpProtocol {
     HTTP_PROTOCOL_UNKNOWN,
     HTTP10,
     HTTP11,
 }
 
-impl<S: serialize::Encoder<E>, E> serialize::Encodable<S, E> for HttpProtocol {
-    fn encode(&self, s: &mut S) -> Result<(), E> {
-        (*self as uint).encode(s)
+impl rustc_serialize::Encodable for HttpProtocol {
+    fn encode<S: rustc_serialize::Encoder>(&self, s: &mut S) -> Result<(), S::Error> {
+        (*self as usize).encode(s)
     }
 }
 
-impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for HttpProtocol {
-    fn decode(d: &mut D) -> Result<HttpProtocol, E> {
-        match FromPrimitive::from_uint(try!(d.read_uint())) {
+impl rustc_serialize::Decodable for HttpProtocol {
+    fn decode<D: rustc_serialize::Decoder>(d: &mut D) -> Result<HttpProtocol, D::Error> {
+        match FromPrimitive::from_uint(try!(d.read_usize())) {
             Some(value) => Ok(value),
             None => Err(d.error("cannot convert from uint")),
         }
@@ -43,7 +44,7 @@ impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for HttpProtocol 
 impl<S: ser::Serializer<E>, E> ser::Serialize<S, E> for HttpProtocol {
     #[inline]
     fn serialize(&self, s: &mut S) -> Result<(), E> {
-        s.serialize_uint(*self as uint)
+        s.serialize_usize(*self as usize)
     }
 }
 
@@ -55,7 +56,7 @@ impl<D: de::Deserializer<E>, E> de::Deserialize<D, E> for HttpProtocol {
 }
 
 #[allow(non_camel_case_types)]
-#[deriving(Copy, Show, FromPrimitive)]
+#[derive(Copy, Debug, FromPrimitive)]
 pub enum HttpMethod {
     METHOD_UNKNOWN,
     GET,
@@ -70,15 +71,15 @@ pub enum HttpMethod {
     PATCH,
 }
 
-impl<S: serialize::Encoder<E>, E> serialize::Encodable<S, E> for HttpMethod {
-    fn encode(&self, s: &mut S) -> Result<(), E> {
-        (*self as uint).encode(s)
+impl rustc_serialize::Encodable for HttpMethod {
+    fn encode<S: rustc_serialize::Encoder>(&self, s: &mut S) -> Result<(), S::Error> {
+        (*self as usize).encode(s)
     }
 }
 
-impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for HttpMethod {
-    fn decode(d: &mut D) -> Result<HttpMethod, E> {
-        match FromPrimitive::from_uint(try!(d.read_uint())) {
+impl rustc_serialize::Decodable for HttpMethod {
+    fn decode<D: rustc_serialize::Decoder>(d: &mut D) -> Result<HttpMethod, D::Error> {
+        match FromPrimitive::from_uint(try!(d.read_usize())) {
             Some(value) => Ok(value),
             None => Err(d.error("cannot convert from uint")),
         }
@@ -88,7 +89,7 @@ impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for HttpMethod {
 impl<S: ser::Serializer<E>, E> ser::Serialize<S, E> for HttpMethod {
     #[inline]
     fn serialize(&self, s: &mut S) -> Result<(), E> {
-        s.serialize_uint(*self as uint)
+        s.serialize_usize(*self as usize)
     }
 }
 
@@ -100,7 +101,7 @@ impl<D: de::Deserializer<E>, E> de::Deserialize<D, E> for HttpMethod {
 }
 
 #[allow(non_camel_case_types)]
-#[deriving(Copy, Show, FromPrimitive)]
+#[derive(Copy, Debug, FromPrimitive)]
 pub enum CacheStatus {
     CACHESTATUS_UNKNOWN,
     Miss,
@@ -108,15 +109,15 @@ pub enum CacheStatus {
     Hit,
 }
 
-impl<S: serialize::Encoder<E>, E> serialize::Encodable<S, E> for CacheStatus {
-    fn encode(&self, s: &mut S) -> Result<(), E> {
-        (*self as uint).encode(s)
+impl rustc_serialize::Encodable for CacheStatus {
+    fn encode<S: rustc_serialize::Encoder>(&self, s: &mut S) -> Result<(), S::Error> {
+        (*self as usize).encode(s)
     }
 }
 
-impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for CacheStatus {
-    fn decode(d: &mut D) -> Result<CacheStatus, E> {
-        match FromPrimitive::from_uint(try!(d.read_uint())) {
+impl rustc_serialize::Decodable for CacheStatus {
+    fn decode<D: rustc_serialize::Decoder>(d: &mut D) -> Result<CacheStatus, D::Error> {
+        match FromPrimitive::from_uint(try!(d.read_usize())) {
             Some(value) => Ok(value),
             None => Err(d.error("cannot convert from uint")),
         }
@@ -126,7 +127,7 @@ impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for CacheStatus {
 impl<S: ser::Serializer<E>, E> ser::Serialize<S, E> for CacheStatus {
     #[inline]
     fn serialize(&self, s: &mut S) -> Result<(), E> {
-        s.serialize_uint(*self as uint)
+        s.serialize_usize(*self as usize)
     }
 }
 
@@ -137,9 +138,9 @@ impl<D: de::Deserializer<E>, E> de::Deserialize<D, E> for CacheStatus {
     }
 }
 
-#[deriving(Encodable, Decodable)]
-#[deriving_serialize]
-#[deriving_deserialize]
+#[derive(RustcEncodable, RustcDecodable)]
+#[derive_serialize]
+#[derive_deserialize]
 pub struct Origin {
     ip: String,
     port: u32,
@@ -148,22 +149,22 @@ pub struct Origin {
 }
 
 #[allow(non_camel_case_types)]
-#[deriving(Copy, Show, FromPrimitive)]
+#[derive(Copy, Debug, FromPrimitive)]
 pub enum OriginProtocol {
     ORIGIN_PROTOCOL_UNKNOWN,
     HTTP,
     HTTPS,
 }
 
-impl<S: serialize::Encoder<E>, E> serialize::Encodable<S, E> for OriginProtocol {
-    fn encode(&self, s: &mut S) -> Result<(), E> {
-        (*self as uint).encode(s)
+impl rustc_serialize::Encodable for OriginProtocol {
+    fn encode<S: rustc_serialize::Encoder>(&self, s: &mut S) -> Result<(), S::Error> {
+        (*self as usize).encode(s)
     }
 }
 
-impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for OriginProtocol {
-    fn decode(d: &mut D) -> Result<OriginProtocol, E> {
-        match FromPrimitive::from_uint(try!(d.read_uint())) {
+impl rustc_serialize::Decodable for OriginProtocol {
+    fn decode<D: rustc_serialize::Decoder>(d: &mut D) -> Result<OriginProtocol, D::Error> {
+        match FromPrimitive::from_uint(try!(d.read_usize())) {
             Some(value) => Ok(value),
             None => Err(d.error("cannot convert from uint")),
         }
@@ -173,7 +174,7 @@ impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for OriginProtoco
 impl<S: ser::Serializer<E>, E> ser::Serialize<S, E> for OriginProtocol {
     #[inline]
     fn serialize(&self, s: &mut S) -> Result<(), E> {
-        s.serialize_uint(*self as uint)
+        s.serialize_usize(*self as usize)
     }
 }
 
@@ -185,7 +186,7 @@ impl<D: de::Deserializer<E>, E> de::Deserialize<D, E> for OriginProtocol {
 }
 
 #[allow(non_camel_case_types)]
-#[deriving(Copy, Show, FromPrimitive)]
+#[derive(Copy, Debug, FromPrimitive)]
 pub enum ZonePlan {
     ZONEPLAN_UNKNOWN,
     FREE,
@@ -194,15 +195,15 @@ pub enum ZonePlan {
     ENT,
 }
 
-impl<S: serialize::Encoder<E>, E> serialize::Encodable<S, E> for ZonePlan {
-    fn encode(&self, s: &mut S) -> Result<(), E> {
-        (*self as uint).encode(s)
+impl rustc_serialize::Encodable for ZonePlan {
+    fn encode<S: rustc_serialize::Encoder>(&self, s: &mut S) -> Result<(), S::Error> {
+        (*self as usize).encode(s)
     }
 }
 
-impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for ZonePlan {
-    fn decode(d: &mut D) -> Result<ZonePlan, E> {
-        match FromPrimitive::from_uint(try!(d.read_uint())) {
+impl rustc_serialize::Decodable for ZonePlan {
+    fn decode<D: rustc_serialize::Decoder>(d: &mut D) -> Result<ZonePlan, D::Error> {
+        match FromPrimitive::from_uint(try!(d.read_usize())) {
             Some(value) => Ok(value),
             None => Err(d.error("cannot convert from uint")),
         }
@@ -212,7 +213,7 @@ impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for ZonePlan {
 impl<S: ser::Serializer<E>, E> ser::Serialize<S, E> for ZonePlan {
     #[inline]
     fn serialize(&self, s: &mut S) -> Result<(), E> {
-        s.serialize_uint(*self as uint)
+        s.serialize_usize(*self as usize)
     }
 }
 
@@ -223,7 +224,7 @@ impl<D: de::Deserializer<E>, E> de::Deserialize<D, E> for ZonePlan {
     }
 }
 
-#[deriving(Copy, Show, FromPrimitive)]
+#[derive(Copy, Debug, FromPrimitive)]
 pub enum Country {
 	UNKNOWN,
 	A1,
@@ -483,15 +484,15 @@ pub enum Country {
 	ZW,
 }
 
-impl<S: serialize::Encoder<E>, E> serialize::Encodable<S, E> for Country {
-    fn encode(&self, s: &mut S) -> Result<(), E> {
-        (*self as uint).encode(s)
+impl rustc_serialize::Encodable for Country {
+    fn encode<S: rustc_serialize::Encoder>(&self, s: &mut S) -> Result<(), S::Error> {
+        (*self as usize).encode(s)
     }
 }
 
-impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for Country {
-    fn decode(d: &mut D) -> Result<Country, E> {
-        match FromPrimitive::from_uint(try!(d.read_uint())) {
+impl rustc_serialize::Decodable for Country {
+    fn decode<D: rustc_serialize::Decoder>(d: &mut D) -> Result<Country, D::Error> {
+        match FromPrimitive::from_uint(try!(d.read_usize())) {
             Some(value) => Ok(value),
             None => Err(d.error("cannot convert from uint")),
         }
@@ -501,7 +502,7 @@ impl<D: ::serialize::Decoder<E>, E> serialize::Decodable<D, E> for Country {
 impl<S: ser::Serializer<E>, E> ser::Serialize<S, E> for Country {
     #[inline]
     fn serialize(&self, s: &mut S) -> Result<(), E> {
-        s.serialize_uint(*self as uint)
+        s.serialize_usize(*self as usize)
     }
 }
 
@@ -512,9 +513,9 @@ impl<D: de::Deserializer<E>, E> de::Deserialize<D, E> for Country {
     }
 }
 
-#[deriving(Encodable, Decodable)]
-#[deriving_serialize]
-#[deriving_deserialize]
+#[derive(RustcEncodable, RustcDecodable)]
+#[derive_serialize]
+#[derive_deserialize]
 pub struct Log {
     timestamp: i64,
     zone_id: u32,
@@ -566,7 +567,7 @@ impl Log {
 
 #[cfg(test)]
 mod capnp {
-    use std::io::BufReader;
+    use std::old_io::BufReader;
     use test::Bencher;
 
     use capnp;
@@ -578,26 +579,30 @@ mod capnp {
     use country_capnp;
 
     fn new_log<'a, M: MessageBuilder>(msg: &'a mut M) -> log_capnp::log::Builder<'a> {
-        let log = msg.init_root::<log_capnp::log::Builder>();
+        let mut log = msg.init_root::<log_capnp::log::Builder>();
         log.set_timestamp(2837513946597);
         log.set_zone_id(123456);
         log.set_zone_plan(log_capnp::ZonePlan::Free);
 
-        let http = log.init_http();
-        http.set_protocol(log_capnp::h_t_t_p::Protocol::Http11);
-        http.set_host_status(200);
-        http.set_up_status(520);
-        http.set_method(log_capnp::h_t_t_p::Method::Get);
-        http.set_content_type("text/html");
-        http.set_user_agent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36");
-        http.set_referer("https://www.cloudflare.com/");
-        http.set_request_u_r_i("/cdn-cgi/trace");
+        {
+            let mut http = log.borrow().init_http();
+            http.set_protocol(log_capnp::h_t_t_p::Protocol::Http11);
+            http.set_host_status(200);
+            http.set_up_status(520);
+            http.set_method(log_capnp::h_t_t_p::Method::Get);
+            http.set_content_type("text/html");
+            http.set_user_agent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36");
+            http.set_referer("https://www.cloudflare.com/");
+            http.set_request_u_r_i("/cdn-cgi/trace");
+        }
 
-        let origin = log.init_origin();
-        origin.set_ip("1.2.3.4");
-        origin.set_port(8000);
-        origin.set_hostname("www.example.com");
-        origin.set_protocol(log_capnp::origin::Protocol::Https);
+        {
+            let mut origin = log.borrow().init_origin();
+            origin.set_ip("1.2.3.4");
+            origin.set_port(8000);
+            origin.set_hostname("www.example.com");
+            origin.set_protocol(log_capnp::origin::Protocol::Https);
+        }
 
         log.set_country(country_capnp::Country::Us);
         log.set_cache_status(log_capnp::CacheStatus::Hit);
@@ -688,15 +693,15 @@ mod capnp {
 }
 
 #[cfg(test)]
-mod serialize_json {
+mod rustc_serialize_json {
     use test::Bencher;
-    use serialize::json;
-    use serialize::{Encodable, Decodable};
+    use rustc_serialize::json;
+    use rustc_serialize::Encodable;
 
     use super::Log;
 
-    fn write_to_bytes(bytes: &mut Vec<u8>, log: &Log) {
-        let mut encoder = json::Encoder::new(bytes as &mut Writer);
+    fn write_to_string(bytes: &mut String, log: &Log) {
+        let mut encoder = json::Encoder::new(bytes);
         log.encode(&mut encoder).unwrap()
     }
 
@@ -710,33 +715,31 @@ mod serialize_json {
     #[bench]
     fn bench_encoder(b: &mut Bencher) {
         let log = Log::new();
-        let mut bytes = Vec::new();
-        write_to_bytes(&mut bytes, &log);
+        let mut bytes = String::new();
+        write_to_string(&mut bytes, &log);
         b.bytes = bytes.len() as u64;
 
         b.iter(|| {
             bytes.clear();
-            write_to_bytes(&mut bytes, &log);
+            write_to_string(&mut bytes, &log);
         });
     }
 
     #[bench]
     fn bench_decoder(b: &mut Bencher) {
         let log = Log::new();
-        let json = json::encode(&log);
+        let json = json::encode(&log).unwrap();
         b.bytes = json.len() as u64;
 
         b.iter(|| {
-            let json = json::from_str(json.as_slice()).unwrap();
-            let mut decoder = json::Decoder::new(json);
-            let _log: Log = Decodable::decode(&mut decoder).unwrap();
+            let _log: Log = json::decode(json.as_slice()).unwrap();
         });
     }
 }
 
 #[cfg(test)]
 mod serde_json {
-    use std::io::ByRefWriter;
+    use std::io::WriteExt;
     use test::Bencher;
 
     use serde::Serialize;
@@ -784,7 +787,7 @@ mod serde_json {
 #[cfg(test)]
 mod msgpack {
     use test::Bencher;
-    use serialize::Encodable;
+    use rustc_serialize::Encodable;
 
     use msgpack;
 
@@ -907,7 +910,7 @@ mod protobuf {
 
 #[cfg(test)]
 mod bincode {
-    use std::io::BufReader;
+    use std::old_io::BufReader;
     use test::Bencher;
 
     use bincode;
@@ -925,12 +928,12 @@ mod bincode {
     fn bench_encoder(b: &mut Bencher) {
         let log = Log::new();
         let mut bytes = Vec::new();
-        bincode::encode_into(&log, &mut bytes).unwrap();
+        bincode::encode_into(&log, &mut bytes, bincode::SizeLimit::Infinite).unwrap();
         b.bytes = bytes.len() as u64;
 
         b.iter(|| {
             bytes.clear();
-            bincode::encode_into(&log, &mut bytes).unwrap();
+            bincode::encode_into(&log, &mut bytes, bincode::SizeLimit::Infinite).unwrap();
         });
     }
 
@@ -938,12 +941,12 @@ mod bincode {
     fn bench_decoder(b: &mut Bencher) {
         let log = Log::new();
         let mut bytes = Vec::new();
-        bincode::encode_into(&log, &mut bytes).unwrap();
+        bincode::encode_into(&log, &mut bytes, bincode::SizeLimit::Infinite).unwrap();
         b.bytes = bytes.len() as u64;
 
         b.iter(|| {
             let mut rdr = BufReader::new(bytes.as_slice());
-            let _log: Log = bincode::decode_from(&mut rdr).unwrap();
+            let _log: Log = bincode::decode_from(&mut rdr, bincode::SizeLimit::Infinite).unwrap();
         });
     }
 }

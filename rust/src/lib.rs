@@ -1,16 +1,15 @@
-#![feature(phase, macro_rules, slicing_syntax)]
+#![feature(alloc, core, io, plugin, slicing_syntax, test)]
+#![plugin(serde_macros)]
 
+//extern crate serialize;
 extern crate alloc;
 extern crate bincode;
 extern crate capnp;
 extern crate msgpack;
 extern crate protobuf;
 extern crate serde;
-extern crate serialize;
+extern crate "rustc-serialize" as rustc_serialize;
 extern crate test;
-
-#[phase(plugin)]
-extern crate serde_macros;
 
 pub mod goser;
 

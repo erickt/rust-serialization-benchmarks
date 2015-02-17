@@ -2,12 +2,15 @@
 name = "rust-serde-benchmarks"
 version = "0.0.1"
 authors = ["erick.tryzelaar@gmail.com"]
+#build = "build.rs"
 
-[dependencies.bincode]
-git = "https://github.com/TyOverby/bincode"
+[build-dependencies]
+capnpc = "*"
 
-[dependencies.capnp]
-git = "https://github.com/dwrensha/capnproto-rust"
+[dependencies]
+bincode = "*"
+capnp = "*"
+rustc-serialize = "*"
 
 [dependencies.msgpack]
 git = "https://github.com/erickt/rust-msgpack"

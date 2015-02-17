@@ -4,7 +4,7 @@
 
 
 #[repr(u16)]
-#[deriving(PartialEq, FromPrimitive, Copy)]
+#[derive(PartialEq, FromPrimitive, Copy)]
 pub enum Country {
   Unknown = 0,
   A1 = 1,
@@ -267,4 +267,8 @@ pub enum Country {
 impl ::capnp::traits::ToU16 for Country {
   #[inline]
   fn to_u16(self) -> u16 { self as u16 }
+}
+impl ::capnp::traits::HasTypeId for Country {
+  #[inline]
+  fn type_id(_unused_self : Option<Country>) -> u64 { 0xa44086dbe2e68c56u64 }
 }

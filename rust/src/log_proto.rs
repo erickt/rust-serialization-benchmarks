@@ -8,7 +8,7 @@
 use protobuf::Message as Message_imported_for_functions;
 use protobuf::ProtobufEnum as ProtobufEnum_imported_for_functions;
 
-#[deriving(Clone,Default)]
+#[derive(Clone,Default)]
 pub struct HTTP {
     protocol: ::std::option::Option<HTTP_Protocol>,
     status: ::std::option::Option<u32>,
@@ -293,10 +293,6 @@ impl HTTP {
 }
 
 impl ::protobuf::Message for HTTP {
-    fn new() -> HTTP {
-        HTTP::new()
-    }
-
     fn is_initialized(&self) -> bool {
         true
     }
@@ -456,6 +452,20 @@ impl ::protobuf::Message for HTTP {
         &mut self.unknown_fields
     }
 
+    fn type_id(&self) -> ::std::any::TypeId {
+        ::std::any::TypeId::of::<HTTP>()
+    }
+
+    fn descriptor(&self) -> &'static ::protobuf::reflect::MessageDescriptor {
+        ::protobuf::MessageStatic::descriptor_static(None::<Self>)
+    }
+}
+
+impl ::protobuf::MessageStatic for HTTP {
+    fn new() -> HTTP {
+        HTTP::new()
+    }
+
     #[allow(unused_unsafe,unused_mut)]
     fn descriptor_static(_: ::std::option::Option<HTTP>) -> &'static ::protobuf::reflect::MessageDescriptor {
         static mut descriptor: ::protobuf::lazy::Lazy<::protobuf::reflect::MessageDescriptor> = ::protobuf::lazy::Lazy {
@@ -518,10 +528,6 @@ impl ::protobuf::Message for HTTP {
             })
         }
     }
-
-    fn type_id(&self) -> ::std::intrinsics::TypeId {
-        ::std::intrinsics::TypeId::of::<HTTP>()
-    }
 }
 
 impl ::protobuf::Clear for HTTP {
@@ -554,13 +560,13 @@ impl ::std::cmp::PartialEq for HTTP {
     }
 }
 
-impl ::std::fmt::Show for HTTP {
+impl ::std::fmt::Debug for HTTP {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        self.fmt_impl(f)
+        ::protobuf::text_format::fmt(self, f)
     }
 }
 
-#[deriving(Clone,PartialEq,Eq,Show)]
+#[derive(Clone,PartialEq,Eq,Debug)]
 pub enum HTTP_Protocol {
     HTTP_PROTOCOL_UNKNOWN = 0,
     HTTP10 = 1,
@@ -594,10 +600,10 @@ impl ::protobuf::ProtobufEnum for HTTP_Protocol {
     }
 }
 
-impl ::std::kinds::Copy for HTTP_Protocol {
+impl ::std::marker::Copy for HTTP_Protocol {
 }
 
-#[deriving(Clone,PartialEq,Eq,Show)]
+#[derive(Clone,PartialEq,Eq,Debug)]
 pub enum HTTP_Method {
     METHOD_UNKNOWN = 0,
     GET = 1,
@@ -647,10 +653,10 @@ impl ::protobuf::ProtobufEnum for HTTP_Method {
     }
 }
 
-impl ::std::kinds::Copy for HTTP_Method {
+impl ::std::marker::Copy for HTTP_Method {
 }
 
-#[deriving(Clone,Default)]
+#[derive(Clone,Default)]
 pub struct Origin {
     ip: ::protobuf::SingularField<::std::vec::Vec<u8>>,
     port: ::std::option::Option<u32>,
@@ -796,10 +802,6 @@ impl Origin {
 }
 
 impl ::protobuf::Message for Origin {
-    fn new() -> Origin {
-        Origin::new()
-    }
-
     fn is_initialized(&self) -> bool {
         true
     }
@@ -894,6 +896,20 @@ impl ::protobuf::Message for Origin {
         &mut self.unknown_fields
     }
 
+    fn type_id(&self) -> ::std::any::TypeId {
+        ::std::any::TypeId::of::<Origin>()
+    }
+
+    fn descriptor(&self) -> &'static ::protobuf::reflect::MessageDescriptor {
+        ::protobuf::MessageStatic::descriptor_static(None::<Self>)
+    }
+}
+
+impl ::protobuf::MessageStatic for Origin {
+    fn new() -> Origin {
+        Origin::new()
+    }
+
     #[allow(unused_unsafe,unused_mut)]
     fn descriptor_static(_: ::std::option::Option<Origin>) -> &'static ::protobuf::reflect::MessageDescriptor {
         static mut descriptor: ::protobuf::lazy::Lazy<::protobuf::reflect::MessageDescriptor> = ::protobuf::lazy::Lazy {
@@ -931,10 +947,6 @@ impl ::protobuf::Message for Origin {
             })
         }
     }
-
-    fn type_id(&self) -> ::std::intrinsics::TypeId {
-        ::std::intrinsics::TypeId::of::<Origin>()
-    }
 }
 
 impl ::protobuf::Clear for Origin {
@@ -957,13 +969,13 @@ impl ::std::cmp::PartialEq for Origin {
     }
 }
 
-impl ::std::fmt::Show for Origin {
+impl ::std::fmt::Debug for Origin {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        self.fmt_impl(f)
+        ::protobuf::text_format::fmt(self, f)
     }
 }
 
-#[deriving(Clone,PartialEq,Eq,Show)]
+#[derive(Clone,PartialEq,Eq,Debug)]
 pub enum Origin_Protocol {
     ORIGIN_PROTOCOL_UNKNOWN = 0,
     HTTP = 1,
@@ -997,10 +1009,10 @@ impl ::protobuf::ProtobufEnum for Origin_Protocol {
     }
 }
 
-impl ::std::kinds::Copy for Origin_Protocol {
+impl ::std::marker::Copy for Origin_Protocol {
 }
 
-#[deriving(Clone,Default)]
+#[derive(Clone,Default)]
 pub struct Log {
     timestamp: ::std::option::Option<i64>,
     zone_id: ::std::option::Option<u32>,
@@ -1376,10 +1388,6 @@ impl Log {
 }
 
 impl ::protobuf::Message for Log {
-    fn new() -> Log {
-        Log::new()
-    }
-
     fn is_initialized(&self) -> bool {
         true
     }
@@ -1584,6 +1592,20 @@ impl ::protobuf::Message for Log {
         &mut self.unknown_fields
     }
 
+    fn type_id(&self) -> ::std::any::TypeId {
+        ::std::any::TypeId::of::<Log>()
+    }
+
+    fn descriptor(&self) -> &'static ::protobuf::reflect::MessageDescriptor {
+        ::protobuf::MessageStatic::descriptor_static(None::<Self>)
+    }
+}
+
+impl ::protobuf::MessageStatic for Log {
+    fn new() -> Log {
+        Log::new()
+    }
+
     #[allow(unused_unsafe,unused_mut)]
     fn descriptor_static(_: ::std::option::Option<Log>) -> &'static ::protobuf::reflect::MessageDescriptor {
         static mut descriptor: ::protobuf::lazy::Lazy<::protobuf::reflect::MessageDescriptor> = ::protobuf::lazy::Lazy {
@@ -1661,10 +1683,6 @@ impl ::protobuf::Message for Log {
             })
         }
     }
-
-    fn type_id(&self) -> ::std::intrinsics::TypeId {
-        ::std::intrinsics::TypeId::of::<Log>()
-    }
 }
 
 impl ::protobuf::Clear for Log {
@@ -1703,13 +1721,13 @@ impl ::std::cmp::PartialEq for Log {
     }
 }
 
-impl ::std::fmt::Show for Log {
+impl ::std::fmt::Debug for Log {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        self.fmt_impl(f)
+        ::protobuf::text_format::fmt(self, f)
     }
 }
 
-#[deriving(Clone,PartialEq,Eq,Show)]
+#[derive(Clone,PartialEq,Eq,Debug)]
 pub enum CacheStatus {
     CACHESTATUS_UNKNOWN = 0,
     MISS = 1,
@@ -1745,10 +1763,10 @@ impl ::protobuf::ProtobufEnum for CacheStatus {
     }
 }
 
-impl ::std::kinds::Copy for CacheStatus {
+impl ::std::marker::Copy for CacheStatus {
 }
 
-#[deriving(Clone,PartialEq,Eq,Show)]
+#[derive(Clone,PartialEq,Eq,Debug)]
 pub enum ZonePlan {
     ZONEPLAN_UNKNOWN = 0,
     FREE = 1,
@@ -1786,10 +1804,10 @@ impl ::protobuf::ProtobufEnum for ZonePlan {
     }
 }
 
-impl ::std::kinds::Copy for ZonePlan {
+impl ::std::marker::Copy for ZonePlan {
 }
 
-#[deriving(Clone,PartialEq,Eq,Show)]
+#[derive(Clone,PartialEq,Eq,Debug)]
 pub enum Country {
     UNKNOWN = 0,
     A1 = 1,
@@ -2329,7 +2347,7 @@ impl ::protobuf::ProtobufEnum for Country {
     }
 }
 
-impl ::std::kinds::Copy for Country {
+impl ::std::marker::Copy for Country {
 }
 
 static file_descriptor_proto_data: &'static [u8] = &[
