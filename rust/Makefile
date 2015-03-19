@@ -1,3 +1,4 @@
+.PHONY: all
 all: proto
 	cargo build
 
