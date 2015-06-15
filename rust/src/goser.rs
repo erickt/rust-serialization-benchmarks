@@ -1097,7 +1097,7 @@ mod capnp {
     fn bench_serialize_packed(b: &mut Bencher) {
         let mut msg = Builder::new_default();
         new_log(&mut msg);
-    
+
         let mut bytes = Vec::new();
         capnp::serialize_packed::write_message(&mut bytes, &msg).unwrap();
         b.bytes = bytes.len() as u64;
@@ -1113,7 +1113,7 @@ mod capnp {
     fn bench_deserialize_packed(b: &mut Bencher) {
         let mut msg = Builder::new_default();
         new_log(&mut msg);
-    
+
         let mut bytes = Vec::new();
         capnp::serialize_packed::write_message(&mut bytes, &msg).unwrap();
 
