@@ -27,4 +27,4 @@ pub mod log_capnp {
     include!(concat!(env!("OUT_DIR"), "/log_capnp.rs"));
 }
 
-//pub mod log_proto;
+pub mod log_proto;

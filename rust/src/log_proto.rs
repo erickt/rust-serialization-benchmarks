@@ -1,7 +1,9 @@
 // This file is generated. Do not edit
+// @generated
 
 #![allow(dead_code)]
 #![allow(non_camel_case_types)]
+#![allow(non_snake_case)]
 #![allow(non_upper_case_globals)]
 #![allow(unused_imports)]
 
@@ -10,6 +12,7 @@ use protobuf::ProtobufEnum as ProtobufEnum_imported_for_functions;
 
 #[derive(Clone,Default)]
 pub struct HTTP {
+    // message fields
     protocol: ::std::option::Option<HTTP_Protocol>,
     status: ::std::option::Option<u32>,
     host_status: ::std::option::Option<u32>,
@@ -19,6 +22,7 @@ pub struct HTTP {
     user_agent: ::protobuf::SingularField<::std::string::String>,
     referer: ::protobuf::SingularField<::std::string::String>,
     request_uri: ::protobuf::SingularField<::std::string::String>,
+    // special fields
     unknown_fields: ::protobuf::UnknownFields,
     cached_size: ::std::cell::Cell<u32>,
 }
@@ -178,7 +182,7 @@ impl HTTP {
 
     pub fn get_content_type<'a>(&'a self) -> &'a str {
         match self.content_type.as_ref() {
-            Some(v) => v.as_slice(),
+            Some(v) => &v,
             None => "",
         }
     }
@@ -214,7 +218,7 @@ impl HTTP {
 
     pub fn get_user_agent<'a>(&'a self) -> &'a str {
         match self.user_agent.as_ref() {
-            Some(v) => v.as_slice(),
+            Some(v) => &v,
             None => "",
         }
     }
@@ -250,7 +254,7 @@ impl HTTP {
 
     pub fn get_referer<'a>(&'a self) -> &'a str {
         match self.referer.as_ref() {
-            Some(v) => v.as_slice(),
+            Some(v) => &v,
             None => "",
         }
     }
@@ -286,7 +290,7 @@ impl HTTP {
 
     pub fn get_request_uri<'a>(&'a self) -> &'a str {
         match self.request_uri.as_ref() {
-            Some(v) => v.as_slice(),
+            Some(v) => &v,
             None => "",
         }
     }
@@ -374,6 +378,7 @@ impl ::protobuf::Message for HTTP {
     }
 
     // Compute sizes of nested messages
+    #[allow(unused_variables)]
     fn compute_size(&self) -> u32 {
         let mut my_size = 0;
         for value in self.protocol.iter() {
@@ -392,16 +397,16 @@ impl ::protobuf::Message for HTTP {
             my_size += ::protobuf::rt::enum_size(5, *value);
         };
         for value in self.content_type.iter() {
-            my_size += ::protobuf::rt::string_size(6, value.as_slice());
+            my_size += ::protobuf::rt::string_size(6, &value);
         };
         for value in self.user_agent.iter() {
-            my_size += ::protobuf::rt::string_size(7, value.as_slice());
+            my_size += ::protobuf::rt::string_size(7, &value);
         };
         for value in self.referer.iter() {
-            my_size += ::protobuf::rt::string_size(8, value.as_slice());
+            my_size += ::protobuf::rt::string_size(8, &value);
         };
         for value in self.request_uri.iter() {
-            my_size += ::protobuf::rt::string_size(9, value.as_slice());
+            my_size += ::protobuf::rt::string_size(9, &value);
         };
         my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
         self.cached_size.set(my_size);
@@ -425,16 +430,16 @@ impl ::protobuf::Message for HTTP {
             try!(os.write_enum(5, v as i32));
         };
         if let Some(v) = self.content_type.as_ref() {
-            try!(os.write_string(6, v.as_slice()));
+            try!(os.write_string(6, &v));
         };
         if let Some(v) = self.user_agent.as_ref() {
-            try!(os.write_string(7, v.as_slice()));
+            try!(os.write_string(7, &v));
         };
         if let Some(v) = self.referer.as_ref() {
-            try!(os.write_string(8, v.as_slice()));
+            try!(os.write_string(8, &v));
         };
         if let Some(v) = self.request_uri.as_ref() {
-            try!(os.write_string(9, v.as_slice()));
+            try!(os.write_string(9, &v));
         };
         try!(os.write_unknown_fields(self.get_unknown_fields()));
         ::std::result::Result::Ok(())
@@ -456,6 +461,10 @@ impl ::protobuf::Message for HTTP {
         ::std::any::TypeId::of::<HTTP>()
     }
 
+    fn as_any(&self) -> &::std::any::Any {
+        self as &::std::any::Any
+    }
+
     fn descriptor(&self) -> &'static ::protobuf::reflect::MessageDescriptor {
         ::protobuf::MessageStatic::descriptor_static(None::<Self>)
     }
@@ -466,7 +475,6 @@ impl ::protobuf::MessageStatic for HTTP {
         HTTP::new()
     }
 
-    #[allow(unused_unsafe,unused_mut)]
     fn descriptor_static(_: ::std::option::Option<HTTP>) -> &'static ::protobuf::reflect::MessageDescriptor {
         static mut descriptor: ::protobuf::lazy::Lazy<::protobuf::reflect::MessageDescriptor> = ::protobuf::lazy::Lazy {
             lock: ::protobuf::lazy::ONCE_INIT,
@@ -566,7 +574,7 @@ impl ::std::fmt::Debug for HTTP {
     }
 }
 
-#[derive(Clone,PartialEq,Eq,Debug)]
+#[derive(Clone,PartialEq,Eq,Debug,Hash)]
 pub enum HTTP_Protocol {
     HTTP_PROTOCOL_UNKNOWN = 0,
     HTTP10 = 1,
@@ -603,7 +611,7 @@ impl ::protobuf::ProtobufEnum for HTTP_Protocol {
 impl ::std::marker::Copy for HTTP_Protocol {
 }
 
-#[derive(Clone,PartialEq,Eq,Debug)]
+#[derive(Clone,PartialEq,Eq,Debug,Hash)]
 pub enum HTTP_Method {
     METHOD_UNKNOWN = 0,
     GET = 1,
@@ -658,10 +666,12 @@ impl ::std::marker::Copy for HTTP_Method {
 
 #[derive(Clone,Default)]
 pub struct Origin {
+    // message fields
     ip: ::protobuf::SingularField<::std::vec::Vec<u8>>,
     port: ::std::option::Option<u32>,
     hostname: ::protobuf::SingularField<::std::string::String>,
     protocol: ::std::option::Option<Origin_Protocol>,
+    // special fields
     unknown_fields: ::protobuf::UnknownFields,
     cached_size: ::std::cell::Cell<u32>,
 }
@@ -721,8 +731,8 @@ impl Origin {
 
     pub fn get_ip<'a>(&'a self) -> &'a [u8] {
         match self.ip.as_ref() {
-            Some(v) => v.as_slice(),
-            None => [].as_slice(),
+            Some(v) => &v,
+            None => &[],
         }
     }
 
@@ -776,7 +786,7 @@ impl Origin {
 
     pub fn get_hostname<'a>(&'a self) -> &'a str {
         match self.hostname.as_ref() {
-            Some(v) => v.as_slice(),
+            Some(v) => &v,
             None => "",
         }
     }
@@ -848,16 +858,17 @@ impl ::protobuf::Message for Origin {
     }
 
     // Compute sizes of nested messages
+    #[allow(unused_variables)]
     fn compute_size(&self) -> u32 {
         let mut my_size = 0;
         for value in self.ip.iter() {
-            my_size += ::protobuf::rt::bytes_size(1, value.as_slice());
+            my_size += ::protobuf::rt::bytes_size(1, &value);
         };
         for value in self.port.iter() {
             my_size += ::protobuf::rt::value_size(2, *value, ::protobuf::wire_format::WireTypeVarint);
         };
         for value in self.hostname.iter() {
-            my_size += ::protobuf::rt::string_size(3, value.as_slice());
+            my_size += ::protobuf::rt::string_size(3, &value);
         };
         for value in self.protocol.iter() {
             my_size += ::protobuf::rt::enum_size(4, *value);
@@ -869,13 +880,13 @@ impl ::protobuf::Message for Origin {
 
     fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream) -> ::protobuf::ProtobufResult<()> {
         if let Some(v) = self.ip.as_ref() {
-            try!(os.write_bytes(1, v.as_slice()));
+            try!(os.write_bytes(1, &v));
         };
         if let Some(v) = self.port {
             try!(os.write_uint32(2, v));
         };
         if let Some(v) = self.hostname.as_ref() {
-            try!(os.write_string(3, v.as_slice()));
+            try!(os.write_string(3, &v));
         };
         if let Some(v) = self.protocol {
             try!(os.write_enum(4, v as i32));
@@ -900,6 +911,10 @@ impl ::protobuf::Message for Origin {
         ::std::any::TypeId::of::<Origin>()
     }
 
+    fn as_any(&self) -> &::std::any::Any {
+        self as &::std::any::Any
+    }
+
     fn descriptor(&self) -> &'static ::protobuf::reflect::MessageDescriptor {
         ::protobuf::MessageStatic::descriptor_static(None::<Self>)
     }
@@ -910,7 +925,6 @@ impl ::protobuf::MessageStatic for Origin {
         Origin::new()
     }
 
-    #[allow(unused_unsafe,unused_mut)]
     fn descriptor_static(_: ::std::option::Option<Origin>) -> &'static ::protobuf::reflect::MessageDescriptor {
         static mut descriptor: ::protobuf::lazy::Lazy<::protobuf::reflect::MessageDescriptor> = ::protobuf::lazy::Lazy {
             lock: ::protobuf::lazy::ONCE_INIT,
@@ -975,7 +989,7 @@ impl ::std::fmt::Debug for Origin {
     }
 }
 
-#[derive(Clone,PartialEq,Eq,Debug)]
+#[derive(Clone,PartialEq,Eq,Debug,Hash)]
 pub enum Origin_Protocol {
     ORIGIN_PROTOCOL_UNKNOWN = 0,
     HTTP = 1,
@@ -1014,6 +1028,7 @@ impl ::std::marker::Copy for Origin_Protocol {
 
 #[derive(Clone,Default)]
 pub struct Log {
+    // message fields
     timestamp: ::std::option::Option<i64>,
     zone_id: ::std::option::Option<u32>,
     zone_plan: ::std::option::Option<ZonePlan>,
@@ -1026,6 +1041,7 @@ pub struct Log {
     remote_ip: ::protobuf::SingularField<::std::vec::Vec<u8>>,
     bytes_dlv: ::std::option::Option<u64>,
     ray_id: ::protobuf::SingularField<::std::string::String>,
+    // special fields
     unknown_fields: ::protobuf::UnknownFields,
     cached_size: ::std::cell::Cell<u32>,
 }
@@ -1254,8 +1270,8 @@ impl Log {
 
     pub fn get_server_ip<'a>(&'a self) -> &'a [u8] {
         match self.server_ip.as_ref() {
-            Some(v) => v.as_slice(),
-            None => [].as_slice(),
+            Some(v) => &v,
+            None => &[],
         }
     }
 
@@ -1290,7 +1306,7 @@ impl Log {
 
     pub fn get_server_name<'a>(&'a self) -> &'a str {
         match self.server_name.as_ref() {
-            Some(v) => v.as_slice(),
+            Some(v) => &v,
             None => "",
         }
     }
@@ -1326,8 +1342,8 @@ impl Log {
 
     pub fn get_remote_ip<'a>(&'a self) -> &'a [u8] {
         match self.remote_ip.as_ref() {
-            Some(v) => v.as_slice(),
-            None => [].as_slice(),
+            Some(v) => &v,
+            None => &[],
         }
     }
 
@@ -1381,7 +1397,7 @@ impl Log {
 
     pub fn get_ray_id<'a>(&'a self) -> &'a str {
         match self.ray_id.as_ref() {
-            Some(v) => v.as_slice(),
+            Some(v) => &v,
             None => "",
         }
     }
@@ -1490,6 +1506,7 @@ impl ::protobuf::Message for Log {
     }
 
     // Compute sizes of nested messages
+    #[allow(unused_variables)]
     fn compute_size(&self) -> u32 {
         let mut my_size = 0;
         if self.timestamp.is_some() {
@@ -1516,19 +1533,19 @@ impl ::protobuf::Message for Log {
             my_size += ::protobuf::rt::enum_size(7, *value);
         };
         for value in self.server_ip.iter() {
-            my_size += ::protobuf::rt::bytes_size(8, value.as_slice());
+            my_size += ::protobuf::rt::bytes_size(8, &value);
         };
         for value in self.server_name.iter() {
-            my_size += ::protobuf::rt::string_size(9, value.as_slice());
+            my_size += ::protobuf::rt::string_size(9, &value);
         };
         for value in self.remote_ip.iter() {
-            my_size += ::protobuf::rt::bytes_size(10, value.as_slice());
+            my_size += ::protobuf::rt::bytes_size(10, &value);
         };
         for value in self.bytes_dlv.iter() {
             my_size += ::protobuf::rt::value_size(11, *value, ::protobuf::wire_format::WireTypeVarint);
         };
         for value in self.ray_id.iter() {
-            my_size += ::protobuf::rt::string_size(12, value.as_slice());
+            my_size += ::protobuf::rt::string_size(12, &value);
         };
         my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
         self.cached_size.set(my_size);
@@ -1562,19 +1579,19 @@ impl ::protobuf::Message for Log {
             try!(os.write_enum(7, v as i32));
         };
         if let Some(v) = self.server_ip.as_ref() {
-            try!(os.write_bytes(8, v.as_slice()));
+            try!(os.write_bytes(8, &v));
         };
         if let Some(v) = self.server_name.as_ref() {
-            try!(os.write_string(9, v.as_slice()));
+            try!(os.write_string(9, &v));
         };
         if let Some(v) = self.remote_ip.as_ref() {
-            try!(os.write_bytes(10, v.as_slice()));
+            try!(os.write_bytes(10, &v));
         };
         if let Some(v) = self.bytes_dlv {
             try!(os.write_uint64(11, v));
         };
         if let Some(v) = self.ray_id.as_ref() {
-            try!(os.write_string(12, v.as_slice()));
+            try!(os.write_string(12, &v));
         };
         try!(os.write_unknown_fields(self.get_unknown_fields()));
         ::std::result::Result::Ok(())
@@ -1596,6 +1613,10 @@ impl ::protobuf::Message for Log {
         ::std::any::TypeId::of::<Log>()
     }
 
+    fn as_any(&self) -> &::std::any::Any {
+        self as &::std::any::Any
+    }
+
     fn descriptor(&self) -> &'static ::protobuf::reflect::MessageDescriptor {
         ::protobuf::MessageStatic::descriptor_static(None::<Self>)
     }
@@ -1606,7 +1627,6 @@ impl ::protobuf::MessageStatic for Log {
         Log::new()
     }
 
-    #[allow(unused_unsafe,unused_mut)]
     fn descriptor_static(_: ::std::option::Option<Log>) -> &'static ::protobuf::reflect::MessageDescriptor {
         static mut descriptor: ::protobuf::lazy::Lazy<::protobuf::reflect::MessageDescriptor> = ::protobuf::lazy::Lazy {
             lock: ::protobuf::lazy::ONCE_INIT,
@@ -1727,7 +1747,7 @@ impl ::std::fmt::Debug for Log {
     }
 }
 
-#[derive(Clone,PartialEq,Eq,Debug)]
+#[derive(Clone,PartialEq,Eq,Debug,Hash)]
 pub enum CacheStatus {
     CACHESTATUS_UNKNOWN = 0,
     MISS = 1,
@@ -1766,7 +1786,7 @@ impl ::protobuf::ProtobufEnum for CacheStatus {
 impl ::std::marker::Copy for CacheStatus {
 }
 
-#[derive(Clone,PartialEq,Eq,Debug)]
+#[derive(Clone,PartialEq,Eq,Debug,Hash)]
 pub enum ZonePlan {
     ZONEPLAN_UNKNOWN = 0,
     FREE = 1,
@@ -1807,7 +1827,7 @@ impl ::protobuf::ProtobufEnum for ZonePlan {
 impl ::std::marker::Copy for ZonePlan {
 }
 
-#[derive(Clone,PartialEq,Eq,Debug)]
+#[derive(Clone,PartialEq,Eq,Debug,Hash)]
 pub enum Country {
     UNKNOWN = 0,
     A1 = 1,

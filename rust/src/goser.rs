@@ -1430,7 +1430,6 @@ mod msgpack {
     }
 }
 
-/*
 #[cfg(test)]
 mod protobuf {
     use test::{self, Bencher};
@@ -1504,13 +1503,12 @@ mod protobuf {
         let mut log = log_proto::Log::new();
         b.iter(|| {
             log.clear();
-            log.merge_from_bytes(bytes.as_slice()).unwrap();
+            log.merge_from_bytes(&bytes).unwrap();
             assert!(log.is_initialized());
             test::black_box(&log);
         });
     }
 }
-*/
 
 #[cfg(test)]
 mod bincode {
