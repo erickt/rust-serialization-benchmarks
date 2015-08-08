@@ -1,26 +1,30 @@
-#![feature(alloc, core, io, plugin, slicing_syntax, test)]
+#![feature(custom_derive, plugin, test)]
 #![plugin(serde_macros)]
 
-//extern crate serialize;
-extern crate alloc;
 extern crate bincode;
 extern crate capnp;
-extern crate msgpack;
+extern crate rmp as msgpack;
 extern crate protobuf;
+extern crate num;
 extern crate serde;
-extern crate "rustc-serialize" as rustc_serialize;
+extern crate serde_json;
+extern crate rustc_serialize;
 extern crate test;
 
 pub mod goser;
 
+/*
 #[cfg(test)]
 pub mod writer;
+*/
 
 // Unfortunately these need to be at the toplevel of the module.
-#[allow(dead_code)]
-pub mod country_capnp;
+pub mod country_capnp {
+    include!(concat!(env!("OUT_DIR"), "/country_capnp.rs"));
+}
 
-#[allow(dead_code)]
-pub mod log_capnp;
+pub mod log_capnp {
+    include!(concat!(env!("OUT_DIR"), "/log_capnp.rs"));
+}
 
-pub mod log_proto;
+//pub mod log_proto;

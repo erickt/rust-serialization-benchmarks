@@ -2,7 +2,7 @@
 name = "rust-serde-benchmarks"
 version = "0.0.1"
 authors = ["erick.tryzelaar@gmail.com"]
-#build = "build.rs"
+build = "build.rs"
 
 [build-dependencies]
 capnpc = "*"
@@ -10,16 +10,16 @@ capnpc = "*"
 [dependencies]
 bincode = "*"
 capnp = "*"
+num = "*"
 rustc-serialize = "*"
-
-[dependencies.msgpack]
-git = "https://github.com/erickt/rust-msgpack"
+rmp = "*"
+#protobuf = "*"
+serde = "*"
+serde_json = "*"
+serde_macros = "*"
 
 [dependencies.protobuf]
 git = "https://github.com/stepancheg/rust-protobuf"
 
-[dependencies.serde]
-git = "https://github.com/erickt/rust-serde"
-
-[dependencies.serde_macros]
-git = "https://github.com/erickt/rust-serde"
+[profile.bench]
+#opt-level = 0
