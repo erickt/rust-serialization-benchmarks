@@ -1,6 +1,5 @@
 use std::cmp::min;
-use std::old_io as io;
-use std::old_io::{IoError, IoResult};
+use std::io;
 use std::mem;
 use std::ptr;
 use std::raw::Repr;
@@ -212,7 +211,7 @@ fn bench_copy_nonoverlapping_memory_inline_never(b: &mut test::Bencher) {
 //////////////////////////////////////////////////////////////////////////////
 
 trait MyWriter {
-    fn my_write(&mut self, src: &[u8]) -> IoResult<()>;
+    fn my_write(&mut self, src: &[u8]) -> io::Result<()>;
 }
 
 #[inline]
@@ -241,7 +240,7 @@ fn do_my_writes_inline_always<W>(dst: &mut W, src: &[u8], batches: usize) where 
 
 impl<'a> MyWriter for &'a mut [u8] {
     #[inline]
-    fn my_write(&mut self, src: &[u8]) -> IoResult<()> {
+    fn my_write(&mut self, src: &[u8]) -> io::Result<()> {
         if self.is_empty() { return Err(io::standard_error(io::EndOfFile)); }
 
         let dst_len = self.len();
@@ -330,7 +329,7 @@ impl<'a> UnsafeWriter<'a> {
 
 impl<'a> MyWriter for UnsafeWriter<'a> {
     #[inline]
-    fn my_write(&mut self, src: &[u8]) -> IoResult<()> {
+    fn my_write(&mut self, src: &[u8]) -> io::Result<()> {
         let len = src.len();
         unsafe {
             ptr::copy_nonoverlapping_memory(self.dst, src.as_ptr(), len);
@@ -405,7 +404,7 @@ impl<'a> BufWriter0<'a> {
 
 impl<'a> MyWriter for BufWriter0<'a> {
     #[inline]
-    fn my_write(&mut self, src: &[u8]) -> IoResult<()> {
+    fn my_write(&mut self, src: &[u8]) -> io::Result<()> {
         if self.dst.is_empty() { return Err(io::standard_error(io::EndOfFile)); }
 
         let dst_len = self.dst.len();
@@ -494,7 +493,7 @@ impl<'a> BufWriter1<'a> {
 
 impl<'a> MyWriter for BufWriter1<'a> {
     #[inline]
-    fn my_write(&mut self, src: &[u8]) -> IoResult<()> {
+    fn my_write(&mut self, src: &[u8]) -> io::Result<()> {
         let dst_len = self.dst.len();
         let src_len = src.len();
         let write_len = min(dst_len, src_len);
@@ -575,7 +574,7 @@ impl<'a> BufWriter2<'a> {
 
 impl<'a> MyWriter for BufWriter2<'a> {
     #[inline]
-    fn my_write(&mut self, src: &[u8]) -> IoResult<()> {
+    fn my_write(&mut self, src: &[u8]) -> io::Result<()> {
         let dst_len = self.dst.len();
         let write_len = src.len();
 
@@ -657,13 +656,13 @@ impl<'a> BufWriter3<'a> {
 
 impl<'a> MyWriter for BufWriter3<'a> {
     #[inline]
-    fn my_write(&mut self, src: &[u8]) -> IoResult<()> {
+    fn my_write(&mut self, src: &[u8]) -> io::Result<()> {
         // return an error if the entire write does not fit in the buffer
         let cap = if self.pos >= self.dst.len() { 0 } else { self.dst.len() - self.pos };
 
         if src.len() > cap {
-            return Err(IoError {
-                kind: io::OtherIoError,
+            return Err(io::Error {
+                kind: io::Otherio::Error,
                 desc: "Trying to write past end of buffer",
                 detail: None
             })
@@ -750,12 +749,12 @@ impl<'a> BufWriter4<'a> {
 
 impl<'a> MyWriter for BufWriter4<'a> {
     #[inline]
-    fn my_write(&mut self, src: &[u8]) -> IoResult<()> {
+    fn my_write(&mut self, src: &[u8]) -> io::Result<()> {
         let src_len = src.len();
 
         if src_len > self.capacity() {
-            return Err(IoError {
-                kind: io::OtherIoError,
+            return Err(io::Error {
+                kind: io::Otherio::Error,
                 desc: "Trying to write past end of buffer",
                 detail: None
             })
@@ -834,7 +833,7 @@ impl<'a> BufWriter5<'a> {
 
 impl<'a> MyWriter for BufWriter5<'a> {
     #[inline]
-    fn my_write(&mut self, src: &[u8]) -> IoResult<()> {
+    fn my_write(&mut self, src: &[u8]) -> io::Result<()> {
         let dst_len = self.dst.len();
         let src_len = src.len();
 
@@ -917,7 +916,7 @@ impl<'a> BufWriter6<'a> {
 
 impl<'a> MyWriter for BufWriter6<'a> {
     #[inline]
-    fn my_write(&mut self, src: &[u8]) -> IoResult<()> {
+    fn my_write(&mut self, src: &[u8]) -> io::Result<()> {
         let dst_len = self.dst.len();
         let src_len = src.len();
         let write_len = min(dst_len, src_len);
@@ -1003,7 +1002,7 @@ impl<'a> BufWriter7<'a> {
 
 impl<'a> MyWriter for BufWriter7<'a> {
     #[inline]
-    fn my_write(&mut self, src: &[u8]) -> IoResult<()> {
+    fn my_write(&mut self, src: &[u8]) -> io::Result<()> {
         // return an error if the entire write does not fit in the buffer
         let dst_len = self.dst.len();
         let src_len = src.len();
@@ -1011,8 +1010,8 @@ impl<'a> MyWriter for BufWriter7<'a> {
         let cap = if self.pos >= dst_len { 0 } else { dst_len - self.pos };
 
         if src_len > cap {
-            return Err(IoError {
-                kind: io::OtherIoError,
+            return Err(io::Error {
+                kind: io::Otherio::Error,
                 desc: "Trying to write past end of buffer",
                 detail: None
             })
@@ -1100,13 +1099,13 @@ impl<'a> BufWriter8<'a> {
 
 impl<'a> MyWriter for BufWriter8<'a> {
     #[inline]
-    fn my_write(&mut self, src: &[u8]) -> IoResult<()> {
+    fn my_write(&mut self, src: &[u8]) -> io::Result<()> {
         let src_len = src.len();
         let cap = self.end as usize - self.dst as usize;
 
         if src_len > cap {
-            return Err(IoError {
-                kind: io::OtherIoError,
+            return Err(io::Error {
+                kind: io::Otherio::Error,
                 desc: "Trying to write past end of buffer",
                 detail: None
             })
@@ -1191,15 +1190,15 @@ impl<'a> BufWriter9<'a> {
 
 impl<'a> MyWriter for BufWriter9<'a> {
     #[inline]
-    fn my_write(&mut self, src: &[u8]) -> IoResult<()> {
+    fn my_write(&mut self, src: &[u8]) -> io::Result<()> {
         unsafe {
             let raw::Slice { data: src_ptr, len: src_len } = src.repr();
 
             let cap = self.end as usize - self.dst as usize;
 
             if src_len > cap {
-                return Err(IoError {
-                    kind: io::OtherIoError,
+                return Err(io::Error {
+                    kind: io::Otherio::Error,
                     desc: "Trying to write past end of buffer",
                     detail: None
                 })
@@ -1279,7 +1278,7 @@ impl<'a> BufWriter10<'a> {
 
 impl<'a> MyWriter for BufWriter10<'a> {
     #[inline]
-    fn my_write(&mut self, src: &[u8]) -> IoResult<()> {
+    fn my_write(&mut self, src: &[u8]) -> io::Result<()> {
         let dst_len = self.dst.len();
         let src_len = src.len();
 
@@ -1366,7 +1365,7 @@ impl<'a> BufWriter11<'a> {
 
 impl<'a> MyWriter for BufWriter11<'a> {
     #[inline]
-    fn my_write(&mut self, src: &[u8]) -> IoResult<()> {
+    fn my_write(&mut self, src: &[u8]) -> io::Result<()> {
         let dst = &mut self.dst[self.pos..];
         let dst_len = dst.len();
 
@@ -1466,7 +1465,7 @@ impl<'a> BufWriter12<'a> {
 
 impl<'a> MyWriter for BufWriter12<'a> {
     #[inline]
-    fn my_write(&mut self, src: &[u8]) -> IoResult<()> {
+    fn my_write(&mut self, src: &[u8]) -> io::Result<()> {
         let dst_len = self.dst.len();
 
         if dst_len == 0 {
@@ -1577,7 +1576,7 @@ impl<'a> BufWriter13<'a> {
 
 impl<'a> MyWriter for BufWriter13<'a> {
     #[inline]
-    fn my_write(&mut self, src: &[u8]) -> IoResult<()> {
+    fn my_write(&mut self, src: &[u8]) -> io::Result<()> {
         let dst_len = self.end as usize - self.dst as usize;
 
         if dst_len == 0 {
@@ -1676,7 +1675,7 @@ impl<'a> VecWriter1<'a> {
 
 impl<'a> MyWriter for VecWriter1<'a> {
     #[inline]
-    fn my_write(&mut self, src: &[u8]) -> IoResult<()> {
+    fn my_write(&mut self, src: &[u8]) -> io::Result<()> {
         let src_len = src.len();
 
         self.dst.reserve(src_len);
@@ -1685,7 +1684,7 @@ impl<'a> MyWriter for VecWriter1<'a> {
 
         unsafe {
             // we reserved enough room in `dst` to store `src`.
-            ptr::copy_nonoverlapping_memory(
+            ptr::copy_nonoverlapping(
                 dst.as_mut_ptr(),
                 src.as_ptr(),
                 src_len);
