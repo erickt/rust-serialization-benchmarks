@@ -1,3 +1,4 @@
+use std::mem::size_of_val;
 use std::str::FromStr;
 
 use num::FromPrimitive;
@@ -5,7 +6,7 @@ use rustc_serialize;
 use serde::de;
 use serde::ser;
 
-#[derive(RustcEncodable, RustcDecodable)]
+#[derive(Clone, RustcEncodable, RustcDecodable)]
 #[derive(Serialize)]
 #[derive(Deserialize)]
 pub struct Http {
@@ -221,7 +222,7 @@ impl de::Deserialize for CacheStatus {
     }
 }
 
-#[derive(RustcEncodable, RustcDecodable)]
+#[derive(Clone, RustcEncodable, RustcDecodable)]
 #[derive(Serialize)]
 #[derive(Deserialize)]
 pub struct Origin {
@@ -924,7 +925,7 @@ impl de::Deserialize for Country {
 }
 
 
-#[derive(RustcEncodable, RustcDecodable, Deserialize)]
+#[derive(Clone, RustcEncodable, RustcDecodable, Serialize, Deserialize)]
 pub struct Log {
     timestamp: i64,
     zone_id: u32,
@@ -939,195 +940,6 @@ pub struct Log {
     bytes_dlv: u64,
     ray_id: String,
 }
-
-    #[automatically_derived]
-    impl ::serde::ser::Serialize for Log {
-        fn serialize<__S>(&self, serializer: &mut __S)
-         -> ::std::result::Result<(), __S::Error> where
-         __S: ::serde::ser::Serializer {
-            {
-                struct Visitor<'__a> {
-                    state: usize,
-                    value: &'__a Log,
-                    _structure_ty: ::std::marker::PhantomData<&'__a Log>,
-                }
-                impl <'__a> ::serde::ser::MapVisitor for Visitor<'__a> {
-                    #[inline]
-                    fn visit<S>(&mut self, serializer: &mut S)
-                     -> ::std::result::Result<Option<()>, S::Error> where
-                     S: ::serde::ser::Serializer {
-                        match self.state {
-                            0usize => {
-                                self.state += 1;
-                                Ok(Some(match serializer.visit_struct_elt("timestamp",
-                                                                          &self.value.timestamp)
-                                            {
-                                            ::std::result::Result::Ok(val) =>
-                                            val,
-                                            ::std::result::Result::Err(err) =>
-                                            {
-                                                return ::std::result::Result::Err(::std::convert::From::from(err))
-                                            }
-                                        }))
-                            }
-                            1usize => {
-                                self.state += 1;
-                                Ok(Some(match serializer.visit_struct_elt("zone_id",
-                                                                          &self.value.zone_id)
-                                            {
-                                            ::std::result::Result::Ok(val) =>
-                                            val,
-                                            ::std::result::Result::Err(err) =>
-                                            {
-                                                return ::std::result::Result::Err(::std::convert::From::from(err))
-                                            }
-                                        }))
-                            }
-                            2usize => {
-                                self.state += 1;
-                                Ok(Some(match serializer.visit_struct_elt("zone_plan",
-                                                                          &self.value.zone_plan)
-                                            {
-                                            ::std::result::Result::Ok(val) =>
-                                            val,
-                                            ::std::result::Result::Err(err) =>
-                                            {
-                                                return ::std::result::Result::Err(::std::convert::From::from(err))
-                                            }
-                                        }))
-                            }
-                            3usize => {
-                                self.state += 1;
-                                Ok(Some(match serializer.visit_struct_elt("http",
-                                                                          &self.value.http)
-                                            {
-                                            ::std::result::Result::Ok(val) =>
-                                            val,
-                                            ::std::result::Result::Err(err) =>
-                                            {
-                                                return ::std::result::Result::Err(::std::convert::From::from(err))
-                                            }
-                                        }))
-                            }
-                            4usize => {
-                                self.state += 1;
-                                Ok(Some(match serializer.visit_struct_elt("origin",
-                                                                          &self.value.origin)
-                                            {
-                                            ::std::result::Result::Ok(val) =>
-                                            val,
-                                            ::std::result::Result::Err(err) =>
-                                            {
-                                                return ::std::result::Result::Err(::std::convert::From::from(err))
-                                            }
-                                        }))
-                            }
-                            5usize => {
-                                self.state += 1;
-                                Ok(Some(match serializer.visit_struct_elt("country",
-                                                                          &self.value.country)
-                                            {
-                                            ::std::result::Result::Ok(val) =>
-                                            val,
-                                            ::std::result::Result::Err(err) =>
-                                            {
-                                                return ::std::result::Result::Err(::std::convert::From::from(err))
-                                            }
-                                        }))
-                            }
-                            6usize => {
-                                self.state += 1;
-                                Ok(Some(match serializer.visit_struct_elt("cache_status",
-                                                                          &self.value.cache_status)
-                                            {
-                                            ::std::result::Result::Ok(val) =>
-                                            val,
-                                            ::std::result::Result::Err(err) =>
-                                            {
-                                                return ::std::result::Result::Err(::std::convert::From::from(err))
-                                            }
-                                        }))
-                            }
-                            7usize => {
-                                self.state += 1;
-                                Ok(Some(match serializer.visit_struct_elt("server_ip",
-                                                                          &self.value.server_ip)
-                                            {
-                                            ::std::result::Result::Ok(val) =>
-                                            val,
-                                            ::std::result::Result::Err(err) =>
-                                            {
-                                                return ::std::result::Result::Err(::std::convert::From::from(err))
-                                            }
-                                        }))
-                            }
-                            8usize => {
-                                self.state += 1;
-                                Ok(Some(match serializer.visit_struct_elt("server_name",
-                                                                          &self.value.server_name)
-                                            {
-                                            ::std::result::Result::Ok(val) =>
-                                            val,
-                                            ::std::result::Result::Err(err) =>
-                                            {
-                                                return ::std::result::Result::Err(::std::convert::From::from(err))
-                                            }
-                                        }))
-                            }
-                            9usize => {
-                                self.state += 1;
-                                Ok(Some(match serializer.visit_struct_elt("remote_ip",
-                                                                          &self.value.remote_ip)
-                                            {
-                                            ::std::result::Result::Ok(val) =>
-                                            val,
-                                            ::std::result::Result::Err(err) =>
-                                            {
-                                                return ::std::result::Result::Err(::std::convert::From::from(err))
-                                            }
-                                        }))
-                            }
-                            10usize => {
-                                self.state += 1;
-                                Ok(Some(match serializer.visit_struct_elt("bytes_dlv",
-                                                                          &self.value.bytes_dlv)
-                                            {
-                                            ::std::result::Result::Ok(val) =>
-                                            val,
-                                            ::std::result::Result::Err(err) =>
-                                            {
-                                                return ::std::result::Result::Err(::std::convert::From::from(err))
-                                            }
-                                        }))
-                            }
-                            11usize => {
-                                self.state += 1;
-                                Ok(Some(match serializer.visit_struct_elt("ray_id",
-                                                                          &self.value.ray_id)
-                                            {
-                                            ::std::result::Result::Ok(val) =>
-                                            val,
-                                            ::std::result::Result::Err(err) =>
-                                            {
-                                                return ::std::result::Result::Err(::std::convert::From::from(err))
-                                            }
-                                        }))
-                            }
-                            _ => Ok(None),
-                        }
-                    }
-                    #[inline]
-                    fn len(&self) -> Option<usize> { Some(12usize) }
-                }
-                serializer.visit_struct("Log",
-                                        Visitor{value: self,
-                                                state: 0,
-                                                _structure_ty:
-                                                    ::std::marker::PhantomData::<&Log>,})
-            }
-        }
-    }
-
 
 impl Log {
     pub fn new() -> Log {
@@ -1161,6 +973,32 @@ impl Log {
             ray_id: "10c73629cce30078-LAX".to_string(),
         }
     }
+}
+
+#[bench]
+fn bench_clone(b: &mut ::test::Bencher) {
+    let log = Log::new();
+
+    let mut size = size_of_val(&log);
+
+    size += log.http.content_type.len();
+    size += log.http.user_agent.len();
+    size += log.http.referer.len();
+    size += log.http.request_uri.len();
+
+    size += log.origin.ip.len();
+    size += log.origin.hostname.len();
+
+    size += log.server_ip.len();
+    size += log.server_name.len();
+    size += log.remote_ip.len();
+    size += log.ray_id.len();
+
+    b.bytes = size as u64;
+
+    b.iter(|| {
+        log.clone()
+    });
 }
 
 #[cfg(test)]
