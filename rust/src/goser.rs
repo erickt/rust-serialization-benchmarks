@@ -1254,42 +1254,42 @@ mod capnp {
         });
     }
 
-    /*
     #[bench]
-    fn bench_serialize_packed_unbuffered(b: &mut Bencher) {
+    fn bench_serialize_packed(b: &mut Bencher) {
         let mut msg = Builder::new_default();
         new_log(&mut msg);
     
         let mut bytes = Vec::new();
-        capnp::serialize_packed::write_packed_message_unbuffered(&mut bytes, &msg).unwrap();
+        capnp::serialize_packed::write_message(&mut bytes, &msg).unwrap();
         b.bytes = bytes.len() as u64;
 
         b.iter(|| {
             bytes.clear();
-            capnp::serialize_packed::write_packed_message_unbuffered(&mut bytes, &msg).unwrap();
+            capnp::serialize_packed::write_message(&mut bytes, &msg).unwrap();
+            test::black_box(&bytes);
         });
     }
 
     #[bench]
-    fn bench_deserialize_packed_unbuffered(b: &mut Bencher) {
+    fn bench_deserialize_packed(b: &mut Bencher) {
         let mut msg = Builder::new_default();
         new_log(&mut msg);
     
         let mut bytes = Vec::new();
-        capnp::serialize_packed::write_packed_message_unbuffered(&mut bytes, &msg).unwrap();
+        capnp::serialize_packed::write_message(&mut bytes, &msg).unwrap();
 
         b.bytes = bytes.len() as u64;
 
         b.iter(|| {
-            let mut rdr = bytes;
+            let mut rdr = &*bytes;
             let message_reader = capnp::serialize_packed::read_message(
                 &mut rdr,
                 ReaderOptions::new()
             ).unwrap();
-            let _: log_capnp::log::Reader = message_reader.get_root::<log_capnp::log::Reader>();
+            let log: log_capnp::log::Reader = message_reader.get_root::<log_capnp::log::Reader>().unwrap();
+            test::black_box(&log);
         });
     }
-    */
 }
 
 #[cfg(test)]
