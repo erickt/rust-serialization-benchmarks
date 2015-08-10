@@ -1367,12 +1367,12 @@ mod bincode {
     fn bench_encoder(b: &mut Bencher) {
         let log = Log::new();
         let mut bytes = Vec::new();
-        bincode::encode_into(&log, &mut bytes, bincode::SizeLimit::Infinite).unwrap();
+        bincode::rustc_serialize::encode_into(&log, &mut bytes, bincode::SizeLimit::Infinite).unwrap();
         b.bytes = bytes.len() as u64;
 
         b.iter(|| {
             bytes.clear();
-            bincode::encode_into(&log, &mut bytes, bincode::SizeLimit::Infinite).unwrap();
+            bincode::rustc_serialize::encode_into(&log, &mut bytes, bincode::SizeLimit::Infinite).unwrap();
             test::black_box(&bytes);
         });
     }
@@ -1381,40 +1381,24 @@ mod bincode {
     fn bench_decoder(b: &mut Bencher) {
         let log = Log::new();
         let mut bytes = Vec::new();
-        bincode::encode_into(&log, &mut bytes, bincode::SizeLimit::Infinite).unwrap();
+        bincode::rustc_serialize::encode_into(&log, &mut bytes, bincode::SizeLimit::Infinite).unwrap();
         b.bytes = bytes.len() as u64;
 
         b.iter(|| {
-            let log: Log = bincode::decode(&bytes).unwrap();
+            let log: Log = bincode::rustc_serialize::decode(&bytes).unwrap();
             log
-        });
-    }
-}
-
-#[cfg(test)]
-mod bincode_serde {
-    use test::{self, Bencher};
-
-    use bincode;
-
-    use super::Log;
-
-    #[bench]
-    fn bench_populate(b: &mut Bencher) {
-        b.iter(|| {
-            Log::new()
         });
     }
 
     #[bench]
     fn bench_serialize(b: &mut Bencher) {
         let log = Log::new();
-        let mut bytes = bincode::to_vec(&log, bincode::SizeLimit::Infinite).unwrap();
+        let mut bytes = bincode::serde::serialize(&log, bincode::SizeLimit::Infinite).unwrap();
         b.bytes = bytes.len() as u64;
 
         b.iter(|| {
             bytes.clear();
-            bincode::to_writer(&mut bytes, &log, bincode::SizeLimit::Infinite).unwrap();
+            bincode::serde::serialize_into(&mut bytes, &log, bincode::SizeLimit::Infinite).unwrap();
             test::black_box(&bytes);
         });
     }
@@ -1422,11 +1406,11 @@ mod bincode_serde {
     #[bench]
     fn bench_deserialize(b: &mut Bencher) {
         let log = Log::new();
-        let bytes = bincode::to_vec(&log, bincode::SizeLimit::Infinite).unwrap();
+        let bytes = bincode::serde::serialize(&log, bincode::SizeLimit::Infinite).unwrap();
         b.bytes = bytes.len() as u64;
 
         b.iter(|| {
-            let log: Log = bincode::from_slice(&bytes, bincode::SizeLimit::Infinite).unwrap();
+            let log: Log = bincode::serde::deserialize(&bytes).unwrap();
             log
         });
     }
