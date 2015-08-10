@@ -1,4 +1,3 @@
-use std::mem::size_of_val;
 use std::str::FromStr;
 
 use num::FromPrimitive;
@@ -977,6 +976,8 @@ impl Log {
 
 #[bench]
 fn bench_clone(b: &mut ::test::Bencher) {
+    use std::mem::size_of_val;
+
     let log = Log::new();
 
     let mut size = size_of_val(&log);
