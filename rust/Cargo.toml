@@ -20,6 +20,3 @@ serde_macros = "*"
 
 [dependencies.protobuf]
 git = "https://github.com/stepancheg/rust-protobuf"
-
-[profile.bench]
-#opt-level = 0
