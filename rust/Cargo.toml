@@ -13,10 +13,7 @@ capnp = "*"
 num = "*"
 rustc-serialize = "*"
 rmp = "*"
-#protobuf = "*"
+protobuf = "*"
 serde = "*"
 serde_json = "*"
 serde_macros = "*"
-
-[dependencies.protobuf]
-git = "https://github.com/stepancheg/rust-protobuf"
