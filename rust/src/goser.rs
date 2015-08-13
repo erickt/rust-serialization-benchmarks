@@ -1224,14 +1224,20 @@ mod serde_json {
 mod msgpack {
     use test::{self, Bencher};
     use rustc_serialize::{Encodable, Decodable};
+    use serde::{Serialize, Deserialize};
 
     use msgpack;
 
     use super::Log;
 
-    fn write_to_bytes(bytes: &mut Vec<u8>, log: &Log) {
+    fn encode(bytes: &mut Vec<u8>, log: &Log) {
         let mut encoder = msgpack::Encoder::new(bytes);
         log.encode(&mut encoder).unwrap()
+    }
+
+    fn serialize(bytes: &mut Vec<u8>, log: &Log) {
+        let mut serializer = msgpack::Serializer::new(bytes);
+        log.serialize(&mut serializer).unwrap()
     }
 
     #[bench]
@@ -1245,12 +1251,12 @@ mod msgpack {
     fn bench_encoder(b: &mut Bencher) {
         let log = Log::new();
         let mut bytes = Vec::new();
-        write_to_bytes(&mut bytes, &log);
+        encode(&mut bytes, &log);
         b.bytes = bytes.len() as u64;
 
         b.iter(|| {
             bytes.clear();
-            write_to_bytes(&mut bytes, &log);
+            encode(&mut bytes, &log);
             test::black_box(&bytes);
         });
     }
@@ -1258,12 +1264,39 @@ mod msgpack {
     #[bench]
     fn bench_decoder(b: &mut Bencher) {
         let mut bytes = Vec::new();
-        write_to_bytes(&mut bytes, &Log::new());
+        encode(&mut bytes, &Log::new());
         b.bytes = bytes.len() as u64;
 
         b.iter(|| {
             let mut decoder = msgpack::Decoder::new(&*bytes);
             let log: Log = Decodable::decode(&mut decoder).unwrap();
+            log
+        });
+    }
+
+    #[bench]
+    fn bench_serializer(b: &mut Bencher) {
+        let log = Log::new();
+        let mut bytes = Vec::new();
+        serialize(&mut bytes, &log);
+        b.bytes = bytes.len() as u64;
+
+        b.iter(|| {
+            bytes.clear();
+            serialize(&mut bytes, &log);
+            test::black_box(&bytes);
+        });
+    }
+
+    #[bench]
+    fn bench_deserializer(b: &mut Bencher) {
+        let mut bytes = Vec::new();
+        serialize(&mut bytes, &Log::new());
+        b.bytes = bytes.len() as u64;
+
+        b.iter(|| {
+            let mut decoder = msgpack::Deserializer::new(&*bytes);
+            let log: Log = Deserialize::deserialize(&mut decoder).unwrap();
             log
         });
     }
