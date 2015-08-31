@@ -1,6 +1,6 @@
 [submodule "c++/rapidjson"]
 	path = c++/rapidjson
-	url = https://github.com/erickt/rapidjson.git
+	url = https://github.com/miloyip/rapidjson.git
 	branch = master
 [submodule "go/goser"]
 	path = go/goser

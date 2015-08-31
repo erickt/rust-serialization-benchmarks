@@ -3,7 +3,7 @@
 
 extern crate bincode;
 extern crate capnp;
-extern crate rmp as msgpack;
+extern crate rmp_serialize as msgpack;
 extern crate protobuf;
 extern crate num;
 extern crate serde;
