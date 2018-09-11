@@ -1,15 +1,10 @@
-all: proto
-	cargo build
+all:
+	cargo +nightly build
 
-.PHONY: test
-test: proto
-	cargo test
+test:
+	cargo +nightly test
 
-.PHONY: bench
-bench: proto
-	cargo bench
+bench: # only bench requires nightly
+	cargo +nightly bench
 
-proto: src/log_proto.rs
-
-src/log_proto.rs: src/log_proto.proto
-	protoc --rust_out src src/log_proto.proto
+.PHONY: test bench
