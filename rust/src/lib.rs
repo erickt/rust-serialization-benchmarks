@@ -1,5 +1,6 @@
 extern crate bincode;
 extern crate capnp;
+extern crate flatbuffers;
 extern crate num_traits;
 #[macro_use]
 extern crate num_derive;
@@ -13,7 +14,12 @@ pub mod log_capnp {
     include!(concat!(env!("OUT_DIR"), "/log_capnp.rs"));
 }
 
+#[path = "../target/protobufs/log_proto.rs"]
 pub mod log_proto;
+
+#[allow(non_snake_case)]
+#[path = "../target/flatbuffers/log_generated.rs"]
+pub mod log_flatbuffers;
 
 use std::fmt;
 
@@ -439,7 +445,7 @@ impl Log {
 
 pub mod protocol_capnp {
     use capnp::message::{Allocator, Builder};
-    use log_capnp::{h_t_t_p, log, origin, CacheStatus, Country, ZonePlan};
+    use crate::log_capnp::{h_t_t_p, log, origin, CacheStatus, Country, ZonePlan};
 
     pub fn populate_log<'a, A: Allocator>(msg: &'a mut Builder<A>) -> log::Builder<'a> {
         let mut log = msg.init_root::<log::Builder>();
@@ -480,7 +486,7 @@ pub mod protocol_capnp {
 }
 
 pub mod protocol_protobuf {
-    use log_proto;
+    use crate::log_proto;
 
     pub fn new_log() -> log_proto::Log {
         let mut log = log_proto::Log::new();
@@ -515,5 +521,121 @@ pub mod protocol_protobuf {
         log.set_ray_id("10c73629cce30078-LAX".to_string());
 
         log
+    }
+}
+
+pub mod protocol_flatbuffers {
+    use crate::log_flatbuffers;
+
+    pub fn populate_log_with_args<'a, 'b>(msg: &'b mut flatbuffers::FlatBufferBuilder<'a>) -> flatbuffers::WIPOffset<log_flatbuffers::Log<'a>> {
+        let content_type = msg.create_string("text/html");
+        let user_agent = msg.create_string("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36");
+        let referer = msg.create_string("https://www.cloudflare.com/");
+        let request_uri = msg.create_string("/cdn-cgi/trace");
+
+        let http = log_flatbuffers::HTTP::create(
+            msg,
+            &log_flatbuffers::HTTPArgs {
+                protocol: log_flatbuffers::HTTP_Protocol::http11,
+                hostStatus: 200,
+                upStatus: 520,
+                method: log_flatbuffers::HTTP_Method::get,
+                contentType: Some(content_type),
+                userAgent: Some(user_agent),
+                referer: Some(referer),
+                requestURI: Some(request_uri),
+                ..Default::default()
+            }
+        );
+
+        let ip = Some(msg.create_string("1.2.3.4"));
+        let hostname = Some(msg.create_string("www.example.com"));
+
+        let origin = log_flatbuffers::Origin::create(
+            msg,
+            &log_flatbuffers::OriginArgs {
+                ip,
+                port: 8000,
+                hostname,
+                protocol: log_flatbuffers::Origin_Protocol::https,
+                ..Default::default()
+            }
+        );
+
+        let server_ip = msg.create_string("192.168.1.1");
+        let server_name = msg.create_string("metal.cloudflare.com");
+        let remote_ip = msg.create_string("10.1.2.3");
+        let ray_id = msg.create_string("10c73629cce30078-LAX");
+
+        log_flatbuffers::Log::create(
+            msg,
+            &log_flatbuffers::LogArgs {
+                http: Some(http),
+                origin: Some(origin),
+                timestamp: 2837513946597,
+                zoneId: 123456,
+                zonePlan: log_flatbuffers::ZonePlan::free,
+                country: log_flatbuffers::Country::us,
+                cacheStatus: log_flatbuffers::CacheStatus::hit,
+                serverIp: Some(server_ip),
+                serverName: Some(server_name),
+                remoteIp: Some(remote_ip),
+                bytesDlv: 123456,
+                rayId: Some(ray_id),
+                ..Default::default()
+            }
+        )
+    }
+
+    pub fn populate_log_with_builder<'a, 'b>(msg: &'b mut flatbuffers::FlatBufferBuilder<'a>) -> flatbuffers::WIPOffset<log_flatbuffers::Log<'a>> {
+        let content_type = msg.create_string("text/html");
+        let user_agent = msg.create_string("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36");
+        let referer = msg.create_string("https://www.cloudflare.com/");
+        let request_uri = msg.create_string("/cdn-cgi/trace");
+
+        let http = {
+            let mut http_builder = log_flatbuffers::HTTPBuilder::new(msg);
+            http_builder.add_protocol(log_flatbuffers::HTTP_Protocol::http11);
+            http_builder.add_hostStatus(200);
+            http_builder.add_upStatus(520);
+            http_builder.add_method(log_flatbuffers::HTTP_Method::get);
+            http_builder.add_contentType(content_type);
+            http_builder.add_userAgent(user_agent);
+            http_builder.add_referer(referer);
+            http_builder.add_requestURI(request_uri);
+            http_builder.finish()
+        };
+
+        let ip = msg.create_string("1.2.3.4");
+        let hostname = msg.create_string("www.example.com");
+
+        let origin = {
+            let mut origin_builder = log_flatbuffers::OriginBuilder::new(msg);
+            origin_builder.add_ip(ip);
+            origin_builder.add_port(8000);
+            origin_builder.add_hostname(hostname);
+            origin_builder.add_protocol(log_flatbuffers::Origin_Protocol::https);
+            origin_builder.finish()
+        };
+
+        let server_ip = msg.create_string("192.168.1.1");
+        let server_name = msg.create_string("metal.cloudflare.com");
+        let remote_ip = msg.create_string("10.1.2.3");
+        let ray_id = msg.create_string("10c73629cce30078-LAX");
+
+        let mut log_builder = log_flatbuffers::LogBuilder::new(msg);
+        log_builder.add_http(http);
+        log_builder.add_origin(origin);
+        log_builder.add_timestamp(2837513946597);
+        log_builder.add_zoneId(123456);
+        log_builder.add_zonePlan(log_flatbuffers::ZonePlan::free);
+        log_builder.add_country(log_flatbuffers::Country::us);
+        log_builder.add_cacheStatus(log_flatbuffers::CacheStatus::hit);
+        log_builder.add_serverIp(server_ip);
+        log_builder.add_serverName(server_name);
+        log_builder.add_remoteIp(remote_ip);
+        log_builder.add_bytesDlv(123456);
+        log_builder.add_rayId(ray_id);
+        log_builder.finish()
     }
 }

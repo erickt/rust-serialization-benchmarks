@@ -1,6 +1,7 @@
 #![feature(test)]
 extern crate bincode;
 extern crate capnp;
+extern crate flatbuffers;
 extern crate protobuf;
 extern crate rmp_serde;
 extern crate rust_serde_benchmarks;
@@ -10,7 +11,7 @@ extern crate test;
 
 use capnp::message::{Builder, ReaderOptions};
 use protobuf::{Clear, Message};
-use rust_serde_benchmarks::{log_capnp, log_proto, protocol_capnp, protocol_protobuf, Log};
+use rust_serde_benchmarks::{log_capnp, log_proto, log_flatbuffers, protocol_capnp, protocol_protobuf, protocol_flatbuffers, Log};
 use serde::{Deserialize, Serialize};
 use test::Bencher;
 
@@ -132,6 +133,56 @@ fn capnp_deserialize_packed(b: &mut Bencher) {
         let message_reader =
             ::capnp::serialize_packed::read_message(&mut rdr, ReaderOptions::new()).unwrap();
         message_reader.get_root::<log_capnp::log::Reader>().unwrap();
+    });
+}
+
+#[bench]
+fn flatbuffers_populate_with_args(b: &mut Bencher) {
+    let mut msg = flatbuffers::FlatBufferBuilder::new();
+
+    b.iter(|| {
+        msg.reset();
+        let log = protocol_flatbuffers::populate_log_with_args(&mut msg);
+        msg.finish(log, None);
+    });
+}
+
+#[bench]
+fn flatbuffers_populate_with_builder(b: &mut Bencher) {
+    let mut msg = flatbuffers::FlatBufferBuilder::new();
+
+    b.iter(|| {
+        msg.reset();
+        let log = protocol_flatbuffers::populate_log_with_builder(&mut msg);
+        msg.finish(log, None);
+    });
+}
+
+#[bench]
+fn flatbuffers_serialize(b: &mut Bencher) {
+    let mut msg = flatbuffers::FlatBufferBuilder::new();
+    let log = protocol_flatbuffers::populate_log_with_builder(&mut msg);
+    msg.finish(log, None);
+
+    let buf = msg.finished_data();
+    b.bytes = buf.len() as u64;
+
+    b.iter(|| {
+        msg.finished_data()
+    });
+}
+
+#[bench]
+fn flatbuffers_deserialize(b: &mut Bencher) {
+    let mut msg = flatbuffers::FlatBufferBuilder::new();
+    let log = protocol_flatbuffers::populate_log_with_builder(&mut msg);
+    msg.finish(log, None);
+
+    let buf = msg.finished_data();
+    b.bytes = buf.len() as u64;
+
+    b.iter(|| {
+        log_flatbuffers::get_root_as_log(&buf)
     });
 }
 
