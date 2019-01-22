@@ -1,20 +1,21 @@
 This is a suite of serialization benchmarks. It comprises of the following projects:
 
 * C++
- * [rapidjson](https://github.com/erickt/rapidjson)
+  * [rapidjson](https://github.com/erickt/rapidjson)
 * Go
- * [encoding/json](http://golang.org/pkg/encoding/json)
- * [ffjson](https://github.com/pquerna/ffjson)
- * [go-capnproto](https://github.com/glycerine/go-capnproto)
- * [gogoprotobuf](http://code.google.com/p/gogoprotobuf/)
- * [goprotobuf](http://code.google.com/p/goprotobuf/)
+  * [encoding/json](http://golang.org/pkg/encoding/json)
+  * [ffjson](https://github.com/pquerna/ffjson)
+  * [go-capnproto](https://github.com/glycerine/go-capnproto)
+  * [gogoprotobuf](http://code.google.com/p/gogoprotobuf/)
+  * [goprotobuf](http://code.google.com/p/goprotobuf/)
 * Rust
- * [bincode](https://github.com/TyOverby/bincode)
- * [capnproto-rust](https://github.com/dwrensha/capnproto-rust)
- * [rust-msgpack](https://github.com/mneumann/rust-msgpack)
- * [rust-protobuf](https://github.com/stepancheg/rust-protobuf)
- * [rust-serde](https://github.com/erickt/rust-serde)
- * [serialize](http://doc.rust-lang.org/serialize/)
+  * [bincode](https://github.com/TyOverby/bincode)
+  * [capnproto-rust](https://github.com/dwrensha/capnproto-rust)
+  * [rust-msgpack](https://github.com/mneumann/rust-msgpack)
+  * [rust-protobuf](https://github.com/stepancheg/rust-protobuf)
+  * [rust-serde](https://github.com/erickt/rust-serde)
+  * [serialize](http://doc.rust-lang.org/serialize/)
+  * [flatbuffers](https://github.com/google/flatbuffers)
 
 The initial benchmark suite is derived from
 [Goser](https://github.com/cloudflare/goser) benchmark, which is all about
