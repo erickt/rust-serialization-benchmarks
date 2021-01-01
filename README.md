@@ -57,13 +57,14 @@ To run the tests, you'll need to install:
 
 * [Cap'n Proto](https://capnproto.org/)
 * [Protocol Buffers](https://developers.google.com/protocol-buffers/?hl=en)
+* [FlatBuffers](https://google.github.io/flatbuffers)
 * [Go](https://golang.org/)
 * [Rust](https://rust-lang.org/)
 
 On OS X and [Homebrew](http://brew.sh/), this can all be done with:
 
 ```
-brew install capnp protobuf rust go
+brew install capnp protobuf flatbuffers rust go
 ```
 
 I'm not yet sure what's needed for other operating systems. Once that is
