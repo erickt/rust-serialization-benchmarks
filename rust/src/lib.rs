@@ -10,6 +10,9 @@ extern crate serde;
 extern crate serde_derive;
 extern crate serde_json;
 
+use std::borrow::Cow;
+use std::fmt;
+
 pub mod log_capnp {
     include!(concat!(env!("OUT_DIR"), "/log_capnp.rs"));
 }
@@ -20,8 +23,6 @@ pub mod log_proto;
 #[allow(non_snake_case)]
 #[path = "../target/flatbuffers/log_generated.rs"]
 pub mod log_flatbuffers;
-
-use std::fmt;
 
 macro_rules! enum_number {
     ($name:ident { $($variant:ident = $value:expr, )* }) => {
@@ -73,16 +74,20 @@ macro_rules! enum_number {
 }
 
 #[derive(Clone, Serialize, Deserialize, Debug)]
-pub struct Http {
+pub struct Http<'a> {
     pub protocol: HttpProtocol,
     pub status: u32,
     pub host_status: u32,
     pub up_status: u32,
     pub method: HttpMethod,
-    pub content_type: String,
-    pub user_agent: String,
-    pub referer: String,
-    pub request_uri: String,
+    #[serde(borrow)]
+    pub content_type: Cow<'a, str>,
+    #[serde(borrow)]
+    pub user_agent: Cow<'a, str>,
+    #[serde(borrow)]
+    pub referer: Cow<'a, str>,
+    #[serde(borrow)]
+    pub request_uri: Cow<'a, str>,
 }
 
 enum_number!(HttpProtocol {
@@ -113,10 +118,12 @@ enum_number!(CacheStatus {
 });
 
 #[derive(Clone, Serialize, Deserialize, Debug)]
-pub struct Origin {
-    pub ip: String,
+pub struct Origin<'a> {
+    #[serde(borrow)]
+    pub ip: Cow<'a, str>,
     pub port: u32,
-    pub hostname: String,
+    #[serde(borrow)]
+    pub hostname: Cow<'a, str>,
     pub protocol: OriginProtocol,
 }
 
@@ -394,23 +401,29 @@ enum_number!(Country {
 });
 
 #[derive(Clone, Serialize, Deserialize, Debug)]
-pub struct Log {
+pub struct Log<'a> {
     pub timestamp: i64,
     pub zone_id: u32,
     pub zone_plan: ZonePlan,
-    pub http: Http,
-    pub origin: Origin,
+    #[serde(borrow)]
+    pub http: Http<'a>,
+    #[serde(borrow)]
+    pub origin: Origin<'a>,
     pub country: Country,
     pub cache_status: CacheStatus,
-    pub server_ip: String,
-    pub server_name: String,
-    pub remote_ip: String,
+    #[serde(borrow)]
+    pub server_ip: Cow<'a, str>,
+    #[serde(borrow)]
+    pub server_name: Cow<'a, str>,
+    #[serde(borrow)]
+    pub remote_ip: Cow<'a, str>,
     pub bytes_dlv: u64,
-    pub ray_id: String,
+    #[serde(borrow)]
+    pub ray_id: Cow<'a, str>,
 }
 
-impl Log {
-    pub fn new() -> Log {
+impl<'a> Log<'a> {
+    pub fn new() -> Log<'a> {
         Log {
             timestamp: 2837513946597,
             zone_id: 123456,
@@ -421,31 +434,31 @@ impl Log {
                 host_status: 503,
                 up_status: 520,
                 method: HttpMethod::GET,
-                content_type: "text/html".to_string(),
-                user_agent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36".to_string(),
-                referer: "https://www.cloudflare.com/".to_string(),
-                request_uri: "/cdn-cgi/trace".to_string(),
+                content_type: "text/html".into(),
+                user_agent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36".into(),
+                referer: "https://www.cloudflare.com/".into(),
+                request_uri: "/cdn-cgi/trace".into(),
             },
             origin: Origin {
-                ip: "1.2.3.4".to_string(),
+                ip: "1.2.3.4".into(),
                 port: 8000,
-                hostname: "www.example.com".to_string(),
+                hostname: "www.example.com".into(),
                 protocol: OriginProtocol::HTTPS,
             },
             country: Country::US,
             cache_status: CacheStatus::Hit,
-            server_ip: "192.168.1.1".to_string(),
-            server_name: "metal.cloudflare.com".to_string(),
-            remote_ip: "10.1.2.3".to_string(),
+            server_ip: "192.168.1.1".into(),
+            server_name: "metal.cloudflare.com".into(),
+            remote_ip: "10.1.2.3".into(),
             bytes_dlv: 123456,
-            ray_id: "10c73629cce30078-LAX".to_string(),
+            ray_id: "10c73629cce30078-LAX".into(),
         }
     }
 }
 
 pub mod protocol_capnp {
-    use capnp::message::{Allocator, Builder};
     use crate::log_capnp::{h_t_t_p, log, origin, CacheStatus, Country, ZonePlan};
+    use capnp::message::{Allocator, Builder};
 
     pub fn populate_log<'a, A: Allocator>(msg: &'a mut Builder<A>) -> log::Builder<'a> {
         let mut log = msg.init_root::<log::Builder>();
@@ -527,7 +540,9 @@ pub mod protocol_protobuf {
 pub mod protocol_flatbuffers {
     use crate::log_flatbuffers;
 
-    pub fn populate_log_with_args<'a, 'b>(msg: &'b mut flatbuffers::FlatBufferBuilder<'a>) -> flatbuffers::WIPOffset<log_flatbuffers::Log<'a>> {
+    pub fn populate_log_with_args<'a, 'b>(
+        msg: &'b mut flatbuffers::FlatBufferBuilder<'a>,
+    ) -> flatbuffers::WIPOffset<log_flatbuffers::Log<'a>> {
         let content_type = msg.create_string("text/html");
         let user_agent = msg.create_string("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36");
         let referer = msg.create_string("https://www.cloudflare.com/");
@@ -545,7 +560,7 @@ pub mod protocol_flatbuffers {
                 referer: Some(referer),
                 requestURI: Some(request_uri),
                 ..Default::default()
-            }
+            },
         );
 
         let ip = Some(msg.create_string("1.2.3.4"));
@@ -559,7 +574,7 @@ pub mod protocol_flatbuffers {
                 hostname,
                 protocol: log_flatbuffers::Origin_Protocol::https,
                 ..Default::default()
-            }
+            },
         );
 
         let server_ip = msg.create_string("192.168.1.1");
@@ -583,11 +598,13 @@ pub mod protocol_flatbuffers {
                 bytesDlv: 123456,
                 rayId: Some(ray_id),
                 ..Default::default()
-            }
+            },
         )
     }
 
-    pub fn populate_log_with_builder<'a, 'b>(msg: &'b mut flatbuffers::FlatBufferBuilder<'a>) -> flatbuffers::WIPOffset<log_flatbuffers::Log<'a>> {
+    pub fn populate_log_with_builder<'a, 'b>(
+        msg: &'b mut flatbuffers::FlatBufferBuilder<'a>,
+    ) -> flatbuffers::WIPOffset<log_flatbuffers::Log<'a>> {
         let content_type = msg.create_string("text/html");
         let user_agent = msg.create_string("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36");
         let referer = msg.create_string("https://www.cloudflare.com/");

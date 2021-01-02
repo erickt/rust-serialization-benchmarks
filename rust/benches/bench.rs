@@ -4,6 +4,7 @@ extern crate capnp;
 extern crate flatbuffers;
 extern crate protobuf;
 extern crate rmp_serde;
+extern crate rmpv;
 extern crate rust_serde_benchmarks;
 extern crate serde;
 extern crate serde_json;
@@ -11,8 +12,10 @@ extern crate test;
 
 use capnp::message::{Builder, ReaderOptions};
 use protobuf::{Clear, Message};
-use rust_serde_benchmarks::{log_capnp, log_proto, log_flatbuffers, protocol_capnp, protocol_protobuf, protocol_flatbuffers, Log};
-use serde::{Deserialize, Serialize};
+use rust_serde_benchmarks::{
+    log_capnp, log_flatbuffers, log_proto, protocol_capnp, protocol_flatbuffers, protocol_protobuf,
+    Log,
+};
 use test::Bencher;
 
 #[bench]
@@ -54,6 +57,21 @@ fn serde_json_serialize(b: &mut Bencher) {
 }
 
 #[bench]
+fn serde_json_serialize_dynamic(b: &mut Bencher) {
+    let log = Log::new();
+    let mut buf = Vec::new();
+
+    serde_json::to_writer(&mut buf, &log).unwrap();
+    b.bytes = buf.len() as u64;
+    let val: serde_json::Value = serde_json::from_slice(&buf).unwrap();
+
+    b.iter(|| {
+        buf.clear();
+        serde_json::to_writer(&mut buf, &val).unwrap();
+    });
+}
+
+#[bench]
 fn serde_json_deserialize(b: &mut Bencher) {
     let log = Log::new();
     let json = serde_json::to_string(&log).unwrap();
@@ -61,6 +79,16 @@ fn serde_json_deserialize(b: &mut Bencher) {
     b.bytes = json.len() as u64;
 
     b.iter(|| serde_json::from_str::<Log>(&json).unwrap());
+}
+
+#[bench]
+fn serde_json_deserialize_dynamic(b: &mut Bencher) {
+    let log = Log::new();
+    let json = serde_json::to_string(&log).unwrap();
+
+    b.bytes = json.len() as u64;
+
+    b.iter(|| serde_json::from_str::<serde_json::Value>(&json).unwrap());
 }
 
 #[bench]
@@ -167,9 +195,7 @@ fn flatbuffers_serialize(b: &mut Bencher) {
     let buf = msg.finished_data();
     b.bytes = buf.len() as u64;
 
-    b.iter(|| {
-        msg.finished_data()
-    });
+    b.iter(|| msg.finished_data());
 }
 
 #[bench]
@@ -181,9 +207,7 @@ fn flatbuffers_deserialize(b: &mut Bencher) {
     let buf = msg.finished_data();
     b.bytes = buf.len() as u64;
 
-    b.iter(|| {
-        log_flatbuffers::get_root_as_log(&buf)
-    });
+    b.iter(|| log_flatbuffers::get_root_as_log(&buf));
 }
 
 #[bench]
@@ -191,14 +215,28 @@ fn rmp_serde_serialize(b: &mut Bencher) {
     let mut buf = Vec::new();
     let log = Log::new();
 
-    log.serialize(&mut ::rmp_serde::Serializer::new(&mut buf))
-        .unwrap();
+    rmp_serde::encode::write(&mut buf, &log).unwrap();
     b.bytes = buf.len() as u64;
 
     b.iter(|| {
         buf.clear();
-        log.serialize(&mut ::rmp_serde::Serializer::new(&mut buf))
-            .unwrap();
+        rmp_serde::encode::write(&mut buf, &log).unwrap();
+    });
+}
+
+#[bench]
+fn rmp_serde_serialize_dynamic(b: &mut Bencher) {
+    let mut buf = Vec::new();
+    let log = Log::new();
+
+    rmp_serde::encode::write(&mut buf, &log).unwrap();
+    b.bytes = buf.len() as u64;
+
+    let val: rmpv::Value = rmp_serde::from_read_ref(&buf).unwrap();
+
+    b.iter(|| {
+        buf.clear();
+        rmp_serde::encode::write(&mut buf, &val).unwrap();
     });
 }
 
@@ -206,13 +244,24 @@ fn rmp_serde_serialize(b: &mut Bencher) {
 fn rmp_serde_deserialize(b: &mut Bencher) {
     let mut buf = Vec::new();
     let log = Log::new();
-    log.serialize(&mut ::rmp_serde::Serializer::new(&mut buf))
-        .unwrap();
+    rmp_serde::encode::write(&mut buf, &log).unwrap();
     b.bytes = buf.len() as u64;
 
     b.iter(|| {
-        let mut decoder = ::rmp_serde::Deserializer::new(&*buf);
-        let _log: Log = Deserialize::deserialize(&mut decoder).unwrap();
+        let _log: Log = rmp_serde::from_read_ref(&buf).unwrap();
+    });
+}
+
+#[bench]
+fn rmp_serde_deserialize_dynamic(b: &mut Bencher) {
+    let mut buf = Vec::new();
+    let log = Log::new();
+    rmp_serde::encode::write(&mut buf, &log).unwrap();
+    b.bytes = buf.len() as u64;
+
+    b.iter(|| {
+        let _val: rmpv::ValueRef =
+            rmpv::decode::read_value_ref(&mut std::io::Cursor::new(buf.as_slice())).unwrap();
     });
 }
 
@@ -268,6 +317,6 @@ fn rust_bincode_deserialize(b: &mut Bencher) {
     b.bytes = buf.len() as u64;
 
     b.iter(|| {
-        let _log: Log = ::bincode::deserialize_from(&*buf).unwrap();
+        let _log: Log = ::bincode::deserialize(&buf).unwrap();
     });
 }
