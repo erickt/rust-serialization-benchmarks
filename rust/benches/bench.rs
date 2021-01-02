@@ -57,6 +57,21 @@ fn serde_json_serialize(b: &mut Bencher) {
 }
 
 #[bench]
+fn serde_json_serialize_dynamic(b: &mut Bencher) {
+    let log = Log::new();
+    let mut buf = Vec::new();
+
+    serde_json::to_writer(&mut buf, &log).unwrap();
+    b.bytes = buf.len() as u64;
+    let val: serde_json::Value = serde_json::from_slice(&buf).unwrap();
+
+    b.iter(|| {
+        buf.clear();
+        serde_json::to_writer(&mut buf, &val).unwrap();
+    });
+}
+
+#[bench]
 fn serde_json_deserialize(b: &mut Bencher) {
     let log = Log::new();
     let json = serde_json::to_string(&log).unwrap();
@@ -206,6 +221,22 @@ fn rmp_serde_serialize(b: &mut Bencher) {
     b.iter(|| {
         buf.clear();
         rmp_serde::encode::write(&mut buf, &log).unwrap();
+    });
+}
+
+#[bench]
+fn rmp_serde_serialize_dynamic(b: &mut Bencher) {
+    let mut buf = Vec::new();
+    let log = Log::new();
+
+    rmp_serde::encode::write(&mut buf, &log).unwrap();
+    b.bytes = buf.len() as u64;
+
+    let val: rmpv::Value = rmp_serde::from_read_ref(&buf).unwrap();
+
+    b.iter(|| {
+        buf.clear();
+        rmp_serde::encode::write(&mut buf, &val).unwrap();
     });
 }
 
